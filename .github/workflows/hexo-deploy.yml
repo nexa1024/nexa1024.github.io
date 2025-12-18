@@ -1,46 +1,57 @@
-# 工作流名称，可自定义
-name: Hexo Deploy to gh-pages
+# 工作流名称，自定义即可
+name: Hexo Generate & Deploy on Merge
 
-# 触发条件：当 main 分支有 push 操作时（比如上传/修改源码），自动执行
+# 触发条件：仅当main分支有PR/提交被merge成功时执行
 on:
   push:
     branches:
-      - main  # 源码所在分支，若你的源码在 master 分支，改成 master
+      - main          # 监听main分支的push事件（merge成功会触发main分支push）
+    # types: [closed]   # 仅在PR关闭且merge成功时触发（可选，精准匹配merge场景）
+  # 兜底：直接push到main分支也触发（避免手动push源码不执行）
+  # push:
+  #   branches:
+  #     - main
 
-# 执行的任务
+# 核心执行任务
 jobs:
-  deploy:
-    # 运行环境：Ubuntu 最新版
+  build-and-deploy:
+    # 运行环境：Ubuntu最新版（GitHub Actions默认推荐）
     runs-on: ubuntu-latest
+    # 任务权限：允许操作git和推送分支
+    permissions:
+      contents: write
 
     steps:
-      
-      # 安装 Node.js（Hexo 依赖 Node.js）
-      - name: Set up Node.js
+      # 步骤1：拉取main分支的Hexo源码（含完整历史，兼容主题依赖）
+      - name: Checkout Main Branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取全部提交历史，避免主题/插件依赖缺失
+
+      # 步骤2：安装Node.js（Hexo依赖Node，推荐16+/18+版本）
+      - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'  # Node.js 版本，建议 16+/18+，兼容 Hexo
-          # cache: 'npm'        # 缓存 npm 依赖，加速下次构建
+          node-version: '22'  # 兼容绝大多数Hexo版本
+          cache: 'npm'        # 缓存npm依赖，加速下次构建
 
-      # 步骤3：安装 Hexo 及项目依赖
+      # 步骤3：安装Hexo脚手架和项目依赖
       - name: Install Dependencies
         run: |
-          npm install -g hexo-cli  # 全局安装 Hexo 脚手架
-          npm install              # 安装项目 package.json 中的依赖
+          npm install -g hexo-cli  # 全局安装hexo命令
+          npm install              # 安装package.json中的本地依赖
 
-      # 步骤4：生成静态文件（hexo generate）
-      - name: Generate Hexo Public Files
-        run: hexo clean && hexo generate  # 先清理旧文件，再生成 public
+      # 步骤4：执行hexo generate生成public静态文件（先清理旧文件）
+      - name: Generate Hexo Static Files
+        run: |
+          hexo clean  # 清理旧的public文件，避免缓存问题
+          hexo generate  # 核心：生成静态文件到public目录
 
-      # 步骤5：将 public 文件夹部署到 gh-pages 分支
-      # - name: Deploy to gh-pages
-      #   uses: peaceiris/actions-gh-pages@v4
-      #   with:
-      #     # 自动生成的 GITHUB_TOKEN，无需手动配置，GitHub 会自动提供
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     # 要部署的文件夹（Hexo 生成的 public）
-      #     publish_dir: ./public
-      #     # 部署到 gh-pages 分支
-      #     publish_branch: gh-pages
-      #     # 提交信息，可自定义
-      #     commit_message: 'Deploy Hexo site: ${{ github.event.head_commit.message }}'
+      # 步骤5：将public文件夹推送到gh-pages分支
+      - name: Deploy to gh-pages Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub自动生成的令牌，无需手动配置
+          publish_dir: ./public  # 指定要部署的文件夹（Hexo生成的静态文件目录）
+          publish_branch: gh-pages  # 部署到gh-pages分支
+          commit_message: 'Auto deploy: ${{ github.event.head_commit.message }}'  # 提交信息，保留原提交备注
