@@ -5,53 +5,48 @@ name: Hexo Generate & Deploy on Merge
 on:
   push:
     branches:
-      - main          # 监听main分支的push事件（merge成功会触发main分支push）
-    # types: [closed]   # 仅在PR关闭且merge成功时触发（可选，精准匹配merge场景）
-  # 兜底：直接push到main分支也触发（避免手动push源码不执行）
-  # push:
-  #   branches:
-  #     - main
+      - main # default branch
 
-# 核心执行任务
 jobs:
-  build-and-deploy:
-    # 运行环境：Ubuntu最新版（GitHub Actions默认推荐）
+  build:
     runs-on: ubuntu-latest
-    # 任务权限：允许操作git和推送分支
-    permissions:
-      contents: write
-
     steps:
-      # 步骤1：拉取main分支的Hexo源码（含完整历史，兼容主题依赖）
-      - name: Checkout Main Branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 拉取全部提交历史，避免主题/插件依赖缺失
-
-      # 步骤2：安装Node.js（Hexo依赖Node，推荐16+/18+版本）
-      - name: Set Up Node.js
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # If your repository depends on submodule, please see: https://github.com/actions/checkout
+          submodules: recursive
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 22.21.1  # 兼容绝大多数Hexo版本
-          cache: 'npm'        # 缓存npm依赖，加速下次构建
-
-      # 步骤3：安装Hexo脚手架和项目依赖
-      - name: Install Dependencies
-        run: |
-          npm install -g hexo-cli  # 全局安装hexo命令
-          npm install              # 安装package.json中的本地依赖
-
-      # 步骤4：执行hexo generate生成public静态文件（先清理旧文件）
-      - name: Generate Hexo Static Files
-        run: |
-          hexo clean  # 清理旧的public文件，避免缓存问题
-          hexo generate  # 核心：生成静态文件到public目录
-
-      # 步骤5：将public文件夹推送到gh-pages分支
-      - name: Deploy to gh-pages Branch
-        uses: peaceiris/actions-gh-pages@v4
+          # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
+          # Ref: https://github.com/actions/setup-node#supported-version-syntax
+          node-version: "22"
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub自动生成的令牌，无需手动配置
-          publish_dir: ./public  # 指定要部署的文件夹（Hexo生成的静态文件目录）
-          publish_branch: gh-pages  # 部署到gh-pages分支
-          commit_message: 'Auto deploy: ${{ github.event.head_commit.message }}'  # 提交信息，保留原提交备注
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
