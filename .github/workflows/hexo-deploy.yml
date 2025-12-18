@@ -32,7 +32,7 @@ jobs:
       - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'  # 兼容绝大多数Hexo版本
+          node-version: 22.21.1  # 兼容绝大多数Hexo版本
           cache: 'npm'        # 缓存npm依赖，加速下次构建
 
       # 步骤3：安装Hexo脚手架和项目依赖
