@@ -1,5 +1,5 @@
 [submodule "themes/next"]
     path = themes/next          # submodule 本地目录
-    url = https://github.com/next-theme/hexo-theme-next.git  # next 主题的远程仓库地址
+    url = https://github.com/nexa1024/hexo-theme-next.git  # next 主题的远程仓库地址
     # 可选：指定分支（比如 master）
     branch = master
