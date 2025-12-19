@@ -143,18 +143,35 @@ OhMyLive2d:
 
     mobileDisplay: false # 是否在移动端显示
     models:
-      - path: /l2dmodels/Elysia/Elysia.model3.json
+      # - path: /l2dmodels/Elysia/Elysia.model3.json
+      #   motionPreloadStrategy: ALL # 动作预加载策略 默认值: IDLE 可选值: ALL | IDLE | NONE
+      #   position: [-20, 0] # 模型在舞台中的位置。 默认值: [0,0] [横坐标, 纵坐标]
+      #   scale: 0.1 # 模型的缩放比例 默认值: 0.1
+      #   # showHitAreaFrames: false # 是否显示点击区域 默认值: false
+      #   stageStyle:
+      #     width: 250
+      #     height: 250
+      - path: /l2dmodels/PermansorTerrae/PermansorTerrae.model3.json
         motionPreloadStrategy: ALL # 动作预加载策略 默认值: IDLE 可选值: ALL | IDLE | NONE
-        position: [-20, 0] # 模型在舞台中的位置。 默认值: [0,0] [横坐标, 纵坐标]
-        scale: 0.10 # 模型的缩放比例 默认值: 0.1
-        # showHitAreaFrames: false # 是否显示点击区域 默认值: false
+        position: [-60, 0] # 模型在舞台中的位置。 默认值: [0,0] [横坐标, 纵坐标]
+        scale: 0.3 # 模型的缩放比例 默认值: 0.1
+        showHitAreaFrames: true # 是否显示点击区域 默认值: false
         stageStyle:
           width: 250
-          height: 250
+          height: 320
+      - path: /l2dmodels/Cyrene/Cyrene.model3.json
+        motionPreloadStrategy: ALL # 动作预加载策略 默认值: IDLE 可选值: ALL | IDLE | NONE
+        position: [-60, 0] # 模型在舞台中的位置。 默认值: [0,0] [横坐标, 纵坐标]
+        scale: 0.3 # 模型的缩放比例 默认值: 0.1
+        showHitAreaFrames: true # 是否显示点击区域 默认值: false
+        stageStyle:
+          width: 250
+          height: 320
     parentElement: document.body #为组件提供一个父元素，如果未指定则默认挂载到 body 中
     primaryColor: 'var(--btn-bg)' # 主题色 支持变量
     sayHello: false # 是否在初始化阶段打印项目信息
     tips:
+      
       style:
         width: 230
         height: 120
@@ -165,15 +182,17 @@ OhMyLive2d:
         height: 80
         left: calc(50% - 30px)
         top: -100px
+      copyTips:
+        message: ['复制的内容要标明出处~']
       idleTips:
-        interval: 15000
+        interval: 20000
         # message:
         #   - 你好呀~
         #   - 欢迎来到我的小站~
         # 自定义提示语 需要 引入 axios 库 ,也可以使用其他方法
         # message: |
         #   function(){
-        #     return axios.get('https://v1.hitokoto.cn?c=i')
+        #     return axios.get('https://v1.hitokoto.cn?c=l')
         #       .then(function (response) {
         #         return response.data.hitokoto ;
         #       })
@@ -183,10 +202,10 @@ OhMyLive2d:
         #   }
         # wordTheDay: true
         # 自定义  https://v1.hitokoto.cn  数据
-        # wordTheDay: |
-        #   function(wordTheDayData){
-        #     return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
-        #   }
+        wordTheDay: |
+          function(wordTheDayData){
+            return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+          }
   # then: |
   #   (oml2d)=>{
   #      setTimeout(() => {
