@@ -6,7 +6,7 @@ on:
 
 # 部署必需的权限配置
 permissions:
-  contents: read        # 只读源码
+  contents: write        # 只读源码
   pages: write          # 写入Pages产物
   id-token: write       # 生成部署令牌
 
@@ -45,7 +45,7 @@ jobs:
       # - name: Deploy to GitHub Pages
       #   id: deployment
       #   uses: actions/deploy-pages@v4
-      
+
       # 改用第三方插件推送到gh-pages分支
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
