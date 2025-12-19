@@ -1421,7 +1421,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #b658ff;
+    background: #afa482;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2952,4 +2952,8 @@ header.header {
   .pagination {
     margin-bottom: 10px;
   }
+}
+.giscus {
+  max-width: unset;
+  box-sizing: border-box;
 }
