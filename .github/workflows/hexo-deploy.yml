@@ -3,10 +3,6 @@ name: Hexo Deploy with Submodule
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-    types: [closed]
-    if: github.event.pull_request.merged == true
 
 permissions:
   contents: read
