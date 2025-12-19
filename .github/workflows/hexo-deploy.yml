@@ -1,0 +1,48 @@
+name: Hexo Deploy with Submodule
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+    if: github.event.pull_request.merged == true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 关键修改：拉取主仓库时递归拉取 submodule（themes/next）
+      - name: Checkout with Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # 递归拉取所有 submodule（包括 themes/next）
+          fetch-depth: 0         # 拉取完整历史，避免主题依赖缺失
+
+      # 后续步骤（安装 Node.js、Hexo 依赖、生成静态文件）不变
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Dependencies & Generate
+        run: |
+          npm install -g hexo-cli
+          npm install
+          hexo clean && hexo generate  # 此时 themes/next 已存在，能正常生成
+
+      # 上传产物 + 部署（官方插件）
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
