@@ -4,14 +4,17 @@ on:
   push:
     branches: [main]
 
+# 部署必需的权限配置
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read        # 只读源码
+  pages: write          # 写入Pages产物
+  id-token: write       # 生成部署令牌
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages  # 必须是这个名称，和GitHub Pages环境匹配
     steps:
       # 关键修改：拉取主仓库时递归拉取 submodule（themes/next）
       - name: Checkout with Submodules
