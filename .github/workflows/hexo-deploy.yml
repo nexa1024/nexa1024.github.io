@@ -36,12 +36,20 @@ jobs:
           npm install
           hexo clean && hexo generate  # 此时 themes/next 已存在，能正常生成
 
-      # 上传产物 + 部署（官方插件）
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+      # # 上传产物 + 部署（官方插件）
+      # - name: Upload Pages Artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: ./public
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4
+      
+      # 改用第三方插件推送到gh-pages分支
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages  # 强制推送到gh-pages分支
