@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>基于Find Cpu HotSpots分析调用栈</title>
+    <url>/android/basic_trace/</url>
+    <content><![CDATA[<p>通过Find Cpu HotSpots分析调用栈，在对项目代码不熟悉的情况下，能帮助我们尽快定位对应的入口与触发的函数。</p>
+<span id="more"></span>
+
+<h1 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h1><h2 id="真机调试和远程屏幕准备"><a href="#真机调试和远程屏幕准备" class="headerlink" title="真机调试和远程屏幕准备"></a>真机调试和远程屏幕准备</h2><p>真机打开开发者选项和调试模式，参考这个url或自行搜索即可<a href="https://developer.android.google.cn/studio/debug/dev-options?hl=zh-cn">https://developer.android.google.cn/studio/debug/dev-options?hl=zh-cn</a></p>
+<p>在github下载QtScrcpy,<a href="https://github.com/barry-ran/QtScrcpy/releases">https://github.com/barry-ran/QtScrcpy/releases</a></p>
+<p>当<strong>真机打开了usb调试之后</strong>，打开QtScrcpy软件，能看到我们的真机，双击打开就可以显示屏幕，我们在电脑上远程操作真机屏幕，不用运行虚拟机，节省一些资源。</p>
+<p><img src="/images/android/basic_trace/sc1.png"></p>
+<p><img src="/images/android/basic_trace/sc2.png"></p>
+<h2 id="官方项目准备"><a href="#官方项目准备" class="headerlink" title="官方项目准备"></a>官方项目准备</h2><p>这里以官方的示例项目的jetnews作为我们的演示项目<a href="https://github.com/android/compose-samples">https://github.com/android/compose-samples</a></p>
+<h3 id="gradle镜像配置"><a href="#gradle镜像配置" class="headerlink" title="gradle镜像配置"></a>gradle镜像配置</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// jetnews/gradle/wrapper/gradle-wrapper.properties</span><br><span class="line">// 修改为aliyun镜像，并且gradle-8.13-bin.zip可以修改为gradle-8.13-all.zip</span><br><span class="line">distributionUrl=https\://mirrors.aliyun.com/macports/distfiles/gradle/gradle-8.13-all.zip</span><br></pre></td></tr></table></figure>
+
+<h3 id="插件镜像"><a href="#插件镜像" class="headerlink" title="插件镜像"></a>插件镜像</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// jetnews/setting.gradle.kts</span><br><span class="line">pluginManagement &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven &#123; url=uri (&quot;https://www.jitpack.io&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/releases&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/google&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/central&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/gradle-plugin&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/public&quot;)&#125;</span><br><span class="line">        gradlePluginPortal()</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencyResolutionManagement &#123;</span><br><span class="line">    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)</span><br><span class="line">    repositories &#123;</span><br><span class="line">        snapshotVersion?.let &#123;</span><br><span class="line">            println(&quot;https://androidx.dev/snapshots/builds/$it/artifacts/repository/&quot;)</span><br><span class="line">            maven &#123; url = uri(&quot;https://androidx.dev/snapshots/builds/$it/artifacts/repository/&quot;) &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://www.jitpack.io&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/releases&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/google&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/central&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/gradle-plugin&quot;)&#125;</span><br><span class="line">        maven &#123; url=uri (&quot;https://maven.aliyun.com/repository/public&quot;)&#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装app到真机"><a href="#安装app到真机" class="headerlink" title="安装app到真机"></a>安装app到真机</h3><p><img src="/images/android/basic_trace/sc3.png"></p>
+<h1 id="录制trace文件"><a href="#录制trace文件" class="headerlink" title="录制trace文件"></a>录制trace文件</h1><p>先打开profile，不然看不到录制入口<br><img src="/images/android/basic_trace/sc4.png"></p>
+<p>选择进程，Find Cpu Spots, 开始录制<br><img src="/images/android/basic_trace/sc5.png"></p>
+<p>开始录制后根据要求操作屏幕，可以是点击跳转，滑动等，操作完屏幕点击停止录制，会生成trace文件，我们可以导出trace文件</p>
+<p><img src="/images/android/basic_trace/sc6.png"></p>
+<h1 id="分析trace文件"><a href="#分析trace文件" class="headerlink" title="分析trace文件"></a>分析trace文件</h1><p>打开这个url <a href="https://profiler.firefox.com/%EF%BC%8C%E5%B0%86trace%E6%96%87%E4%BB%B6%E6%8B%96%E5%85%A5%E7%BD%91%E9%A1%B5">https://profiler.firefox.com/，将trace文件拖入网页</a></p>
+<p>因为app运行在主线程，点击main和栈图，筛选输入click，查看绿色部分，可以发现点击的时候，触发了一堆包下的方法，那么知道了这些包名和方法，就可以通过全局搜索查到对应的入口了</p>
+<p><img src="/images/android/basic_trace/sc7.png"></p>
+]]></content>
+      <categories>
+        <category>android analysis</category>
+      </categories>
+  </entry>
+  <entry>
     <title>I&#39;m back</title>
     <url>/something/imback/</url>
     <content><![CDATA[<p>在今天开始，网站重新部署了，一切正在往好的方向发展，26年加油~~~~~</p>
