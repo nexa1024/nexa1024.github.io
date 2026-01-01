@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>双指针算法模板</title>
+    <url>/algos/double_point/</url>
+    <content><![CDATA[<p>双指针算法模板</p>
+<span id="more"></span>
+
+<p>编写中~</p>
+]]></content>
+      <categories>
+        <category>algos</category>
+      </categories>
+  </entry>
+  <entry>
     <title>基于Find Cpu HotSpots分析调用栈</title>
     <url>/android/basic_trace/</url>
     <content><![CDATA[<p>通过Find Cpu HotSpots分析调用栈，在对项目代码不熟悉的情况下，能帮助我们尽快定位对应的入口与触发的函数。</p>
