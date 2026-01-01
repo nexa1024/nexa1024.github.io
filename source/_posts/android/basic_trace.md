@@ -2,6 +2,7 @@
 title: 基于Find Cpu HotSpots分析调用栈
 date: 2025-12-27 00:00:00
 categories: android analysis
+hide: true
 ---
 
 通过Find Cpu HotSpots分析调用栈，在对项目代码不熟悉的情况下，能帮助我们尽快定位对应的入口与触发的函数。
