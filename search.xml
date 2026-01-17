@@ -1,51 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Android-Day01-搭建基础工程+ToolBar容器</title>
-    <url>/android/Day01-skeleton_toolbar/</url>
-    <content><![CDATA[<p>第一天搭建基础工程+toolbar</p>
+    <title>Android-Day02-RecycleView&amp;路由跳转</title>
+    <url>/android/Day02-recycleview_router/</url>
+    <content><![CDATA[<p>Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。</p>
 <span id="more"></span>
-
-<h1 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h1><ol>
-<li>选择Empty Views Activity(<strong>重要，选择其他的可能会使用Jetpack Compose</strong>)</li>
-<li>minSdk 33</li>
-<li>targetSdk 36</li>
-</ol>
-<h1 id="镜像问题"><a href="#镜像问题" class="headerlink" title="镜像问题"></a>镜像问题</h1><h2 id="修改gradle到国内镜像"><a href="#修改gradle到国内镜像" class="headerlink" title="修改gradle到国内镜像"></a>修改gradle到国内镜像</h2><p>路径：项目根目录\gradle\wrapper\gradle-wrapper.properties</p>
-<p>将原有的gradle.org修改为阿里云镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">distributionUrl=https://mirrors.aliyun.com/macports/distfiles/gradle/gradle-8.13-all.zip</span><br><span class="line">#distributionUrl=https\://services.gradle.org/distributions/gradle-8.13-all.zip</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改插件和库依赖到国内镜像"><a href="#修改插件和库依赖到国内镜像" class="headerlink" title="修改插件和库依赖到国内镜像"></a>修改插件和库依赖到国内镜像</h2><p>插件为项目提供构建、测试、打包等能力，库提供可复用的代码&#x2F;资源</p>
-<h3 id="AndroidStudio较新版本-例如-Arctic-Fox-2021-3-1-及之后"><a href="#AndroidStudio较新版本-例如-Arctic-Fox-2021-3-1-及之后" class="headerlink" title="AndroidStudio较新版本 (例如 Arctic Fox 2021.3.1 及之后)"></a>AndroidStudio较新版本 (例如 Arctic Fox 2021.3.1 及之后)</h3><ul>
-<li>项目根目录存在settings.gradle,在文件当中会存在pluginManagement和 dependencyResolutionManagement代码块。</li>
+<h1 id="按产出拆成-4-件事"><a href="#按产出拆成-4-件事" class="headerlink" title="按产出拆成 4 件事"></a>按产出拆成 4 件事</h1><h3 id="首页：RecyclerView-显示实验入口列表"><a href="#首页：RecyclerView-显示实验入口列表" class="headerlink" title="首页：RecyclerView 显示实验入口列表"></a>首页：RecyclerView 显示实验入口列表</h3><ul>
+<li>做一个 LabItem 数据结构（id、标题、简介、tags 可先不做或先留空）</li>
+<li>LabListFragment 展示一个 RecyclerView 列表（至少 6 项占位）：<ul>
+<li>启动优化</li>
+<li>卡顿&#x2F;Jank</li>
+<li>泄漏</li>
+<li>OOM</li>
+<li>ANR</li>
+<li>Crash</li>
 </ul>
-<h3 id="AndroidStudio旧版本-2021-3-1-之前"><a href="#AndroidStudio旧版本-2021-3-1-之前" class="headerlink" title="AndroidStudio旧版本 (2021.3.1 之前)"></a>AndroidStudio旧版本 (2021.3.1 之前)</h3><ul>
-<li>项目根目录下的 <code>build.gradle</code>或 <code>build.gradle.kts</code></li>
-<li>主要的仓库配置在根目录的 <code>build.gradle</code>文件的 <code>buildscript</code>和 <code>allprojects</code>部分。</li>
+</li>
 </ul>
-<h3 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pluginManagement &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // 插件新加3行</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/google&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/public&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/gradle-plugin&quot;) &#125;</span><br><span class="line">        google &#123;</span><br><span class="line">            content &#123;</span><br><span class="line">                includeGroupByRegex(&quot;com\\.android.*&quot;)</span><br><span class="line">                includeGroupByRegex(&quot;com\\.google.*&quot;)</span><br><span class="line">                includeGroupByRegex(&quot;androidx.*&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mavenCentral()</span><br><span class="line">        gradlePluginPortal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencyResolutionManagement &#123;</span><br><span class="line">    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // 库加2行</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/google&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/public&quot;) &#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rootProject.name = &quot;PerfStabilityLab&quot;</span><br><span class="line">include(&quot;:app&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="路由：点击列表项能进入对应-LabFragment"><a href="#路由：点击列表项能进入对应-LabFragment" class="headerlink" title="路由：点击列表项能进入对应 LabFragment"></a>路由：点击列表项能进入对应 LabFragment</h3><ul>
+<li>做一个 LabRegistry（注册表）：<ul>
+<li>all() 返回上述 6 个 LabItem</li>
+<li>createFragment(id) 返回对应的 Fragment（先是空页面&#x2F;占位页面也可以）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Activity：负责切换-Fragment-back-stack"><a href="#Activity：负责切换-Fragment-back-stack" class="headerlink" title="Activity：负责切换 Fragment + back stack"></a>Activity：负责切换 Fragment + back stack</h3><ul>
+<li>MainActivity.openLab(id)：<ul>
+<li>replace(R.id.main_container, LabRegistry.createFragment(id))</li>
+<li>addToBackStack(id)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）"><a href="#Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）" class="headerlink" title="Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）"></a>Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）</h3><ul>
+<li>在列表页：Toolbar 不显示返回箭头</li>
+<li>进入实验页：Toolbar 显示返回箭头，点击能返回列表</li>
+<li>实现方式：监听 supportFragmentManager.addOnBackStackChangedListener { … }，根据 backStack 是否为空来决定 supportActionBar?.setDisplayHomeAsUpEnabled(…)</li>
+</ul>
+<h1 id="RecyclerView-显示实验入口列表"><a href="#RecyclerView-显示实验入口列表" class="headerlink" title="RecyclerView 显示实验入口列表"></a>RecyclerView 显示实验入口列表</h1><h3 id="新建数据结构：LabItem"><a href="#新建数据结构：LabItem" class="headerlink" title="新建数据结构：LabItem"></a>新建数据结构：LabItem</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;core&#x2F;LabItem.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.core</span><br><span class="line"></span><br><span class="line">data class LabItem(</span><br><span class="line">    val id: String,</span><br><span class="line">    val title: String,</span><br><span class="line">    val desc: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-<h1 id="搭建项目骨架"><a href="#搭建项目骨架" class="headerlink" title="搭建项目骨架"></a>搭建项目骨架</h1><h2 id="避免系统自带标题栏和ToolBar冲突"><a href="#避免系统自带标题栏和ToolBar冲突" class="headerlink" title="避免系统自带标题栏和ToolBar冲突"></a>避免系统自带标题栏和ToolBar冲突</h2><p>使用NoActionBar，res&#x2F;values&#x2F;themes.xml（或 styles.xml，看你工程生成的名字）确认类似：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;style name=&quot;Theme.PerfStabilityLab&quot; parent=&quot;Theme.Material3.DayNight.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;!-- 其他颜色配置随便 --&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
-<p> 并检查 AndroidManifest.xml 里 Application 或 Activity 使用了这个主题：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:theme=&quot;@style/Theme.PerfStabilityLab&quot; ... /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="新建列表页布局：fragment-lab-list-xml"><a href="#新建列表页布局：fragment-lab-list-xml" class="headerlink" title="新建列表页布局：fragment_lab_list.xml"></a>新建列表页布局：fragment_lab_list.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;fragment_lab_list.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:id=&quot;@+id/rv_labs&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:padding=&quot;16dp&quot;</span><br><span class="line">    android:clipToPadding=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="在activity-main-xml修改布局"><a href="#在activity-main-xml修改布局" class="headerlink" title="在activity_main.xml修改布局"></a>在activity_main.xml修改布局</h2><p>用LinearLayout比较直观，改成上下结构，放置一个MaterialToolbar和FragmentContainerView</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">  &lt;LinearLayout</span><br><span class="line">      xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">      android:orientation=&quot;vertical&quot;</span><br><span class="line">      android:layout_width=&quot;match_parent&quot;</span><br><span class="line">      android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">      &lt;com.google.android.material.appbar.MaterialToolbar</span><br><span class="line">          android:id=&quot;@+id/toolbar&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          app:title=&quot;PerfStabilityLab&quot; /&gt;</span><br><span class="line"></span><br><span class="line">      &lt;androidx.fragment.app.FragmentContainerView</span><br><span class="line">          android:id=&quot;@+id/main_container&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;0dp&quot;</span><br><span class="line">          android:layout_weight=&quot;1&quot; /&gt;</span><br><span class="line">  &lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
 
-<!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/android/Day01-skeleton_toolbar/01.png"></p>
-<h2 id="ToolBar设置为ActionBar，放占位Fragment"><a href="#ToolBar设置为ActionBar，放占位Fragment" class="headerlink" title="ToolBar设置为ActionBar，放占位Fragment"></a>ToolBar设置为ActionBar，放占位Fragment</h2><h3 id="新建Fragment，命名为PlaceholderFragment"><a href="#新建Fragment，命名为PlaceholderFragment" class="headerlink" title="新建Fragment，命名为PlaceholderFragment"></a>新建Fragment，命名为PlaceholderFragment</h3><p>放入一个占位的TextView即可，新建Fragment的时候会自动生成PlaceholderFragment.kt</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># res/layout/fragment_placeholder.xml：</span><br><span class="line"></span><br><span class="line">&lt;TextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:gravity=&quot;center&quot;</span><br><span class="line">    android:text=&quot;Placeholder&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="新建列表-item-布局：item-lab-xml"><a href="#新建列表-item-布局：item-lab-xml" class="headerlink" title="新建列表 item 布局：item_lab.xml"></a>新建列表 item 布局：item_lab.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;item_lab.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:paddingVertical=&quot;12dp&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_title&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:textSize=&quot;16sp&quot;</span><br><span class="line">        android:textStyle=&quot;bold&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_desc&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginTop=&quot;4dp&quot;</span><br><span class="line">        android:textSize=&quot;13sp&quot;</span><br><span class="line">        android:alpha=&quot;0.75&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="MainActivity修改"><a href="#MainActivity修改" class="headerlink" title="MainActivity修改"></a>MainActivity修改</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        enableEdgeToEdge()</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        // 设置ActionBar</span><br><span class="line">        val toolBar = findViewById&lt;MaterialToolbar&gt;(R.id.toolbar)</span><br><span class="line">        setSupportActionBar(toolBar)</span><br><span class="line"></span><br><span class="line">        // 把状态栏/刘海区域的高度加到 toolbar 的 top padding</span><br><span class="line">        val initialTopPadding = toolBar.paddingTop</span><br><span class="line">        ViewCompat.setOnApplyWindowInsetsListener(toolBar) &#123; v, insets -&gt;</span><br><span class="line">            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top</span><br><span class="line">            v.updatePadding(top = initialTopPadding + topInset)</span><br><span class="line">            insets</span><br><span class="line">        &#125;</span><br><span class="line">        ViewCompat.requestApplyInsets(toolBar)</span><br><span class="line"></span><br><span class="line">        // 先设置左上角返回按钮点击事件，day2再做显示隐藏逻辑</span><br><span class="line">        toolBar.setNavigationOnClickListener &#123;</span><br><span class="line">            onBackPressedDispatcher.onBackPressed()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (savedInstanceState == null) &#123;</span><br><span class="line">            supportFragmentManager.beginTransaction()</span><br><span class="line">                .replace(R.id.main_container, PlaceholderFragment())</span><br><span class="line">                .commit()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="运行测试，确认项目骨架最小集可用"><a href="#运行测试，确认项目骨架最小集可用" class="headerlink" title="运行测试，确认项目骨架最小集可用"></a>运行测试，确认项目骨架最小集可用</h1><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/android/Day01-skeleton_toolbar/02.png"></p>
+<h3 id="新建-Adapter：LabListAdapter"><a href="#新建-Adapter：LabListAdapter" class="headerlink" title="新建 Adapter：LabListAdapter"></a>新建 Adapter：LabListAdapter</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListAdapter.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.view.LayoutInflater</span><br><span class="line">import android.view.View</span><br><span class="line">import android.view.ViewGroup</span><br><span class="line">import android.widget.TextView</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListAdapter(</span><br><span class="line">    private val items: List&lt;LabItem&gt;</span><br><span class="line">) : RecyclerView.Adapter&lt;LabListAdapter.VH&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    class VH(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line">        val title: TextView = itemView.findViewById(R.id.tv_title)</span><br><span class="line">        val desc: TextView = itemView.findViewById(R.id.tv_desc)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH &#123;</span><br><span class="line">        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_lab, parent, false)</span><br><span class="line">        return VH(v)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onBindViewHolder(holder: VH, position: Int) &#123;</span><br><span class="line">        val item = items[position]</span><br><span class="line">        holder.title.text = item.title</span><br><span class="line">        holder.desc.text = item.desc</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getItemCount(): Int = items.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建-Fragment：LabListFragment"><a href="#新建-Fragment：LabListFragment" class="headerlink" title="新建 Fragment：LabListFragment"></a>新建 Fragment：LabListFragment</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListFragment.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.os.Bundle</span><br><span class="line">import android.view.View</span><br><span class="line">import androidx.fragment.app.Fragment</span><br><span class="line">import androidx.recyclerview.widget.LinearLayoutManager</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListFragment : Fragment(R.layout.fragment_lab_list) &#123;</span><br><span class="line"></span><br><span class="line">    override fun onViewCreated(view: View, savedInstanceState: Bundle?) &#123;</span><br><span class="line">        val rv = view.findViewById&lt;RecyclerView&gt;(R.id.rv_labs)</span><br><span class="line">        rv.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line"></span><br><span class="line">        val items = listOf(</span><br><span class="line">            LabItem(&quot;startup&quot;, &quot;启动优化&quot;, &quot;冷/温/热启动、初始化治理、首帧直觉&quot;),</span><br><span class="line">            LabItem(&quot;jank&quot;, &quot;卡顿 / Jank&quot;, &quot;主线程阻塞、IO、锁等待、UI/GC&quot;),</span><br><span class="line">            LabItem(&quot;leak&quot;, &quot;内存泄漏&quot;, &quot;引用链、生命周期注销&quot;),</span><br><span class="line">            LabItem(&quot;oom&quot;, &quot;OOM&quot;, &quot;峰值、Bitmap、缓存上限、降级&quot;),</span><br><span class="line">            LabItem(&quot;anr&quot;, &quot;ANR&quot;, &quot;无响应、主线程卡死/等待&quot;),</span><br><span class="line">            LabItem(&quot;crash&quot;, &quot;Crash&quot;, &quot;栈+上下文、定位与闭环&quot;)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        rv.adapter = LabListAdapter(items)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MainActivity-启动时显示这个列表-Fragment"><a href="#MainActivity-启动时显示这个列表-Fragment" class="headerlink" title="MainActivity 启动时显示这个列表 Fragment"></a>MainActivity 启动时显示这个列表 Fragment</h3><p>在 MainActivity.onCreate() 里（setContentView 之后）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (savedInstanceState == null) &#123;</span><br><span class="line">    supportFragmentManager.beginTransaction()</span><br><span class="line">        .replace(R.id.main_container, LabListFragment())</span><br><span class="line">        .commit()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>———</p>
+<h2 id="Step1-完成验收"><a href="#Step1-完成验收" class="headerlink" title="Step1 完成验收"></a>Step1 完成验收</h2><ul>
+<li>App 启动后看到 6 条实验入口列表。<br><img src="/images/android/Day02-recyclerview_router/01.png"></li>
+</ul>
 ]]></content>
       <categories>
         <category>Android</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day02-1.两数之和</title>
+    <url>/algos/Day02-1.Two_Sum/</url>
+    <content><![CDATA[<p>1.两数之和背诵模板</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/algos/Day02-1.Two_Sum/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希表</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个<strong>HashMap</strong>记录数组nums的每一个元素,key是元素，value是下标</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历nums到i的位置，HashMap的key包含[0, i-1]这个区间的元素</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>target-nums[i]在HashMap内无法找到对应的元素，nums[i]和i作为key和value放入HashMap</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：<ul>
+<li>nums循环结束也没有在HashMap中找到对应元素</li>
+<li>找到对应元素</li>
+</ul>
+</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li>时间复杂度：O(n)，其中 n 为 nums 的长度。</li>
+<li>空间复杂度：O(n)，其中 n 为 nums 的长度。</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>无</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] nums, int target) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; hashtable = new HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        for (int i = 0; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            if (hashtable.containsKey(target - nums[i])) &#123;</span><br><span class="line">                return new int[]&#123;hashtable.get(target - nums[i]), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            hashtable.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        return new int[0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun twoSum(nums: IntArray, target: Int): IntArray &#123;</span><br><span class="line">        val map = hashMapOf&lt;Int, Int&gt;()</span><br><span class="line">        nums.forEachIndexed &#123; i, num -&gt;</span><br><span class="line">            val complement = target - num</span><br><span class="line">            if (map.containsKey(complement)) &#123;</span><br><span class="line">                return intArrayOf(map.get(complement)!!, i)</span><br><span class="line">            &#125;</span><br><span class="line">            map[num] = i</span><br><span class="line">        &#125;</span><br><span class="line">        return intArrayOf()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day02-49.字母异位词分组</title>
+    <url>/algos/Day02-49.Group_Anagrams/</url>
+    <content><![CDATA[<ol start="49">
+<li>字母异位词分组背诵模板</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/algos/Day02-49.Group_Anagrams/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希表、字符串、排序</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个<strong>HashMap</strong>记录strs中每个字符串排序后的结果作为key，数组作为value</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历strs到i的位置，HashMap的key包含[0, i-1]这个区间的排序好的元素，value则是存入数组</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>找到对应排序好的key，将当前元素push进数组</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：<ul>
+<li>终止：<ul>
+<li>循环结束</li>
+</ul>
+</li>
+<li>边界：<ul>
+<li>单个元素</li>
+<li>空数组</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li><p>时间复杂度：O(n(k+∣Σ∣))，其中 n 是 strs 中的字符串的数量，k 是 strs 中的字符串的的最大长度，Σ 是字符集，在本题中字符集为所有小写字母，∣Σ∣&#x3D;26。需要遍历 n 个字符串，对于每个字符串，需要 O(k) 的时间计算每个字母出现的次数，O(∣Σ∣) 的时间生成哈希表的键，以及 O(1) 的时间更新哈希表，因此总时间复杂度是 O(n(k+∣Σ∣))。</p>
+</li>
+<li><p>空间复杂度：O(n(k+∣Σ∣))，其中 n 是 strs 中的字符串的数量，k 是 strs 中的字符串的最大长度，Σ 是字符集，在本题中字符集为所有小写字母，∣Σ∣&#x3D;26。需要用哈希表存储全部字符串，而记录每个字符串中每个字母出现次数的数组需要的空间为 O(∣Σ∣)，在渐进意义下小于 O(n(k+∣Σ∣))，可以忽略不计。</p>
+</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>无</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun groupAnagrams(strs: Array&lt;String&gt;): List&lt;List&lt;String&gt;&gt; &#123;</span><br><span class="line">        val map = hashMapOf&lt;String, MutableList&lt;String&gt;&gt;()</span><br><span class="line"></span><br><span class="line">        for (str:String in strs) &#123;</span><br><span class="line">            // strs每个字符串内容重新排序作为key</span><br><span class="line">            val key = str.toCharArray().sorted().joinToString(&quot;&quot;);</span><br><span class="line">            val values = map.getOrDefault(key, mutableListOf())</span><br><span class="line">            values.add(str)</span><br><span class="line">            map.put(key, values)</span><br><span class="line">        &#125;</span><br><span class="line">        return map.values.toList()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
       </categories>
   </entry>
   <entry>
@@ -135,6 +254,54 @@
 ]]></content>
       <categories>
         <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Android-Day01-搭建基础工程+ToolBar容器</title>
+    <url>/android/Day01-skeleton_toolbar/</url>
+    <content><![CDATA[<p>第一天搭建基础工程+toolbar</p>
+<span id="more"></span>
+
+<h1 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h1><ol>
+<li>选择Empty Views Activity(<strong>重要，选择其他的可能会使用Jetpack Compose</strong>)</li>
+<li>minSdk 33</li>
+<li>targetSdk 36</li>
+</ol>
+<h1 id="镜像问题"><a href="#镜像问题" class="headerlink" title="镜像问题"></a>镜像问题</h1><h2 id="修改gradle到国内镜像"><a href="#修改gradle到国内镜像" class="headerlink" title="修改gradle到国内镜像"></a>修改gradle到国内镜像</h2><p>路径：项目根目录\gradle\wrapper\gradle-wrapper.properties</p>
+<p>将原有的gradle.org修改为阿里云镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">distributionUrl=https://mirrors.aliyun.com/macports/distfiles/gradle/gradle-8.13-all.zip</span><br><span class="line">#distributionUrl=https\://services.gradle.org/distributions/gradle-8.13-all.zip</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改插件和库依赖到国内镜像"><a href="#修改插件和库依赖到国内镜像" class="headerlink" title="修改插件和库依赖到国内镜像"></a>修改插件和库依赖到国内镜像</h2><p>插件为项目提供构建、测试、打包等能力，库提供可复用的代码&#x2F;资源</p>
+<h3 id="AndroidStudio较新版本-例如-Arctic-Fox-2021-3-1-及之后"><a href="#AndroidStudio较新版本-例如-Arctic-Fox-2021-3-1-及之后" class="headerlink" title="AndroidStudio较新版本 (例如 Arctic Fox 2021.3.1 及之后)"></a>AndroidStudio较新版本 (例如 Arctic Fox 2021.3.1 及之后)</h3><ul>
+<li>项目根目录存在settings.gradle,在文件当中会存在pluginManagement和 dependencyResolutionManagement代码块。</li>
+</ul>
+<h3 id="AndroidStudio旧版本-2021-3-1-之前"><a href="#AndroidStudio旧版本-2021-3-1-之前" class="headerlink" title="AndroidStudio旧版本 (2021.3.1 之前)"></a>AndroidStudio旧版本 (2021.3.1 之前)</h3><ul>
+<li>项目根目录下的 <code>build.gradle</code>或 <code>build.gradle.kts</code></li>
+<li>主要的仓库配置在根目录的 <code>build.gradle</code>文件的 <code>buildscript</code>和 <code>allprojects</code>部分。</li>
+</ul>
+<h3 id="settings-gradle"><a href="#settings-gradle" class="headerlink" title="settings.gradle"></a>settings.gradle</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pluginManagement &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // 插件新加3行</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/google&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/public&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/gradle-plugin&quot;) &#125;</span><br><span class="line">        google &#123;</span><br><span class="line">            content &#123;</span><br><span class="line">                includeGroupByRegex(&quot;com\\.android.*&quot;)</span><br><span class="line">                includeGroupByRegex(&quot;com\\.google.*&quot;)</span><br><span class="line">                includeGroupByRegex(&quot;androidx.*&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mavenCentral()</span><br><span class="line">        gradlePluginPortal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencyResolutionManagement &#123;</span><br><span class="line">    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)</span><br><span class="line">    repositories &#123;</span><br><span class="line">        // 库加2行</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/google&quot;) &#125;</span><br><span class="line">        maven &#123; url = uri(&quot;https://maven.aliyun.com/repository/public&quot;) &#125;</span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rootProject.name = &quot;PerfStabilityLab&quot;</span><br><span class="line">include(&quot;:app&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="搭建项目骨架"><a href="#搭建项目骨架" class="headerlink" title="搭建项目骨架"></a>搭建项目骨架</h1><h2 id="避免系统自带标题栏和ToolBar冲突"><a href="#避免系统自带标题栏和ToolBar冲突" class="headerlink" title="避免系统自带标题栏和ToolBar冲突"></a>避免系统自带标题栏和ToolBar冲突</h2><p>使用NoActionBar，res&#x2F;values&#x2F;themes.xml（或 styles.xml，看你工程生成的名字）确认类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;style name=&quot;Theme.PerfStabilityLab&quot; parent=&quot;Theme.Material3.DayNight.NoActionBar&quot;&gt;</span><br><span class="line">    &lt;!-- 其他颜色配置随便 --&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p> 并检查 AndroidManifest.xml 里 Application 或 Activity 使用了这个主题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:theme=&quot;@style/Theme.PerfStabilityLab&quot; ... /&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在activity-main-xml修改布局"><a href="#在activity-main-xml修改布局" class="headerlink" title="在activity_main.xml修改布局"></a>在activity_main.xml修改布局</h2><p>用LinearLayout比较直观，改成上下结构，放置一个MaterialToolbar和FragmentContainerView</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">  &lt;LinearLayout</span><br><span class="line">      xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">      xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">      android:orientation=&quot;vertical&quot;</span><br><span class="line">      android:layout_width=&quot;match_parent&quot;</span><br><span class="line">      android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">      &lt;com.google.android.material.appbar.MaterialToolbar</span><br><span class="line">          android:id=&quot;@+id/toolbar&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          app:title=&quot;PerfStabilityLab&quot; /&gt;</span><br><span class="line"></span><br><span class="line">      &lt;androidx.fragment.app.FragmentContainerView</span><br><span class="line">          android:id=&quot;@+id/main_container&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;0dp&quot;</span><br><span class="line">          android:layout_weight=&quot;1&quot; /&gt;</span><br><span class="line">  &lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/android/Day01-skeleton_toolbar/01.png"></p>
+<h2 id="ToolBar设置为ActionBar，放占位Fragment"><a href="#ToolBar设置为ActionBar，放占位Fragment" class="headerlink" title="ToolBar设置为ActionBar，放占位Fragment"></a>ToolBar设置为ActionBar，放占位Fragment</h2><h3 id="新建Fragment，命名为PlaceholderFragment"><a href="#新建Fragment，命名为PlaceholderFragment" class="headerlink" title="新建Fragment，命名为PlaceholderFragment"></a>新建Fragment，命名为PlaceholderFragment</h3><p>放入一个占位的TextView即可，新建Fragment的时候会自动生成PlaceholderFragment.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># res/layout/fragment_placeholder.xml：</span><br><span class="line"></span><br><span class="line">&lt;TextView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:gravity=&quot;center&quot;</span><br><span class="line">    android:text=&quot;Placeholder&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MainActivity修改"><a href="#MainActivity修改" class="headerlink" title="MainActivity修改"></a>MainActivity修改</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class MainActivity : AppCompatActivity() &#123;</span><br><span class="line">    override fun onCreate(savedInstanceState: Bundle?) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState)</span><br><span class="line">        enableEdgeToEdge()</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        // 设置ActionBar</span><br><span class="line">        val toolBar = findViewById&lt;MaterialToolbar&gt;(R.id.toolbar)</span><br><span class="line">        setSupportActionBar(toolBar)</span><br><span class="line"></span><br><span class="line">        // 把状态栏/刘海区域的高度加到 toolbar 的 top padding</span><br><span class="line">        val initialTopPadding = toolBar.paddingTop</span><br><span class="line">        ViewCompat.setOnApplyWindowInsetsListener(toolBar) &#123; v, insets -&gt;</span><br><span class="line">            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top</span><br><span class="line">            v.updatePadding(top = initialTopPadding + topInset)</span><br><span class="line">            insets</span><br><span class="line">        &#125;</span><br><span class="line">        ViewCompat.requestApplyInsets(toolBar)</span><br><span class="line"></span><br><span class="line">        // 先设置左上角返回按钮点击事件，day2再做显示隐藏逻辑</span><br><span class="line">        toolBar.setNavigationOnClickListener &#123;</span><br><span class="line">            onBackPressedDispatcher.onBackPressed()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (savedInstanceState == null) &#123;</span><br><span class="line">            supportFragmentManager.beginTransaction()</span><br><span class="line">                .replace(R.id.main_container, PlaceholderFragment())</span><br><span class="line">                .commit()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="运行测试，确认项目骨架最小集可用"><a href="#运行测试，确认项目骨架最小集可用" class="headerlink" title="运行测试，确认项目骨架最小集可用"></a>运行测试，确认项目骨架最小集可用</h1><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/android/Day01-skeleton_toolbar/02.png"></p>
+]]></content>
+      <categories>
+        <category>Android</category>
       </categories>
   </entry>
   <entry>

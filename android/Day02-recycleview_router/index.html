@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-big-counter.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android-Day02-RecycleView&amp;路由跳转">
+<meta property="og:url" content="https://nexa1024.github.io/android/Day02-recycleview_router/index.html">
+<meta property="og:site_name" content="Nexa1024">
+<meta property="og:description" content="Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nexa1024.github.io/images/android/Day02-recyclerview_router/01.png">
+<meta property="article:published_time" content="2026-01-16T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-17T03:47:33.402Z">
+<meta property="article:author" content="Nexa1024">
+<meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://nexa1024.github.io/images/android/Day02-recyclerview_router/01.png">
+
+
+<link rel="canonical" href="https://nexa1024.github.io/android/Day02-recycleview_router/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/android/Day02-recycleview_router/","path":"android/Day02-recycleview_router/","title":"Android-Day02-RecycleView&路由跳转"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android-Day02-RecycleView&路由跳转 | Nexa1024</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nexa1024</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学啥~啥都学~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%89%E4%BA%A7%E5%87%BA%E6%8B%86%E6%88%90-4-%E4%BB%B6%E4%BA%8B"><span class="nav-number">1.</span> <span class="nav-text">按产出拆成 4 件事</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E9%A1%B5%EF%BC%9ARecyclerView-%E6%98%BE%E7%A4%BA%E5%AE%9E%E9%AA%8C%E5%85%A5%E5%8F%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">首页：RecyclerView 显示实验入口列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%EF%BC%9A%E7%82%B9%E5%87%BB%E5%88%97%E8%A1%A8%E9%A1%B9%E8%83%BD%E8%BF%9B%E5%85%A5%E5%AF%B9%E5%BA%94-LabFragment"><span class="nav-number">1.2.</span> <span class="nav-text">路由：点击列表项能进入对应 LabFragment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity%EF%BC%9A%E8%B4%9F%E8%B4%A3%E5%88%87%E6%8D%A2-Fragment-back-stack"><span class="nav-number">1.3.</span> <span class="nav-text">Activity：负责切换 Fragment + back stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Toolbar%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%AE%AD%E5%A4%B4%E6%98%BE%E7%A4%BA-%E9%9A%90%E8%97%8F%EF%BC%88Day2-%E7%9A%84%E2%80%9C%E5%AE%8C%E6%88%90%E6%A0%87%E5%BF%97%E2%80%9D%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RecyclerView-%E6%98%BE%E7%A4%BA%E5%AE%9E%E9%AA%8C%E5%85%A5%E5%8F%A3%E5%88%97%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">RecyclerView 显示实验入口列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9ALabItem"><span class="nav-number">2.1.</span> <span class="nav-text">新建数据结构：LabItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%97%E8%A1%A8%E9%A1%B5%E5%B8%83%E5%B1%80%EF%BC%9Afragment-lab-list-xml"><span class="nav-number">2.2.</span> <span class="nav-text">新建列表页布局：fragment_lab_list.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E5%88%97%E8%A1%A8-item-%E5%B8%83%E5%B1%80%EF%BC%9Aitem-lab-xml"><span class="nav-number">2.3.</span> <span class="nav-text">新建列表 item 布局：item_lab.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA-Adapter%EF%BC%9ALabListAdapter"><span class="nav-number">2.4.</span> <span class="nav-text">新建 Adapter：LabListAdapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA-Fragment%EF%BC%9ALabListFragment"><span class="nav-number">2.5.</span> <span class="nav-text">新建 Fragment：LabListFragment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MainActivity-%E5%90%AF%E5%8A%A8%E6%97%B6%E6%98%BE%E7%A4%BA%E8%BF%99%E4%B8%AA%E5%88%97%E8%A1%A8-Fragment"><span class="nav-number">2.6.</span> <span class="nav-text">MainActivity 启动时显示这个列表 Fragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step1-%E5%AE%8C%E6%88%90%E9%AA%8C%E6%94%B6"><span class="nav-number">2.7.</span> <span class="nav-text">Step1 完成验收</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nexa1024"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Nexa1024</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nexa1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nexa1024" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/Day02-recycleview_router/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android-Day02-RecycleView&amp;路由跳转 | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-Day02-RecycleView&路由跳转
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-16 01:00:00" itemprop="dateCreated datePublished" datetime="2026-01-16T01:00:00+00:00">2026-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-17 03:47:33" itemprop="dateModified" datetime="2026-01-17T03:47:33+00:00">2026-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。</p>
+<span id="more"></span>
+<h1 id="按产出拆成-4-件事"><a href="#按产出拆成-4-件事" class="headerlink" title="按产出拆成 4 件事"></a>按产出拆成 4 件事</h1><h3 id="首页：RecyclerView-显示实验入口列表"><a href="#首页：RecyclerView-显示实验入口列表" class="headerlink" title="首页：RecyclerView 显示实验入口列表"></a>首页：RecyclerView 显示实验入口列表</h3><ul>
+<li>做一个 LabItem 数据结构（id、标题、简介、tags 可先不做或先留空）</li>
+<li>LabListFragment 展示一个 RecyclerView 列表（至少 6 项占位）：<ul>
+<li>启动优化</li>
+<li>卡顿&#x2F;Jank</li>
+<li>泄漏</li>
+<li>OOM</li>
+<li>ANR</li>
+<li>Crash</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由：点击列表项能进入对应-LabFragment"><a href="#路由：点击列表项能进入对应-LabFragment" class="headerlink" title="路由：点击列表项能进入对应 LabFragment"></a>路由：点击列表项能进入对应 LabFragment</h3><ul>
+<li>做一个 LabRegistry（注册表）：<ul>
+<li>all() 返回上述 6 个 LabItem</li>
+<li>createFragment(id) 返回对应的 Fragment（先是空页面&#x2F;占位页面也可以）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Activity：负责切换-Fragment-back-stack"><a href="#Activity：负责切换-Fragment-back-stack" class="headerlink" title="Activity：负责切换 Fragment + back stack"></a>Activity：负责切换 Fragment + back stack</h3><ul>
+<li>MainActivity.openLab(id)：<ul>
+<li>replace(R.id.main_container, LabRegistry.createFragment(id))</li>
+<li>addToBackStack(id)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）"><a href="#Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）" class="headerlink" title="Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）"></a>Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）</h3><ul>
+<li>在列表页：Toolbar 不显示返回箭头</li>
+<li>进入实验页：Toolbar 显示返回箭头，点击能返回列表</li>
+<li>实现方式：监听 supportFragmentManager.addOnBackStackChangedListener { … }，根据 backStack 是否为空来决定 supportActionBar?.setDisplayHomeAsUpEnabled(…)</li>
+</ul>
+<h1 id="RecyclerView-显示实验入口列表"><a href="#RecyclerView-显示实验入口列表" class="headerlink" title="RecyclerView 显示实验入口列表"></a>RecyclerView 显示实验入口列表</h1><h3 id="新建数据结构：LabItem"><a href="#新建数据结构：LabItem" class="headerlink" title="新建数据结构：LabItem"></a>新建数据结构：LabItem</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;core&#x2F;LabItem.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.core</span><br><span class="line"></span><br><span class="line">data class LabItem(</span><br><span class="line">    val id: String,</span><br><span class="line">    val title: String,</span><br><span class="line">    val desc: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建列表页布局：fragment-lab-list-xml"><a href="#新建列表页布局：fragment-lab-list-xml" class="headerlink" title="新建列表页布局：fragment_lab_list.xml"></a>新建列表页布局：fragment_lab_list.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;fragment_lab_list.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:id=&quot;@+id/rv_labs&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:padding=&quot;16dp&quot;</span><br><span class="line">    android:clipToPadding=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建列表-item-布局：item-lab-xml"><a href="#新建列表-item-布局：item-lab-xml" class="headerlink" title="新建列表 item 布局：item_lab.xml"></a>新建列表 item 布局：item_lab.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;item_lab.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:paddingVertical=&quot;12dp&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_title&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:textSize=&quot;16sp&quot;</span><br><span class="line">        android:textStyle=&quot;bold&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_desc&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginTop=&quot;4dp&quot;</span><br><span class="line">        android:textSize=&quot;13sp&quot;</span><br><span class="line">        android:alpha=&quot;0.75&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建-Adapter：LabListAdapter"><a href="#新建-Adapter：LabListAdapter" class="headerlink" title="新建 Adapter：LabListAdapter"></a>新建 Adapter：LabListAdapter</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListAdapter.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.view.LayoutInflater</span><br><span class="line">import android.view.View</span><br><span class="line">import android.view.ViewGroup</span><br><span class="line">import android.widget.TextView</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListAdapter(</span><br><span class="line">    private val items: List&lt;LabItem&gt;</span><br><span class="line">) : RecyclerView.Adapter&lt;LabListAdapter.VH&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    class VH(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line">        val title: TextView = itemView.findViewById(R.id.tv_title)</span><br><span class="line">        val desc: TextView = itemView.findViewById(R.id.tv_desc)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH &#123;</span><br><span class="line">        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_lab, parent, false)</span><br><span class="line">        return VH(v)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onBindViewHolder(holder: VH, position: Int) &#123;</span><br><span class="line">        val item = items[position]</span><br><span class="line">        holder.title.text = item.title</span><br><span class="line">        holder.desc.text = item.desc</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getItemCount(): Int = items.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建-Fragment：LabListFragment"><a href="#新建-Fragment：LabListFragment" class="headerlink" title="新建 Fragment：LabListFragment"></a>新建 Fragment：LabListFragment</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListFragment.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.os.Bundle</span><br><span class="line">import android.view.View</span><br><span class="line">import androidx.fragment.app.Fragment</span><br><span class="line">import androidx.recyclerview.widget.LinearLayoutManager</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListFragment : Fragment(R.layout.fragment_lab_list) &#123;</span><br><span class="line"></span><br><span class="line">    override fun onViewCreated(view: View, savedInstanceState: Bundle?) &#123;</span><br><span class="line">        val rv = view.findViewById&lt;RecyclerView&gt;(R.id.rv_labs)</span><br><span class="line">        rv.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line"></span><br><span class="line">        val items = listOf(</span><br><span class="line">            LabItem(&quot;startup&quot;, &quot;启动优化&quot;, &quot;冷/温/热启动、初始化治理、首帧直觉&quot;),</span><br><span class="line">            LabItem(&quot;jank&quot;, &quot;卡顿 / Jank&quot;, &quot;主线程阻塞、IO、锁等待、UI/GC&quot;),</span><br><span class="line">            LabItem(&quot;leak&quot;, &quot;内存泄漏&quot;, &quot;引用链、生命周期注销&quot;),</span><br><span class="line">            LabItem(&quot;oom&quot;, &quot;OOM&quot;, &quot;峰值、Bitmap、缓存上限、降级&quot;),</span><br><span class="line">            LabItem(&quot;anr&quot;, &quot;ANR&quot;, &quot;无响应、主线程卡死/等待&quot;),</span><br><span class="line">            LabItem(&quot;crash&quot;, &quot;Crash&quot;, &quot;栈+上下文、定位与闭环&quot;)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        rv.adapter = LabListAdapter(items)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MainActivity-启动时显示这个列表-Fragment"><a href="#MainActivity-启动时显示这个列表-Fragment" class="headerlink" title="MainActivity 启动时显示这个列表 Fragment"></a>MainActivity 启动时显示这个列表 Fragment</h3><p>在 MainActivity.onCreate() 里（setContentView 之后）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (savedInstanceState == null) &#123;</span><br><span class="line">    supportFragmentManager.beginTransaction()</span><br><span class="line">        .replace(R.id.main_container, LabListFragment())</span><br><span class="line">        .commit()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>———</p>
+<h2 id="Step1-完成验收"><a href="#Step1-完成验收" class="headerlink" title="Step1 完成验收"></a>Step1 完成验收</h2><ul>
+<li>App 启动后看到 6 条实验入口列表。<br><img src="/images/android/Day02-recyclerview_router/01.png"></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/algos/Day02-1.Two_Sum/" rel="prev" title="DSA-Day02-1.两数之和">
+                  <i class="fa fa-angle-left"></i> DSA-Day02-1.两数之和
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nexa1024</span>
+  </div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/nexa1024" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"nexa1024/nexa1024.github.io","repo_id":"R_kgDOQoD_Fw","category":"Announcements","category_id":"DIC_kwDOQoD_F84C0Abu","mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy","data-theme":"dark_high_contrast"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"right",libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:false,models:[{"path":"/l2dmodels/PermansorTerrae/PermansorTerrae.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}},{"path":"/l2dmodels/Cyrene/Cyrene.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},copyTips: {"message":["复制的内容要标明出处~"]},idleTips:{interval:20000,wordTheDay:function(wordTheDayData){
+  return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
