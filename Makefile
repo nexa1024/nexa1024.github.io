@@ -5,12 +5,17 @@ info:
 
 ############################ Git ###############################
 
-############################ checkout ###############################
+############### checkout ###############
 main:
 	git checkout main
 
 article:
 	git checkout feat/article
+
+fix:
+	git checkout fix/somefunction
+
+############### push ###############
 
 commit:
 	@if [ -z "$(msg)" ]; then \
