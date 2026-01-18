@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,6 +212,250 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day03-238.Product_Except_Self/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/algos/Day03-238.Product_Except_Self/" class="post-title-link" itemprop="url">DSA-Day03-238.除自身以外数组的乘积</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-18 01:00:00 / 修改时间：05:26:14" itemprop="dateCreated datePublished" datetime="2026-01-18T01:00:00+00:00">2026-01-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>前缀积与后缀积的经典应用</strong>。本题是 LeetCode 中等难度题，核心考点是<strong>在不使用除法的情况下，计算除自身以外的数组乘积</strong>，要求 O(n) 时间复杂度和 O(1) 额外空间（输出数组除外）。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>前缀和&#x2F;前缀积思想</strong>的典范，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/product-of-array-except-self/">238. 除自身以外数组的乘积</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/trapping-rain-water/">42. 接雨水</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">121. 买卖股票的最佳时机</a></li>
+</ul>
+<p>关键在于<strong>将问题分解为前缀积和后缀积两部分</strong>，避免了除法的使用（除法会遇到 0 的特殊情况）。</p>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>对每个位置计算其他元素乘积，性能差</td>
+</tr>
+<tr>
+<td>左右乘积列表</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>用两个数组分别存储前缀和后缀积</td>
+</tr>
+<tr>
+<td><strong>输出数组复用（最优）</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(1)</strong></td>
+<td><strong>用输出数组存前缀，变量存后缀</strong></td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：输出数组复用解法（满足 O(1) 额外空间）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/algos/Day03-238.Product_Except_Self/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day03-Top-K-Frequent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/algos/Day03-Top-K-Frequent/" class="post-title-link" itemprop="url">DSA-Day03-347.前K个高频元素</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-18 00:00:00 / 修改时间：05:26:14" itemprop="dateCreated datePublished" datetime="2026-01-18T00:00:00+00:00">2026-01-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>Top K 问题的经典应用</strong>。本题是 LeetCode 中等难度题，核心考点是<strong>在 O(n) 时间复杂度内找出前 k 个高频元素</strong>，是 Google、Meta 等大厂面试高频题。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>Top K 问题</strong>的典范，掌握后可举一反三解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/kth-largest-element-in-an-array/">215. 第 K 个最大元素</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/top-k-frequent-words/">692. 前 K 个高频单词</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/top-k-frequent-elements/">347. 前K个高频元素</a>（本题）</li>
+</ul>
+<p>关键不在统计频率（HashMap 基础操作），而在如何<strong>高效地选出 Top K</strong>。进阶要求时间复杂度必须优于 O(n log n)，这迫使你必须使用<strong>桶排序</strong>。</p>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>哈希表 + 排序</td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>基础解法</td>
+</tr>
+<tr>
+<td>哈希表 + 小顶堆</td>
+<td>O(n log k)</td>
+<td>O(n)</td>
+<td>k &lt;&lt; n 时较优</td>
+</tr>
+<tr>
+<td><strong>哈希表 + 桶排序</strong></td>
+<td><strong>O(n)</strong></td>
+<td>O(n)</td>
+<td><strong>最优解，推荐背诵</strong></td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：桶排序解法（满足进阶要求 O(n)）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/algos/Day03-Top-K-Frequent/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/Day01-02-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -242,7 +486,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-01-18 00:00:00 / 修改时间：03:46:49" itemprop="dateCreated datePublished" datetime="2026-01-18T00:00:00+00:00">2026-01-18</time>
+      <time title="创建时间：2026-01-18 00:00:00 / 修改时间：05:26:14" itemprop="dateCreated datePublished" datetime="2026-01-18T00:00:00+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -264,15 +508,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Week-1-Day-01-02-实现总结"><a href="#Week-1-Day-01-02-实现总结" class="headerlink" title="Week 1 Day 01-02 实现总结"></a>Week 1 Day 01-02 实现总结</h1><h2 id="项目概述"><a href="#项目概述" class="headerlink" title="项目概述"></a>项目概述</h2><p><strong>PerfStabilityLab</strong> 是一个专注于性能与稳定性的 Android 演示项目，通过动手实验的方式复现应用优化。</p>
-<h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><ul>
-<li><strong>语言</strong>: Kotlin</li>
-<li><strong>最低 SDK</strong>: 33 (Android 13)</li>
-<li><strong>目标 SDK</strong>: 36</li>
-<li><strong>UI</strong>: View&#x2F;XML 布局（非 Jetpack Compose）</li>
-<li><strong>架构</strong>: 单 Activity + Fragment 导航</li>
-</ul>
-<hr>
+          <h2 id="PerfStabilityLab：性能与稳定性演示项目"><a href="#PerfStabilityLab：性能与稳定性演示项目" class="headerlink" title="PerfStabilityLab：性能与稳定性演示项目"></a>PerfStabilityLab：性能与稳定性演示项目</h2><p><strong>PerfStabilityLab</strong> 是一个专注于 Android 性能与稳定性优化的演示项目，通过动手实验的方式复现启动优化、卡顿、内存泄漏、OOM、ANR、Crash 等典型问题。</p>
+<p><strong>技术栈</strong>：Kotlin + View&#x2F;XML + 单Activity + Fragment架构 (SDK 33-36)</p>
+<p><strong>Day01-02</strong>：搭建项目骨架（Toolbar+Fragment容器）+ RecyclerView导航链路</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/android/Day01-02-summary/#more" rel="contents">
@@ -342,7 +580,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -364,7 +602,43 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>1.两数之和背诵模板</p>
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表经典应用</strong>。本题是 LeetCode 第一题，核心考点是<strong>使用哈希表在一次遍历中找到目标和的两个元素</strong>，是面试必考题。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表查找</strong>的经典应用，是 LeetCode 最受欢迎的题目，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">1. 两数之和</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 三数之和</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">18. 四数之和</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum-ii/">454. 四数相加 II</a></li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>双重循环，性能差</td>
+</tr>
+<tr>
+<td>排序 + 双指针</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>需要修改原数组或额外空间</td>
+</tr>
+<tr>
+<td><strong>HashMap</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>最优解，推荐背诵</strong></td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：HashMap 解法（O(n) 时间，边遍历边查找）</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day02-1.Two_Sum/#more" rel="contents">
@@ -434,7 +708,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -456,9 +730,42 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ol start="49">
-<li>字母异位词分组背诵模板</li>
-</ol>
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表 + 排序综合应用</strong>。本题是 LeetCode 中等难度题，核心考点是<strong>使用哈希表将排序后的字符串作为 key 进行分组</strong>，是字符串处理的经典题目。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表分组</strong>的典型应用，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">49. 字母异位词分组</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-anagram/">242. 有效的字母异位词</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-all-anagrams-in-a-string/">438. 找到字符串中所有字母异位词</a></li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n² × k)</td>
+<td>O(nk)</td>
+<td>每组两两比较，性能差</td>
+</tr>
+<tr>
+<td><strong>排序 + HashMap</strong></td>
+<td><strong>O(nk log k)</strong></td>
+<td><strong>O(nk)</strong></td>
+<td><strong>最优解，推荐背诵</strong></td>
+</tr>
+<tr>
+<td>计数 + HashMap</td>
+<td>O(n(k+Σ))</td>
+<td>O(n(k+Σ))</td>
+<td>字符集有限时较优</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：排序 + HashMap 解法（通用性强）</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day02-49.Group_Anagrams/#more" rel="contents">
@@ -528,7 +835,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -550,7 +857,42 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>217.存在重复元素背诵模板</p>
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>HashSet 基础应用</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用 HashSet 判断数组中是否存在重复元素</strong>，是哈希表入门的第一道题。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表去重</strong>的基础操作，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">217. 存在重复元素</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">219. 存在重复元素 II</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-iii/">220. 存在重复元素 III</a></li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>双重循环，性能差</td>
+</tr>
+<tr>
+<td>排序后比较</td>
+<td>O(n log n)</td>
+<td>O(1) 或 O(n)</td>
+<td>需要修改原数组或额外空间</td>
+</tr>
+<tr>
+<td><strong>HashSet</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>最优解，推荐背诵</strong></td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：HashSet 解法（O(n) 时间，一次遍历）</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day01-217.Contains_Duplicate/#more" rel="contents">
@@ -620,7 +962,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -642,9 +984,42 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ol start="242">
-<li>有效的字母异位词背诵模板</li>
-</ol>
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表字符计数</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用哈希表统计字符频率判断两个字符串是否为字母异位词</strong>。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>字符统计</strong>的基础操作，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-anagram/">242. 有效的字母异位词</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/group-anagrams/">49. 字母异位词分组</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-all-anagrams-in-a-string/">438. 找到字符串中所有字母异位词</a></li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>排序后比较</td>
+<td>O(n log n)</td>
+<td>O(1) 或 O(n)</td>
+<td>需要排序，代码简洁但性能较差</td>
+</tr>
+<tr>
+<td><strong>哈希表计数</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(Σ)</strong></td>
+<td><strong>最优解，Σ 为字符集大小</strong></td>
+</tr>
+<tr>
+<td>数组计数（限定小写字母）</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>仅当字符集已知时可用</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：哈希表计数解法（O(n) 时间）</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day01-242.Valid_Anagram/#more" rel="contents">
@@ -714,7 +1089,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -736,7 +1111,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>第一天搭建基础工程+toolbar</p>
+          <h2 id="Day01：搭建基础工程-Toolbar-容器"><a href="#Day01：搭建基础工程-Toolbar-容器" class="headerlink" title="Day01：搭建基础工程 + Toolbar 容器"></a>Day01：搭建基础工程 + Toolbar 容器</h2><p>创建 Empty Views Activity 项目，配置国内镜像加速依赖下载，搭建 Toolbar 和 Fragment 容器作为应用基础架构。</p>
+<p><strong>核心内容</strong>：项目初始化、Gradle镜像配置、Toolbar集成、Fragment容器搭建</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/android/Day01-skeleton_toolbar/#more" rel="contents">
@@ -806,7 +1182,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
+      <time title="修改时间：2026-01-18 05:26:14" itemprop="dateModified" datetime="2026-01-18T05:26:14+00:00">2026-01-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -828,102 +1204,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>计划：16周内重新复现性能学习计划</p>
+          <h2 id="16周性能优化学习计划"><a href="#16周性能优化学习计划" class="headerlink" title="16周性能优化学习计划"></a>16周性能优化学习计划</h2><p>系统学习 Android 性能与稳定性优化，涵盖启动、卡顿、内存泄漏、OOM、ANR、Crash 等核心主题，通过每日90分钟的固定配方（算法+阅读+Demo+卡片输出）循序渐进掌握性能调优技能。</p>
+<p><strong>每日配方</strong>：15m算法 + 45m阅读 + 25m Demo验证 + 5m卡片输出</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/android/Day00-before_study/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day00-before-studying/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Nexa1024">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/algos/Day00-before-studying/" class="post-title-link" itemprop="url">DAS-DAY00-数据结构与算法必看</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-01T00:00:00+00:00">2026-01-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-18 03:46:49" itemprop="dateModified" datetime="2026-01-18T03:46:49+00:00">2026-01-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>更多的是对于已经对数据结构与算法有一定了解的人，可以复习，我不知道对于新手是否有帮助。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/algos/Day00-before-studying/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
