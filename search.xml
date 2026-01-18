@@ -168,45 +168,6 @@
       </categories>
   </entry>
   <entry>
-    <title>DSA-Day01-217.存在重复元素</title>
-    <url>/algos/Day01-217.Contains_Duplicate/</url>
-    <content><![CDATA[<p>217.存在重复元素背诵模板</p>
-<span id="more"></span>
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
-<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
-<ul>
-<li>我用一个哈希seen记录已经出现过的元素。</li>
-</ul>
-<p><strong>不变量&#x2F;约束</strong></p>
-<ul>
-<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
-</ul>
-<p><strong>推进&#x2F;转移</strong></p>
-<ul>
-<li>arr[i]没有出现在seen中</li>
-</ul>
-<p><strong>终止&#x2F;答案+边界</strong></p>
-<ul>
-<li>终止：当arr[i]出现在seen中。</li>
-<li>边界：空数组</li>
-</ul>
-<p><strong>常见坑</strong></p>
-<ul>
-<li>忘记将数组元素add入哈希</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-  </entry>
-  <entry>
     <title>DSA-Day01-242.有效的字母异位词背诵模板</title>
     <url>/algos/Day01-242.Valid_Anagram/</url>
     <content><![CDATA[<ol start="242">
@@ -250,6 +211,45 @@
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isAnagram(String s, String t) &#123;</span><br><span class="line"></span><br><span class="line">        if (s.length() != t.length()) return false;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Character, Integer&gt; frequencyMap = new HashMap&lt;&gt;();</span><br><span class="line">        for (char c: s.toCharArray()) &#123;</span><br><span class="line">            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(char c: t.toCharArray()) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false;</span><br><span class="line">            int count = frequencyMap.get(c);</span><br><span class="line">            if (count == 0) &#123; // 若t中字符出现次数超过s，返回false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            frequencyMap.put(c, count - 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isAnagram(s: String, t: String): Boolean &#123;</span><br><span class="line">        if (s.length != t.length) return false</span><br><span class="line">        </span><br><span class="line">        val frequencyMap = mutableMapOf&lt;Char, Int&gt;()</span><br><span class="line">        for (c in s) &#123;</span><br><span class="line">            frequencyMap[c] = frequencyMap.getOrDefault(c, 0) + 1</span><br><span class="line">        &#125;</span><br><span class="line">        for (c in t) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false</span><br><span class="line">            val count = frequencyMap[c]!!  // 安全获取（因已检查存在性）</span><br><span class="line">            if (count == 0) return false</span><br><span class="line">            frequencyMap[c] = count - 1</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day01-217.存在重复元素</title>
+    <url>/algos/Day01-217.Contains_Duplicate/</url>
+    <content><![CDATA[<p>217.存在重复元素背诵模板</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个哈希seen记录已经出现过的元素。</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>arr[i]没有出现在seen中</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：当arr[i]出现在seen中。</li>
+<li>边界：空数组</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>忘记将数组元素add入哈希</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
