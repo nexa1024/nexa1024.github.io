@@ -1,164 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DSA-Day01-217.存在重复元素</title>
-    <url>/algos/Day01-217.Contains_Duplicate/</url>
-    <content><![CDATA[<p>217.存在重复元素背诵模板</p>
+    <title>Android-Day02-RecycleView&amp;路由跳转</title>
+    <url>/android/Day02-recycleview_router/</url>
+    <content><![CDATA[<p>Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。</p>
 <span id="more"></span>
+<h1 id="按产出拆成-4-件事"><a href="#按产出拆成-4-件事" class="headerlink" title="按产出拆成 4 件事"></a>按产出拆成 4 件事</h1><h3 id="首页：RecyclerView-显示实验入口列表"><a href="#首页：RecyclerView-显示实验入口列表" class="headerlink" title="首页：RecyclerView 显示实验入口列表"></a>首页：RecyclerView 显示实验入口列表</h3><ul>
+<li>做一个 LabItem 数据结构（id、标题、简介、tags 可先不做或先留空）</li>
+<li>LabListFragment 展示一个 RecyclerView 列表（至少 6 项占位）：<ul>
+<li>启动优化</li>
+<li>卡顿&#x2F;Jank</li>
+<li>泄漏</li>
+<li>OOM</li>
+<li>ANR</li>
+<li>Crash</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由：点击列表项能进入对应-LabFragment"><a href="#路由：点击列表项能进入对应-LabFragment" class="headerlink" title="路由：点击列表项能进入对应 LabFragment"></a>路由：点击列表项能进入对应 LabFragment</h3><ul>
+<li>做一个 LabRegistry（注册表）：<ul>
+<li>all() 返回上述 6 个 LabItem</li>
+<li>createFragment(id) 返回对应的 Fragment（先是空页面&#x2F;占位页面也可以）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Activity：负责切换-Fragment-back-stack"><a href="#Activity：负责切换-Fragment-back-stack" class="headerlink" title="Activity：负责切换 Fragment + back stack"></a>Activity：负责切换 Fragment + back stack</h3><ul>
+<li>MainActivity.openLab(id)：<ul>
+<li>replace(R.id.main_container, LabRegistry.createFragment(id))</li>
+<li>addToBackStack(id)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）"><a href="#Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）" class="headerlink" title="Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）"></a>Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）</h3><ul>
+<li>在列表页：Toolbar 不显示返回箭头</li>
+<li>进入实验页：Toolbar 显示返回箭头，点击能返回列表</li>
+<li>实现方式：监听 supportFragmentManager.addOnBackStackChangedListener { … }，根据 backStack 是否为空来决定 supportActionBar?.setDisplayHomeAsUpEnabled(…)</li>
+</ul>
+<h1 id="RecyclerView-显示实验入口列表"><a href="#RecyclerView-显示实验入口列表" class="headerlink" title="RecyclerView 显示实验入口列表"></a>RecyclerView 显示实验入口列表</h1><h3 id="新建数据结构：LabItem"><a href="#新建数据结构：LabItem" class="headerlink" title="新建数据结构：LabItem"></a>新建数据结构：LabItem</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;core&#x2F;LabItem.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.core</span><br><span class="line"></span><br><span class="line">data class LabItem(</span><br><span class="line">    val id: String,</span><br><span class="line">    val title: String,</span><br><span class="line">    val desc: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
-<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
-<ul>
-<li>我用一个哈希seen记录已经出现过的元素。</li>
-</ul>
-<p><strong>不变量&#x2F;约束</strong></p>
-<ul>
-<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
-</ul>
-<p><strong>推进&#x2F;转移</strong></p>
-<ul>
-<li>arr[i]没有出现在seen中</li>
-</ul>
-<p><strong>终止&#x2F;答案+边界</strong></p>
-<ul>
-<li>终止：当arr[i]出现在seen中。</li>
-<li>边界：空数组</li>
-</ul>
-<p><strong>常见坑</strong></p>
-<ul>
-<li>忘记将数组元素add入哈希</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="新建列表页布局：fragment-lab-list-xml"><a href="#新建列表页布局：fragment-lab-list-xml" class="headerlink" title="新建列表页布局：fragment_lab_list.xml"></a>新建列表页布局：fragment_lab_list.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;fragment_lab_list.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:id=&quot;@+id/rv_labs&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:padding=&quot;16dp&quot;</span><br><span class="line">    android:clipToPadding=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure>
 
+
+<h3 id="新建列表-item-布局：item-lab-xml"><a href="#新建列表-item-布局：item-lab-xml" class="headerlink" title="新建列表 item 布局：item_lab.xml"></a>新建列表 item 布局：item_lab.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;item_lab.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:paddingVertical=&quot;12dp&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_title&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:textSize=&quot;16sp&quot;</span><br><span class="line">        android:textStyle=&quot;bold&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_desc&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginTop=&quot;4dp&quot;</span><br><span class="line">        android:textSize=&quot;13sp&quot;</span><br><span class="line">        android:alpha=&quot;0.75&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建-Adapter：LabListAdapter"><a href="#新建-Adapter：LabListAdapter" class="headerlink" title="新建 Adapter：LabListAdapter"></a>新建 Adapter：LabListAdapter</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListAdapter.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.view.LayoutInflater</span><br><span class="line">import android.view.View</span><br><span class="line">import android.view.ViewGroup</span><br><span class="line">import android.widget.TextView</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListAdapter(</span><br><span class="line">    private val items: List&lt;LabItem&gt;</span><br><span class="line">) : RecyclerView.Adapter&lt;LabListAdapter.VH&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    class VH(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line">        val title: TextView = itemView.findViewById(R.id.tv_title)</span><br><span class="line">        val desc: TextView = itemView.findViewById(R.id.tv_desc)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH &#123;</span><br><span class="line">        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_lab, parent, false)</span><br><span class="line">        return VH(v)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onBindViewHolder(holder: VH, position: Int) &#123;</span><br><span class="line">        val item = items[position]</span><br><span class="line">        holder.title.text = item.title</span><br><span class="line">        holder.desc.text = item.desc</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getItemCount(): Int = items.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="新建-Fragment：LabListFragment"><a href="#新建-Fragment：LabListFragment" class="headerlink" title="新建 Fragment：LabListFragment"></a>新建 Fragment：LabListFragment</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListFragment.kt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.os.Bundle</span><br><span class="line">import android.view.View</span><br><span class="line">import androidx.fragment.app.Fragment</span><br><span class="line">import androidx.recyclerview.widget.LinearLayoutManager</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListFragment : Fragment(R.layout.fragment_lab_list) &#123;</span><br><span class="line"></span><br><span class="line">    override fun onViewCreated(view: View, savedInstanceState: Bundle?) &#123;</span><br><span class="line">        val rv = view.findViewById&lt;RecyclerView&gt;(R.id.rv_labs)</span><br><span class="line">        rv.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line"></span><br><span class="line">        val items = listOf(</span><br><span class="line">            LabItem(&quot;startup&quot;, &quot;启动优化&quot;, &quot;冷/温/热启动、初始化治理、首帧直觉&quot;),</span><br><span class="line">            LabItem(&quot;jank&quot;, &quot;卡顿 / Jank&quot;, &quot;主线程阻塞、IO、锁等待、UI/GC&quot;),</span><br><span class="line">            LabItem(&quot;leak&quot;, &quot;内存泄漏&quot;, &quot;引用链、生命周期注销&quot;),</span><br><span class="line">            LabItem(&quot;oom&quot;, &quot;OOM&quot;, &quot;峰值、Bitmap、缓存上限、降级&quot;),</span><br><span class="line">            LabItem(&quot;anr&quot;, &quot;ANR&quot;, &quot;无响应、主线程卡死/等待&quot;),</span><br><span class="line">            LabItem(&quot;crash&quot;, &quot;Crash&quot;, &quot;栈+上下文、定位与闭环&quot;)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        rv.adapter = LabListAdapter(items)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MainActivity-启动时显示这个列表-Fragment"><a href="#MainActivity-启动时显示这个列表-Fragment" class="headerlink" title="MainActivity 启动时显示这个列表 Fragment"></a>MainActivity 启动时显示这个列表 Fragment</h3><p>在 MainActivity.onCreate() 里（setContentView 之后）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (savedInstanceState == null) &#123;</span><br><span class="line">    supportFragmentManager.beginTransaction()</span><br><span class="line">        .replace(R.id.main_container, LabListFragment())</span><br><span class="line">        .commit()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>———</p>
+<h2 id="Step1-完成验收"><a href="#Step1-完成验收" class="headerlink" title="Step1 完成验收"></a>Step1 完成验收</h2><ul>
+<li>App 启动后看到 6 条实验入口列表。<br><img src="/images/android/Day02-recyclerview_router/01.png"></li>
+</ul>
 ]]></content>
       <categories>
-        <category>数据结构与算法</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>DAS-DAY00-数据结构与算法必看</title>
-    <url>/algos/Day00-before-studying/</url>
-    <content><![CDATA[<p>更多的是对于已经对数据结构与算法有一定了解的人，可以复习，我不知道对于新手是否有帮助。</p>
-<span id="more"></span>
-
-<h2 id="针对的人群"><a href="#针对的人群" class="headerlink" title="针对的人群"></a>针对的人群</h2><p>更多的是对于已经对数据结构与算法有一定了解的人，可以复习，我不知道对于新手是否有帮助。</p>
-<h2 id="名词解释："><a href="#名词解释：" class="headerlink" title="名词解释："></a>名词解释：</h2><h3 id="模型（Model-State）"><a href="#模型（Model-State）" class="headerlink" title="模型（Model &#x2F; State）"></a>模型（Model &#x2F; State）</h3><p><strong>一句话：模型&#x3D;你维护的“状态容器”是什么。</strong></p>
-<p>“模型”就是你把题目抽象成的状态表示和数据结构：你打算用什么来描述当前进度&#x2F;信息。</p>
-<p>例如：</p>
-<ul>
-<li><p>双指针题：模型 &#x3D; l&#x2F;r 指针位置（以及它们代表的区间含义）</p>
-</li>
-<li><p>滑动窗口：模型 &#x3D; [l,r] 窗口 + 计数表&#x2F;和等统计量</p>
-</li>
-<li><p>哈希判重：模型 &#x3D; seen 集合（已出现的元素集合）</p>
-</li>
-<li><p>BFS：模型 &#x3D; 队列中的节点 + visited&#x2F;dist</p>
-</li>
-<li><p>DP：模型 &#x3D; dp[i] 的定义（dp 数组含义）</p>
-<hr>
-</li>
-</ul>
-<h3 id="不变量（Invariant）"><a href="#不变量（Invariant）" class="headerlink" title="不变量（Invariant）"></a>不变量（Invariant）</h3><p>  “不变量”是指在算法执行过程中，始终保持为真的条件&#x2F;性质。它是正确性的支点。<strong>一句话：不变量&#x3D;你每一步都不破坏的“保证正确的规则”。</strong></p>
-<p>  以哈希判重为例：</p>
-<ul>
-<li>不变量：遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值。</li>
-<li>因为这个不变量成立，所以当你看到新元素 x 时：<ul>
-<li>x in seen ⇒ 前面已经出现过 ⇒ 至少两次 ⇒ 可以返回 true</li>
-</ul>
-</li>
-</ul>
-<h3 id="推进（Progress-Transition）"><a href="#推进（Progress-Transition）" class="headerlink" title="推进（Progress &#x2F; Transition）"></a>推进（Progress &#x2F; Transition）</h3><p> <strong>一句话：推进&#x3D;每一步怎么更新状态，怎么缩小问题规模。</strong></p>
-<p>每次循环&#x2F;递归&#x2F;迭代时，你如何：</p>
-<pre><code>- 更新状态（模型）
-- 让算法向结束更近（避免死循环）
-- 同时保持不变量成立
-</code></pre>
-<p> 哈希判重的推进：</p>
-<pre><code>- 读取 x
-- 如果已存在：返回 true
-- 否则加入 seen（更新状态）并继续遍历
-</code></pre>
-<p> 双指针的推进：</p>
-<ul>
-<li>比较后移动 l 或 r（指针前进&#x2F;收缩区间）</li>
-</ul>
-<h3 id="终止（Termination）"><a href="#终止（Termination）" class="headerlink" title="终止（Termination）"></a>终止（Termination）</h3><p> <strong>一句话：终止&#x3D;什么时候结束、结束时答案是什么。</strong></p>
-<p>  “终止”描述两个问题：</p>
-<ol>
-<li>算法在什么条件下停（停止条件）</li>
-<li>停的时候答案怎么取（返回什么）</li>
-</ol>
-<p>  哈希判重的终止：</p>
-<ul>
-<li><p>提前终止：发现重复立刻返回 true</p>
-</li>
-<li><p>正常终止：遍历完仍无重复返回 false</p>
-<p>BFS 的终止：</p>
-</li>
-<li><p>找到目标返回最短距离</p>
-</li>
-<li><p>队列空说明不可达</p>
-<p>把它们连起来就是你背诵时的逻辑链：<br><strong>模型（我维护什么）→ 不变量（我凭什么正确）→ 推进（我每步怎么做）→ 终止（何时停&#x2F;返回啥）</strong></p>
-</li>
-</ul>
-<h2 id="必看路径"><a href="#必看路径" class="headerlink" title="必看路径"></a>必看路径</h2><p>参考url：<a href="https://neetcode.io/roadmap">https://neetcode.io/roadmap</a> 150题路径</p>
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>DSA-Day01-242.有效的字母异位词背诵模板</title>
-    <url>/algos/Day01-242.Valid_Anagram/</url>
-    <content><![CDATA[<ol start="242">
-<li>有效的字母异位词背诵模板</li>
-</ol>
-<span id="more"></span>
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/algos/Day01-242.Valid_Anagram/01.png"></p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>字符串、哈希、排序</p>
-<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
-<ul>
-<li>我用一个<strong>HashMap</strong>记录<strong>s</strong>的所有字符出现的次数，key为字符，value为次数</li>
-</ul>
-<p><strong>不变量&#x2F;约束</strong></p>
-<ul>
-<li>遍历 <strong>s <strong>到 <strong>i <strong>的位置，<strong>i-1</strong>的字符在</strong>HashMap</strong>都作为了</strong>key</strong>，并且所有<strong>value</strong>都是<strong>大于0</strong>。</li>
-</ul>
-<p><strong>推进&#x2F;转移</strong></p>
-<ul>
-<li>循环<strong>t</strong>中的字符，找到<strong>HashMap</strong>中对应的<strong>key，<strong>如果找到则</strong>value–</strong></li>
-</ul>
-<p><strong>终止&#x2F;答案+边界</strong></p>
-<ul>
-<li>终止：<ul>
-<li><strong>t</strong>和<strong>s</strong>的长度不一致</li>
-<li><strong>t</strong>的字符在<strong>HashMap</strong>的<strong>key</strong>中无法找到。</li>
-<li><strong>t</strong>的字符在<strong>HashMap</strong>的<strong>value</strong>在**-1<strong>之前已经为</strong>0**</li>
-</ul>
-</li>
-</ul>
-<p><strong>复杂度</strong></p>
-<ul>
-<li>时间复杂度：O(n)，其中 n 为 s 的长度。</li>
-<li>空间复杂度：O(S)，其中 S 为字符集大小</li>
-</ul>
-<p><strong>常见坑</strong></p>
-<ul>
-<li>无</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isAnagram(String s, String t) &#123;</span><br><span class="line"></span><br><span class="line">        if (s.length() != t.length()) return false;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Character, Integer&gt; frequencyMap = new HashMap&lt;&gt;();</span><br><span class="line">        for (char c: s.toCharArray()) &#123;</span><br><span class="line">            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(char c: t.toCharArray()) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false;</span><br><span class="line">            int count = frequencyMap.get(c);</span><br><span class="line">            if (count == 0) &#123; // 若t中字符出现次数超过s，返回false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            frequencyMap.put(c, count - 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isAnagram(s: String, t: String): Boolean &#123;</span><br><span class="line">        if (s.length != t.length) return false</span><br><span class="line">        </span><br><span class="line">        val frequencyMap = mutableMapOf&lt;Char, Int&gt;()</span><br><span class="line">        for (c in s) &#123;</span><br><span class="line">            frequencyMap[c] = frequencyMap.getOrDefault(c, 0) + 1</span><br><span class="line">        &#125;</span><br><span class="line">        for (c in t) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false</span><br><span class="line">            val count = frequencyMap[c]!!  // 安全获取（因已检查存在性）</span><br><span class="line">            if (count == 0) return false</span><br><span class="line">            frequencyMap[c] = count - 1</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
+        <category>Android</category>
       </categories>
   </entry>
   <entry>
@@ -256,6 +161,95 @@
 <li>无</li>
 </ul>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun groupAnagrams(strs: Array&lt;String&gt;): List&lt;List&lt;String&gt;&gt; &#123;</span><br><span class="line">        val map = hashMapOf&lt;String, MutableList&lt;String&gt;&gt;()</span><br><span class="line"></span><br><span class="line">        for (str:String in strs) &#123;</span><br><span class="line">            // strs每个字符串内容重新排序作为key</span><br><span class="line">            val key = str.toCharArray().sorted().joinToString(&quot;&quot;);</span><br><span class="line">            val values = map.getOrDefault(key, mutableListOf())</span><br><span class="line">            values.add(str)</span><br><span class="line">            map.put(key, values)</span><br><span class="line">        &#125;</span><br><span class="line">        return map.values.toList()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day01-217.存在重复元素</title>
+    <url>/algos/Day01-217.Contains_Duplicate/</url>
+    <content><![CDATA[<p>217.存在重复元素背诵模板</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个哈希seen记录已经出现过的元素。</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>arr[i]没有出现在seen中</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：当arr[i]出现在seen中。</li>
+<li>边界：空数组</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>忘记将数组元素add入哈希</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day01-242.有效的字母异位词背诵模板</title>
+    <url>/algos/Day01-242.Valid_Anagram/</url>
+    <content><![CDATA[<ol start="242">
+<li>有效的字母异位词背诵模板</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/algos/Day01-242.Valid_Anagram/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>字符串、哈希、排序</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个<strong>HashMap</strong>记录<strong>s</strong>的所有字符出现的次数，key为字符，value为次数</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历 <strong>s <strong>到 <strong>i <strong>的位置，<strong>i-1</strong>的字符在</strong>HashMap</strong>都作为了</strong>key</strong>，并且所有<strong>value</strong>都是<strong>大于0</strong>。</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>循环<strong>t</strong>中的字符，找到<strong>HashMap</strong>中对应的<strong>key，<strong>如果找到则</strong>value–</strong></li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：<ul>
+<li><strong>t</strong>和<strong>s</strong>的长度不一致</li>
+<li><strong>t</strong>的字符在<strong>HashMap</strong>的<strong>key</strong>中无法找到。</li>
+<li><strong>t</strong>的字符在<strong>HashMap</strong>的<strong>value</strong>在**-1<strong>之前已经为</strong>0**</li>
+</ul>
+</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li>时间复杂度：O(n)，其中 n 为 s 的长度。</li>
+<li>空间复杂度：O(S)，其中 S 为字符集大小</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>无</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isAnagram(String s, String t) &#123;</span><br><span class="line"></span><br><span class="line">        if (s.length() != t.length()) return false;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Character, Integer&gt; frequencyMap = new HashMap&lt;&gt;();</span><br><span class="line">        for (char c: s.toCharArray()) &#123;</span><br><span class="line">            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(char c: t.toCharArray()) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false;</span><br><span class="line">            int count = frequencyMap.get(c);</span><br><span class="line">            if (count == 0) &#123; // 若t中字符出现次数超过s，返回false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            frequencyMap.put(c, count - 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isAnagram(s: String, t: String): Boolean &#123;</span><br><span class="line">        if (s.length != t.length) return false</span><br><span class="line">        </span><br><span class="line">        val frequencyMap = mutableMapOf&lt;Char, Int&gt;()</span><br><span class="line">        for (c in s) &#123;</span><br><span class="line">            frequencyMap[c] = frequencyMap.getOrDefault(c, 0) + 1</span><br><span class="line">        &#125;</span><br><span class="line">        for (c in t) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false</span><br><span class="line">            val count = frequencyMap[c]!!  // 安全获取（因已检查存在性）</span><br><span class="line">            if (count == 0) return false</span><br><span class="line">            frequencyMap[c] = count - 1</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -460,69 +454,75 @@
       </categories>
   </entry>
   <entry>
-    <title>Android-Day02-RecycleView&amp;路由跳转</title>
-    <url>/android/Day02-recycleview_router/</url>
-    <content><![CDATA[<p>Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。</p>
+    <title>DAS-DAY00-数据结构与算法必看</title>
+    <url>/algos/Day00-before-studying/</url>
+    <content><![CDATA[<p>更多的是对于已经对数据结构与算法有一定了解的人，可以复习，我不知道对于新手是否有帮助。</p>
 <span id="more"></span>
-<h1 id="按产出拆成-4-件事"><a href="#按产出拆成-4-件事" class="headerlink" title="按产出拆成 4 件事"></a>按产出拆成 4 件事</h1><h3 id="首页：RecyclerView-显示实验入口列表"><a href="#首页：RecyclerView-显示实验入口列表" class="headerlink" title="首页：RecyclerView 显示实验入口列表"></a>首页：RecyclerView 显示实验入口列表</h3><ul>
-<li>做一个 LabItem 数据结构（id、标题、简介、tags 可先不做或先留空）</li>
-<li>LabListFragment 展示一个 RecyclerView 列表（至少 6 项占位）：<ul>
-<li>启动优化</li>
-<li>卡顿&#x2F;Jank</li>
-<li>泄漏</li>
-<li>OOM</li>
-<li>ANR</li>
-<li>Crash</li>
+
+<h2 id="针对的人群"><a href="#针对的人群" class="headerlink" title="针对的人群"></a>针对的人群</h2><p>更多的是对于已经对数据结构与算法有一定了解的人，可以复习，我不知道对于新手是否有帮助。</p>
+<h2 id="名词解释："><a href="#名词解释：" class="headerlink" title="名词解释："></a>名词解释：</h2><h3 id="模型（Model-State）"><a href="#模型（Model-State）" class="headerlink" title="模型（Model &#x2F; State）"></a>模型（Model &#x2F; State）</h3><p><strong>一句话：模型&#x3D;你维护的“状态容器”是什么。</strong></p>
+<p>“模型”就是你把题目抽象成的状态表示和数据结构：你打算用什么来描述当前进度&#x2F;信息。</p>
+<p>例如：</p>
+<ul>
+<li><p>双指针题：模型 &#x3D; l&#x2F;r 指针位置（以及它们代表的区间含义）</p>
+</li>
+<li><p>滑动窗口：模型 &#x3D; [l,r] 窗口 + 计数表&#x2F;和等统计量</p>
+</li>
+<li><p>哈希判重：模型 &#x3D; seen 集合（已出现的元素集合）</p>
+</li>
+<li><p>BFS：模型 &#x3D; 队列中的节点 + visited&#x2F;dist</p>
+</li>
+<li><p>DP：模型 &#x3D; dp[i] 的定义（dp 数组含义）</p>
+<hr>
+</li>
+</ul>
+<h3 id="不变量（Invariant）"><a href="#不变量（Invariant）" class="headerlink" title="不变量（Invariant）"></a>不变量（Invariant）</h3><p>  “不变量”是指在算法执行过程中，始终保持为真的条件&#x2F;性质。它是正确性的支点。<strong>一句话：不变量&#x3D;你每一步都不破坏的“保证正确的规则”。</strong></p>
+<p>  以哈希判重为例：</p>
+<ul>
+<li>不变量：遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值。</li>
+<li>因为这个不变量成立，所以当你看到新元素 x 时：<ul>
+<li>x in seen ⇒ 前面已经出现过 ⇒ 至少两次 ⇒ 可以返回 true</li>
 </ul>
 </li>
 </ul>
-<h3 id="路由：点击列表项能进入对应-LabFragment"><a href="#路由：点击列表项能进入对应-LabFragment" class="headerlink" title="路由：点击列表项能进入对应 LabFragment"></a>路由：点击列表项能进入对应 LabFragment</h3><ul>
-<li>做一个 LabRegistry（注册表）：<ul>
-<li>all() 返回上述 6 个 LabItem</li>
-<li>createFragment(id) 返回对应的 Fragment（先是空页面&#x2F;占位页面也可以）</li>
+<h3 id="推进（Progress-Transition）"><a href="#推进（Progress-Transition）" class="headerlink" title="推进（Progress &#x2F; Transition）"></a>推进（Progress &#x2F; Transition）</h3><p> <strong>一句话：推进&#x3D;每一步怎么更新状态，怎么缩小问题规模。</strong></p>
+<p>每次循环&#x2F;递归&#x2F;迭代时，你如何：</p>
+<pre><code>- 更新状态（模型）
+- 让算法向结束更近（避免死循环）
+- 同时保持不变量成立
+</code></pre>
+<p> 哈希判重的推进：</p>
+<pre><code>- 读取 x
+- 如果已存在：返回 true
+- 否则加入 seen（更新状态）并继续遍历
+</code></pre>
+<p> 双指针的推进：</p>
+<ul>
+<li>比较后移动 l 或 r（指针前进&#x2F;收缩区间）</li>
 </ul>
+<h3 id="终止（Termination）"><a href="#终止（Termination）" class="headerlink" title="终止（Termination）"></a>终止（Termination）</h3><p> <strong>一句话：终止&#x3D;什么时候结束、结束时答案是什么。</strong></p>
+<p>  “终止”描述两个问题：</p>
+<ol>
+<li>算法在什么条件下停（停止条件）</li>
+<li>停的时候答案怎么取（返回什么）</li>
+</ol>
+<p>  哈希判重的终止：</p>
+<ul>
+<li><p>提前终止：发现重复立刻返回 true</p>
+</li>
+<li><p>正常终止：遍历完仍无重复返回 false</p>
+<p>BFS 的终止：</p>
+</li>
+<li><p>找到目标返回最短距离</p>
+</li>
+<li><p>队列空说明不可达</p>
+<p>把它们连起来就是你背诵时的逻辑链：<br><strong>模型（我维护什么）→ 不变量（我凭什么正确）→ 推进（我每步怎么做）→ 终止（何时停&#x2F;返回啥）</strong></p>
 </li>
 </ul>
-<h3 id="Activity：负责切换-Fragment-back-stack"><a href="#Activity：负责切换-Fragment-back-stack" class="headerlink" title="Activity：负责切换 Fragment + back stack"></a>Activity：负责切换 Fragment + back stack</h3><ul>
-<li>MainActivity.openLab(id)：<ul>
-<li>replace(R.id.main_container, LabRegistry.createFragment(id))</li>
-<li>addToBackStack(id)</li>
-</ul>
-</li>
-</ul>
-<h3 id="Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）"><a href="#Toolbar：返回箭头显示-隐藏（Day2-的“完成标志”）" class="headerlink" title="Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）"></a>Toolbar：返回箭头显示&#x2F;隐藏（Day2 的“完成标志”）</h3><ul>
-<li>在列表页：Toolbar 不显示返回箭头</li>
-<li>进入实验页：Toolbar 显示返回箭头，点击能返回列表</li>
-<li>实现方式：监听 supportFragmentManager.addOnBackStackChangedListener { … }，根据 backStack 是否为空来决定 supportActionBar?.setDisplayHomeAsUpEnabled(…)</li>
-</ul>
-<h1 id="RecyclerView-显示实验入口列表"><a href="#RecyclerView-显示实验入口列表" class="headerlink" title="RecyclerView 显示实验入口列表"></a>RecyclerView 显示实验入口列表</h1><h3 id="新建数据结构：LabItem"><a href="#新建数据结构：LabItem" class="headerlink" title="新建数据结构：LabItem"></a>新建数据结构：LabItem</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;core&#x2F;LabItem.kt</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.core</span><br><span class="line"></span><br><span class="line">data class LabItem(</span><br><span class="line">    val id: String,</span><br><span class="line">    val title: String,</span><br><span class="line">    val desc: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="新建列表页布局：fragment-lab-list-xml"><a href="#新建列表页布局：fragment-lab-list-xml" class="headerlink" title="新建列表页布局：fragment_lab_list.xml"></a>新建列表页布局：fragment_lab_list.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;fragment_lab_list.xml</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;androidx.recyclerview.widget.RecyclerView</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:id=&quot;@+id/rv_labs&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:padding=&quot;16dp&quot;</span><br><span class="line">    android:clipToPadding=&quot;false&quot;/&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="新建列表-item-布局：item-lab-xml"><a href="#新建列表-item-布局：item-lab-xml" class="headerlink" title="新建列表 item 布局：item_lab.xml"></a>新建列表 item 布局：item_lab.xml</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;res&#x2F;layout&#x2F;item_lab.xml</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    android:paddingVertical=&quot;12dp&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_title&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:textSize=&quot;16sp&quot;</span><br><span class="line">        android:textStyle=&quot;bold&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:id=&quot;@+id/tv_desc&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginTop=&quot;4dp&quot;</span><br><span class="line">        android:textSize=&quot;13sp&quot;</span><br><span class="line">        android:alpha=&quot;0.75&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="新建-Adapter：LabListAdapter"><a href="#新建-Adapter：LabListAdapter" class="headerlink" title="新建 Adapter：LabListAdapter"></a>新建 Adapter：LabListAdapter</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListAdapter.kt</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.view.LayoutInflater</span><br><span class="line">import android.view.View</span><br><span class="line">import android.view.ViewGroup</span><br><span class="line">import android.widget.TextView</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListAdapter(</span><br><span class="line">    private val items: List&lt;LabItem&gt;</span><br><span class="line">) : RecyclerView.Adapter&lt;LabListAdapter.VH&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    class VH(itemView: View) : RecyclerView.ViewHolder(itemView) &#123;</span><br><span class="line">        val title: TextView = itemView.findViewById(R.id.tv_title)</span><br><span class="line">        val desc: TextView = itemView.findViewById(R.id.tv_desc)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH &#123;</span><br><span class="line">        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_lab, parent, false)</span><br><span class="line">        return VH(v)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun onBindViewHolder(holder: VH, position: Int) &#123;</span><br><span class="line">        val item = items[position]</span><br><span class="line">        holder.title.text = item.title</span><br><span class="line">        holder.desc.text = item.desc</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getItemCount(): Int = items.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="新建-Fragment：LabListFragment"><a href="#新建-Fragment：LabListFragment" class="headerlink" title="新建 Fragment：LabListFragment"></a>新建 Fragment：LabListFragment</h3><p>新建 app&#x2F;src&#x2F;main&#x2F;java&#x2F;com&#x2F;nexa&#x2F;perfstabilitylab&#x2F;ui&#x2F;home&#x2F;LabListFragment.kt</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package com.nexa.perfstabilitylab.ui.home</span><br><span class="line"></span><br><span class="line">import android.os.Bundle</span><br><span class="line">import android.view.View</span><br><span class="line">import androidx.fragment.app.Fragment</span><br><span class="line">import androidx.recyclerview.widget.LinearLayoutManager</span><br><span class="line">import androidx.recyclerview.widget.RecyclerView</span><br><span class="line">import com.nexa.perfstabilitylab.R</span><br><span class="line">import com.nexa.perfstabilitylab.core.LabItem</span><br><span class="line"></span><br><span class="line">class LabListFragment : Fragment(R.layout.fragment_lab_list) &#123;</span><br><span class="line"></span><br><span class="line">    override fun onViewCreated(view: View, savedInstanceState: Bundle?) &#123;</span><br><span class="line">        val rv = view.findViewById&lt;RecyclerView&gt;(R.id.rv_labs)</span><br><span class="line">        rv.layoutManager = LinearLayoutManager(requireContext())</span><br><span class="line"></span><br><span class="line">        val items = listOf(</span><br><span class="line">            LabItem(&quot;startup&quot;, &quot;启动优化&quot;, &quot;冷/温/热启动、初始化治理、首帧直觉&quot;),</span><br><span class="line">            LabItem(&quot;jank&quot;, &quot;卡顿 / Jank&quot;, &quot;主线程阻塞、IO、锁等待、UI/GC&quot;),</span><br><span class="line">            LabItem(&quot;leak&quot;, &quot;内存泄漏&quot;, &quot;引用链、生命周期注销&quot;),</span><br><span class="line">            LabItem(&quot;oom&quot;, &quot;OOM&quot;, &quot;峰值、Bitmap、缓存上限、降级&quot;),</span><br><span class="line">            LabItem(&quot;anr&quot;, &quot;ANR&quot;, &quot;无响应、主线程卡死/等待&quot;),</span><br><span class="line">            LabItem(&quot;crash&quot;, &quot;Crash&quot;, &quot;栈+上下文、定位与闭环&quot;)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        rv.adapter = LabListAdapter(items)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="MainActivity-启动时显示这个列表-Fragment"><a href="#MainActivity-启动时显示这个列表-Fragment" class="headerlink" title="MainActivity 启动时显示这个列表 Fragment"></a>MainActivity 启动时显示这个列表 Fragment</h3><p>在 MainActivity.onCreate() 里（setContentView 之后）：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (savedInstanceState == null) &#123;</span><br><span class="line">    supportFragmentManager.beginTransaction()</span><br><span class="line">        .replace(R.id.main_container, LabListFragment())</span><br><span class="line">        .commit()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>———</p>
-<h2 id="Step1-完成验收"><a href="#Step1-完成验收" class="headerlink" title="Step1 完成验收"></a>Step1 完成验收</h2><ul>
-<li>App 启动后看到 6 条实验入口列表。<br><img src="/images/android/Day02-recyclerview_router/01.png"></li>
-</ul>
+<h2 id="必看路径"><a href="#必看路径" class="headerlink" title="必看路径"></a>必看路径</h2><p>参考url：<a href="https://neetcode.io/roadmap">https://neetcode.io/roadmap</a> 150题路径</p>
 ]]></content>
       <categories>
-        <category>Android</category>
+        <category>数据结构与算法</category>
       </categories>
   </entry>
   <entry>
