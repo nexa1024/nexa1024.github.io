@@ -50,7 +50,7 @@ sync-all:
 	@echo "Syncing all branches with main..."
 	git checkout main
 	git pull origin main
-	@for branch in $$((git branch --format='%(refname:short)' | grep -v "^main$$") 2>/dev/null || echo ""); do \
+	@for branch in $$((git branch --format='%(refname:short)' | grep -v -E "^(main|gh-pages)$$") 2>/dev/null || echo ""); do \
 		if [ -n "$$branch" ]; then \
 			echo ""; \
 			echo "========================================"; \
