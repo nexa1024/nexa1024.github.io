@@ -5,6 +5,9 @@ info:
 
 ############################ Git ###############################
 
+status:
+	git status
+
 ############### checkout ###############
 main:
 	git checkout main
@@ -27,3 +30,7 @@ commit:
 
 push:
 	git push
+
+############### combined ###############
+
+publish: commit push
