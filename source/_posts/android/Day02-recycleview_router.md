@@ -2,7 +2,7 @@
 title: Android-Day02-RecycleView&路由跳转
 date: 2026-1-16 01:00:00
 categories: Android
-hide: true
+hide: false
 ---
 
 Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。

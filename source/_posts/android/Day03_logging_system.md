@@ -2,7 +2,7 @@
 title: Android-Day03-实验框架与日志系统
 date: 2026-1-18 14:30:00
 categories: Android
-hide: true
+hide: false
 ---
 
 Day3 目标：搭建实验页面的通用框架。所有实验都共用一套 UI 结构（标题+简介+tags+三个操作按钮+日志显示区），只是每个实验的"复现/修复/验证"逻辑不同。因此需要抽一个 BaseLabFragment 基类，提供统一的布局、日志系统（显示/清空/保存），子类只需实现三个按钮的点击逻辑即可。
