@@ -4,7 +4,14 @@ date: 2026-1-18 00:00:00
 categories: Android
 ---
 
-# Week 1 Day 01-02 实现总结
+## PerfStabilityLab：性能与稳定性演示项目
+**PerfStabilityLab** 是一个专注于 Android 性能与稳定性优化的演示项目，通过动手实验的方式复现启动优化、卡顿、内存泄漏、OOM、ANR、Crash 等典型问题。
+
+**技术栈**：Kotlin + View/XML + 单Activity + Fragment架构 (SDK 33-36)
+
+**Day01-02**：搭建项目骨架（Toolbar+Fragment容器）+ RecyclerView导航链路
+
+<!--more-->
 
 ## 项目概述
 
@@ -18,8 +25,6 @@ categories: Android
 - **架构**: 单 Activity + Fragment 导航
 
 ---
-
-<!--more-->
 
 ## Day 1：项目骨架 + 导航容器
 

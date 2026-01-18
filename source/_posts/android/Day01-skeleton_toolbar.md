@@ -4,7 +4,10 @@ date: 2026-1-15 00:00:00
 categories: Android
 ---
 
-第一天搭建基础工程+toolbar
+## Day01：搭建基础工程 + Toolbar 容器
+创建 Empty Views Activity 项目，配置国内镜像加速依赖下载，搭建 Toolbar 和 Fragment 容器作为应用基础架构。
+
+**核心内容**：项目初始化、Gradle镜像配置、Toolbar集成、Fragment容器搭建
 
 <!--more-->
 
