@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-big-counter.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="AndroidKotlinPath 是一个系统的 Android 开发学习路径，采用单应用架构，将 10 个渐进式 Lab 集成在一个应用中，通过 RecyclerView 主界面导航，学习 Android 核心技术和 Kotlin 语言。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidKotlinPath 学习路径">
+<meta property="og:url" content="https://nexa1024.github.io/android/Lab0-Index/index.html">
+<meta property="og:site_name" content="Nexa1024">
+<meta property="og:description" content="AndroidKotlinPath 是一个系统的 Android 开发学习路径，采用单应用架构，将 10 个渐进式 Lab 集成在一个应用中，通过 RecyclerView 主界面导航，学习 Android 核心技术和 Kotlin 语言。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-19T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-20T11:35:49.641Z">
+<meta property="article:author" content="Nexa1024">
+<meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nexa1024.github.io/android/Lab0-Index/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/android/Lab0-Index/","path":"android/Lab0-Index/","title":"AndroidKotlinPath 学习路径"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AndroidKotlinPath 学习路径 | Nexa1024</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nexa1024</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学啥~啥都学~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AndroidKotlinPath"><span class="nav-number">1.</span> <span class="nav-text">AndroidKotlinPath</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%89%B9%E8%89%B2"><span class="nav-number">1.1.</span> <span class="nav-text">项目特色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.</span> <span class="nav-text">项目目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">应用架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%EF%BC%9A10-%E4%B8%AA%E6%A0%B8%E5%BF%83-Lab"><span class="nav-number">1.4.</span> <span class="nav-text">学习路径：10 个核心 Lab</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%93%B1-%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%EF%BC%88Lab-1-3%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">📱 第一阶段：基础入门（Lab 1-3）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab1-Hello-World-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Lab1-Hello World &amp; 环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab2-UI-%E5%9F%BA%E7%A1%80-%E5%B8%83%E5%B1%80%E4%B8%8E%E6%8E%A7%E4%BB%B6"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">Lab2-UI 基础 &amp; 布局与控件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab3-Activity-Intent"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">Lab3-Activity &amp; Intent</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%A7-%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%EF%BC%88Lab-4-6%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">🔧 第二阶段：核心组件（Lab 4-6）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab4-Fragment-UI-%E8%BF%9B%E9%98%B6"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Lab4-Fragment &amp; UI 进阶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab5-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Lab5-数据存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab6-Service-%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">Lab6-Service &amp; 后台任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%90-%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%8E%E7%BD%91%E7%BB%9C%EF%BC%88Lab-7-8%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">🌐 第三阶段：数据与网络（Lab 7-8）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab7-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Lab7-网络编程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab8-ContentProvider-%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">Lab8-ContentProvider &amp; 数据共享</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%94%90-%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%EF%BC%9A%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%EF%BC%88Lab-9-10%EF%BC%89"><span class="nav-number">1.4.4.</span> <span class="nav-text">🔐 第四阶段：系统功能（Lab 9-10）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab9-%E6%9D%83%E9%99%90%E4%B8%8E%E7%B3%BB%E7%BB%9F%E7%89%B9%E6%80%A7"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">Lab9-权限与系统特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab10-%E7%BB%BC%E5%90%88%E9%A1%B9%E7%9B%AE-%E8%B4%AF%E9%80%9A%E6%89%80%E6%9C%89%E7%9F%A5%E8%AF%86"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">Lab10-综合项目 &amp; 贯通所有知识</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA-Lab-%E7%9A%84%E6%A0%87%E5%87%86%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">每个 Lab 的标准结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E8%A7%84%E5%88%92"><span class="nav-number">1.6.</span> <span class="nav-text">时间规划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E6%88%90%E6%9E%9C"><span class="nav-number">1.7.</span> <span class="nav-text">学习成果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92"><span class="nav-number">1.8.</span> <span class="nav-text">后续学习计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.9.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="nav-number">1.10.</span> <span class="nav-text">技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-number">1.11.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="nav-number">1.11.1.</span> <span class="nav-text">环境要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.11.2.</span> <span class="nav-text">克隆项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.11.3.</span> <span class="nav-text">运行项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.11.4.</span> <span class="nav-text">学习步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.12.</span> <span class="nav-text">学习建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.13.</span> <span class="nav-text">学习资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.13.1.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%B1%8D"><span class="nav-number">1.13.2.</span> <span class="nav-text">推荐书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BE%E5%8C%BA%E8%B5%84%E6%BA%90"><span class="nav-number">1.13.3.</span> <span class="nav-text">社区资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.14.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1-%E9%9C%80%E8%A6%81%E6%9C%89%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E5%90%97%EF%BC%9F"><span class="nav-number">1.14.1.</span> <span class="nav-text">Q1: 需要有编程基础吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2-%E5%AD%A6%E4%B9%A0%E5%91%A8%E6%9C%9F%E9%9C%80%E8%A6%81%E5%A4%9A%E4%B9%85%EF%BC%9F"><span class="nav-number">1.14.2.</span> <span class="nav-text">Q2: 学习周期需要多久？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3-%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88%E8%AE%BE%E5%A4%87%EF%BC%9F"><span class="nav-number">1.14.3.</span> <span class="nav-text">Q3: 需要什么设备？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4-Kotlin-%E5%92%8C-Java-%E5%BA%94%E8%AF%A5%E5%AD%A6%E5%93%AA%E4%B8%AA%EF%BC%9F"><span class="nav-number">1.14.4.</span> <span class="nav-text">Q4: Kotlin 和 Java 应该学哪个？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5-%E5%AD%A6%E4%B9%A0%E5%AE%8C%E8%BF%99%E4%BA%9B-Lab-%E8%83%BD%E8%BE%BE%E5%88%B0%E4%BB%80%E4%B9%88%E6%B0%B4%E5%B9%B3%EF%BC%9F"><span class="nav-number">1.14.5.</span> <span class="nav-text">Q5: 学习完这些 Lab 能达到什么水平？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%8D%95%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="nav-number">1.14.6.</span> <span class="nav-text">Q6: 为什么要用单应用架构？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q7-%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84-Lab%EF%BC%9F"><span class="nav-number">1.14.7.</span> <span class="nav-text">Q7: 如何添加新的 Lab？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="nav-number">1.15.</span> <span class="nav-text">版本说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97"><span class="nav-number">1.16.</span> <span class="nav-text">贡献指南</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B8%E5%8F%AF%E8%AF%81"><span class="nav-number">1.17.</span> <span class="nav-text">许可证</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nexa1024"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Nexa1024</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nexa1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nexa1024" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/Lab0-Index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AndroidKotlinPath 学习路径 | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AndroidKotlinPath 学习路径
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-19T00:00:00+00:00">2026-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-20 11:35:49" itemprop="dateModified" datetime="2026-01-20T11:35:49+00:00">2026-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>AndroidKotlinPath 是一个系统的 Android 开发学习路径，采用单应用架构，将 10 个渐进式 Lab 集成在一个应用中，通过 RecyclerView 主界面导航，学习 Android 核心技术和 Kotlin 语言。</p>
+<span id="more"></span>
+
+<h1 id="AndroidKotlinPath"><a href="#AndroidKotlinPath" class="headerlink" title="AndroidKotlinPath"></a>AndroidKotlinPath</h1><p>Android + Kotlin + View&#x2F;XML，通过各种 Lab 将这些融会贯通。</p>
+<h2 id="项目特色"><a href="#项目特色" class="headerlink" title="项目特色"></a>项目特色</h2><p>🎯 <strong>单应用架构</strong>：所有 10 个 Lab 集成在一个 Android 应用中，通过 RecyclerView 主界面导航访问各个 Lab</p>
+<p>📚 <strong>渐进式学习</strong>：从环境搭建到综合项目，循序渐进掌握 Android 开发</p>
+<p>💡 <strong>理论与实践结合</strong>：每个 Lab 包含理论知识、代码示例和实践任务</p>
+<h2 id="项目目标"><a href="#项目目标" class="headerlink" title="项目目标"></a>项目目标</h2><p>以 <strong>Android 核心技术栈</strong> 为主线，系统学习 Kotlin 语言和 Android 开发，构建完整的 Android 开发知识体系。现代开发架构和进阶能力作为后续学习计划。</p>
+<h2 id="应用架构"><a href="#应用架构" class="headerlink" title="应用架构"></a>应用架构</h2><p>本项目采用<strong>单应用多 Lab</strong>架构，所有 Lab 都集成在一个应用中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AndroidKotlinPath App</span><br><span class="line">├── 主界面（MainActivity）</span><br><span class="line">│   └── RecyclerView 显示 Lab 1-10 列表</span><br><span class="line">├── Lab 1 Activity</span><br><span class="line">├── Lab 2 Activity</span><br><span class="line">├── ...</span><br><span class="line">└── Lab 10 Activity</span><br></pre></td></tr></table></figure>
+
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 无需切换项目，所有代码集中管理</li>
+<li>✅ 便于查看前面 Lab 的代码作为参考</li>
+<li>✅ 复用资源和工具类</li>
+<li>✅ 体验真实的模块化应用开发</li>
+</ul>
+<h2 id="学习路径：10-个核心-Lab"><a href="#学习路径：10-个核心-Lab" class="headerlink" title="学习路径：10 个核心 Lab"></a>学习路径：10 个核心 Lab</h2><h3 id="📱-第一阶段：基础入门（Lab-1-3）"><a href="#📱-第一阶段：基础入门（Lab-1-3）" class="headerlink" title="📱 第一阶段：基础入门（Lab 1-3）"></a>📱 第一阶段：基础入门（Lab 1-3）</h3><h4 id="Lab1-Hello-World-环境搭建"><a href="#Lab1-Hello-World-环境搭建" class="headerlink" title="Lab1-Hello World &amp; 环境搭建"></a>Lab1-Hello World &amp; 环境搭建</h4><ul>
+<li>Android Studio 安装配置</li>
+<li>项目结构解析</li>
+<li>第一个 App 运行</li>
+<li>Kotlin 基础语法（变量、函数、类、空安全）</li>
+<li>模拟器使用</li>
+</ul>
+<h4 id="Lab2-UI-基础-布局与控件"><a href="#Lab2-UI-基础-布局与控件" class="headerlink" title="Lab2-UI 基础 &amp; 布局与控件"></a>Lab2-UI 基础 &amp; 布局与控件</h4><ul>
+<li>XML 布局系统</li>
+<li>常用控件（TextView, Button, EditText, ImageView）</li>
+<li>事件处理（点击、输入）</li>
+<li>样式和主题</li>
+<li>实践：登录界面</li>
+</ul>
+<h4 id="Lab3-Activity-Intent"><a href="#Lab3-Activity-Intent" class="headerlink" title="Lab3-Activity &amp; Intent"></a>Lab3-Activity &amp; Intent</h4><ul>
+<li>Activity 生命周期</li>
+<li>Intent 使用（显式&#x2F;隐式）</li>
+<li>Activity 间数据传递</li>
+<li>启动模式</li>
+<li>实践：多页面导航应用</li>
+</ul>
+<h3 id="🔧-第二阶段：核心组件（Lab-4-6）"><a href="#🔧-第二阶段：核心组件（Lab-4-6）" class="headerlink" title="🔧 第二阶段：核心组件（Lab 4-6）"></a>🔧 第二阶段：核心组件（Lab 4-6）</h3><h4 id="Lab4-Fragment-UI-进阶"><a href="#Lab4-Fragment-UI-进阶" class="headerlink" title="Lab4-Fragment &amp; UI 进阶"></a>Lab4-Fragment &amp; UI 进阶</h4><ul>
+<li>Fragment 基础</li>
+<li>Fragment 生命周期</li>
+<li>Fragment 通信</li>
+<li>RecyclerView 使用</li>
+<li>实践：列表展示应用</li>
+</ul>
+<h4 id="Lab5-数据存储"><a href="#Lab5-数据存储" class="headerlink" title="Lab5-数据存储"></a>Lab5-数据存储</h4><ul>
+<li>SharedPreferences&#x2F;DataStore</li>
+<li>SQLite 基础</li>
+<li>Room 数据库</li>
+<li>文件存储</li>
+<li>实践：记事本应用</li>
+</ul>
+<h4 id="Lab6-Service-后台任务"><a href="#Lab6-Service-后台任务" class="headerlink" title="Lab6-Service &amp; 后台任务"></a>Lab6-Service &amp; 后台任务</h4><ul>
+<li>Service 生命周期</li>
+<li>前台 Service</li>
+<li>BroadcastReceiver</li>
+<li>实践：音乐播放器&#x2F;后台下载</li>
+</ul>
+<h3 id="🌐-第三阶段：数据与网络（Lab-7-8）"><a href="#🌐-第三阶段：数据与网络（Lab-7-8）" class="headerlink" title="🌐 第三阶段：数据与网络（Lab 7-8）"></a>🌐 第三阶段：数据与网络（Lab 7-8）</h3><h4 id="Lab7-网络编程"><a href="#Lab7-网络编程" class="headerlink" title="Lab7-网络编程"></a>Lab7-网络编程</h4><ul>
+<li>HTTP 基础</li>
+<li>OkHttp 使用</li>
+<li>Retrofit + REST API</li>
+<li>JSON 解析（Gson&#x2F;Moshi）</li>
+<li>实践：天气应用（调用真实 API）</li>
+</ul>
+<h4 id="Lab8-ContentProvider-数据共享"><a href="#Lab8-ContentProvider-数据共享" class="headerlink" title="Lab8-ContentProvider &amp; 数据共享"></a>Lab8-ContentProvider &amp; 数据共享</h4><ul>
+<li>ContentProvider 原理</li>
+<li>自定义 ContentProvider</li>
+<li>系统 Provider（联系人、媒体）</li>
+<li>实践：联系人管理</li>
+</ul>
+<h3 id="🔐-第四阶段：系统功能（Lab-9-10）"><a href="#🔐-第四阶段：系统功能（Lab-9-10）" class="headerlink" title="🔐 第四阶段：系统功能（Lab 9-10）"></a>🔐 第四阶段：系统功能（Lab 9-10）</h3><h4 id="Lab9-权限与系统特性"><a href="#Lab9-权限与系统特性" class="headerlink" title="Lab9-权限与系统特性"></a>Lab9-权限与系统特性</h4><ul>
+<li>运行时权限</li>
+<li>常见权限处理</li>
+<li>相机&#x2F;相册</li>
+<li>地理位置</li>
+<li>实践：相机应用</li>
+</ul>
+<h4 id="Lab10-综合项目-贯通所有知识"><a href="#Lab10-综合项目-贯通所有知识" class="headerlink" title="Lab10-综合项目 &amp; 贯通所有知识"></a>Lab10-综合项目 &amp; 贯通所有知识</h4><ul>
+<li>完整应用架构</li>
+<li>多个组件协同</li>
+<li>数据持久化</li>
+<li>网络集成</li>
+<li>实践：新闻客户端或电商应用</li>
+</ul>
+<h2 id="每个-Lab-的标准结构"><a href="#每个-Lab-的标准结构" class="headerlink" title="每个 Lab 的标准结构"></a>每个 Lab 的标准结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">📚 Lab X: [主题名称]</span><br><span class="line">├── 学习目标 (3-5个)</span><br><span class="line">├── 理论知识 (30%)</span><br><span class="line">│   ├── 核心概念</span><br><span class="line">│   ├── Kotlin 语法特性</span><br><span class="line">│   └── 最佳实践</span><br><span class="line">├── 代码示例 (40%)</span><br><span class="line">│   ├── 基础示例</span><br><span class="line">│   └── 进阶用法</span><br><span class="line">├── 实践任务 (30%)</span><br><span class="line">│   ├── 必做题 (2-3个)</span><br><span class="line">│   └── 挑战题 (1个)</span><br><span class="line">└── 验收标准</span><br></pre></td></tr></table></figure>
+
+<h2 id="时间规划"><a href="#时间规划" class="headerlink" title="时间规划"></a>时间规划</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>Lab</th>
+<th>预计时间</th>
+<th>累计知识掌握度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基础入门</td>
+<td>1-3</td>
+<td>3-4周</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>核心组件</td>
+<td>4-6</td>
+<td>3-4周</td>
+<td>60%</td>
+</tr>
+<tr>
+<td>数据网络</td>
+<td>7-8</td>
+<td>2-3周</td>
+<td>80%</td>
+</tr>
+<tr>
+<td>系统功能</td>
+<td>9-10</td>
+<td>2-3周</td>
+<td>100%</td>
+</tr>
+</tbody></table>
+<h2 id="学习成果"><a href="#学习成果" class="headerlink" title="学习成果"></a>学习成果</h2><p>完成 10 个 Lab 后，你能够：</p>
+<p>✅ 独立开发中等复杂度的 Android 应用<br>✅ 掌握所有四大组件的使用场景<br>✅ 处理网络请求和数据存储<br>✅ 理解 Android 核心机制<br>✅ 为学习现代架构打下坚实基础</p>
+<h2 id="后续学习计划"><a href="#后续学习计划" class="headerlink" title="后续学习计划"></a>后续学习计划</h2><p>完成核心技术栈后，可继续学习：</p>
+<ul>
+<li><strong>现代架构</strong>：MVVM, Jetpack ViewModel, LiveData, StateFlow</li>
+<li><strong>依赖注入</strong>：Hilt, Koin</li>
+<li><strong>导航组件</strong>：Navigation Component</li>
+<li><strong>性能优化</strong>：内存优化、启动优化</li>
+<li><strong>测试</strong>：单元测试、UI 测试</li>
+<li><strong>Jetpack Compose</strong>：现代声明式 UI</li>
+</ul>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">AndroidKotlinPath/</span><br><span class="line">├── app/                         # 主应用模块</span><br><span class="line">│   ├── src/main/</span><br><span class="line">│   │   ├── java/com/nexa/androidkotlinpath/</span><br><span class="line">│   │   │   ├── MainActivity.kt  # 主界面（RecyclerView 导航）</span><br><span class="line">│   │   │   ├── ui/              # 各 Lab 的 UI 组件</span><br><span class="line">│   │   │   │   ├── lab1/        # Lab 1 相关</span><br><span class="line">│   │   │   │   ├── lab2/        # Lab 2 相关</span><br><span class="line">│   │   │   │   └── ...</span><br><span class="line">│   │   │   ├── data/            # 数据层</span><br><span class="line">│   │   │   ├── model/           # 数据模型</span><br><span class="line">│   │   │   └── utils/           # 工具类</span><br><span class="line">│   │   ├── res/                 # 资源文件</span><br><span class="line">│   │   └── AndroidManifest.xml  # 应用清单</span><br><span class="line">│   └── build.gradle.kts         # 模块构建配置</span><br><span class="line">├── docs/                        # 学习文档</span><br><span class="line">│   ├── index.md                 # 学习路径总览</span><br><span class="line">│   ├── LabX-*.md                # 各 Lab 详细文档</span><br><span class="line">│   └── template.md              # 文档模板</span><br><span class="line">├── gradle/                      # Gradle 配置</span><br><span class="line">├── build.gradle.kts             # 项目构建配置</span><br><span class="line">├── settings.gradle.kts          # Gradle 设置</span><br><span class="line">└── CLAUDE.md                    # Claude Code 指导文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li><strong>语言</strong>: Kotlin 2.0.21</li>
+<li><strong>最低 SDK</strong>: API 33 (Android 13)</li>
+<li><strong>目标 SDK</strong>: API 36</li>
+<li><strong>Gradle</strong>: 8.13.1</li>
+<li><strong>构建工具</strong>: Android Studio Hedgehog+</li>
+</ul>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h3><ul>
+<li>Android Studio Hedgehog (2023.1.1) 或更高版本</li>
+<li>JDK 17（Android Studio 自带）</li>
+<li>8GB RAM（推荐 16GB）</li>
+</ul>
+<h3 id="克隆项目"><a href="#克隆项目" class="headerlink" title="克隆项目"></a>克隆项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nexa1024/AndroidKotlinPath.git</span><br><span class="line"><span class="built_in">cd</span> AndroidKotlinPath</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h3><ol>
+<li>用 Android Studio 打开项目</li>
+<li>等待 Gradle 同步完成</li>
+<li>点击运行按钮或按 <code>Shift + F10</code></li>
+</ol>
+<h3 id="学习步骤"><a href="#学习步骤" class="headerlink" title="学习步骤"></a>学习步骤</h3><ol>
+<li>从 Lab 1 开始，按顺序学习</li>
+<li>阅读文档了解理论知识</li>
+<li>查看代码示例</li>
+<li>完成实践任务</li>
+<li>在主界面点击对应 Lab 查看运行效果</li>
+</ol>
+<h2 id="学习建议"><a href="#学习建议" class="headerlink" title="学习建议"></a>学习建议</h2><ol>
+<li><strong>循序渐进</strong>：按照 Lab 顺序逐步学习，不要跳过基础内容</li>
+<li><strong>动手实践</strong>：每个 Lab 都有实践任务，务必亲自完成</li>
+<li><strong>理解原理</strong>：不只是复制代码，要理解背后的原理</li>
+<li><strong>查阅文档</strong>：遇到问题时学会查阅官方文档</li>
+<li><strong>总结笔记</strong>：记录学习过程中的重要知识点和遇到的问题</li>
+<li><strong>代码复用</strong>：利用单应用架构优势，参考前面 Lab 的代码</li>
+</ol>
+<h2 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/">Android Developers</a></li>
+<li><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/home.html">Kotlin 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/studio">Android Studio</a></li>
+</ul>
+<h3 id="推荐书籍"><a href="#推荐书籍" class="headerlink" title="推荐书籍"></a>推荐书籍</h3><ul>
+<li>《Android 开发艺术探索》</li>
+<li>《Kotlin 实战》</li>
+<li>《第一行代码 - Android》（第3版）</li>
+</ul>
+<h3 id="社区资源"><a href="#社区资源" class="headerlink" title="社区资源"></a>社区资源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/android">Stack Overflow - Android</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/android-awesome/android-awesome">GitHub Android Awesome</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Android-CN">Android 中文组</a></li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q1-需要有编程基础吗？"><a href="#Q1-需要有编程基础吗？" class="headerlink" title="Q1: 需要有编程基础吗？"></a>Q1: 需要有编程基础吗？</h3><p><strong>A</strong>: 最好有基本的编程概念，了解变量、函数、条件判断等。如果有 Java 或其他面向对象语言基础会更容易上手。</p>
+<h3 id="Q2-学习周期需要多久？"><a href="#Q2-学习周期需要多久？" class="headerlink" title="Q2: 学习周期需要多久？"></a>Q2: 学习周期需要多久？</h3><p><strong>A</strong>: 如果每天投入 2-3 小时，完成所有 Lab 大约需要 3-4 个月。</p>
+<h3 id="Q3-需要什么设备？"><a href="#Q3-需要什么设备？" class="headerlink" title="Q3: 需要什么设备？"></a>Q3: 需要什么设备？</h3><p><strong>A</strong>:</p>
+<ul>
+<li><strong>最低配置</strong>: 8GB RAM, 支持 VT-x 的 CPU</li>
+<li><strong>推荐配置</strong>: 16GB RAM, SSD 硬盘</li>
+<li><strong>可选</strong>: Android 真机（用于测试）</li>
+</ul>
+<h3 id="Q4-Kotlin-和-Java-应该学哪个？"><a href="#Q4-Kotlin-和-Java-应该学哪个？" class="headerlink" title="Q4: Kotlin 和 Java 应该学哪个？"></a>Q4: Kotlin 和 Java 应该学哪个？</h3><p><strong>A</strong>: 推荐直接学习 Kotlin。Kotlin 是 Google 官方推荐的语言，语法更简洁，安全性更高。</p>
+<h3 id="Q5-学习完这些-Lab-能达到什么水平？"><a href="#Q5-学习完这些-Lab-能达到什么水平？" class="headerlink" title="Q5: 学习完这些 Lab 能达到什么水平？"></a>Q5: 学习完这些 Lab 能达到什么水平？</h3><p><strong>A</strong>: 可以独立开发功能完整的 Android 应用，相当于初中级 Android 开发工程师水平。</p>
+<h3 id="Q6-为什么要用单应用架构？"><a href="#Q6-为什么要用单应用架构？" class="headerlink" title="Q6: 为什么要用单应用架构？"></a>Q6: 为什么要用单应用架构？</h3><p><strong>A</strong>:</p>
+<ul>
+<li>便于学习和参考：所有代码集中，方便查看和对比</li>
+<li>真实开发体验：模拟实际项目的模块化开发</li>
+<li>资源共享：工具类、资源文件可以复用</li>
+<li>减少配置：无需配置多个项目</li>
+</ul>
+<h3 id="Q7-如何添加新的-Lab？"><a href="#Q7-如何添加新的-Lab？" class="headerlink" title="Q7: 如何添加新的 Lab？"></a>Q7: 如何添加新的 Lab？</h3><p><strong>A</strong>:</p>
+<ol>
+<li>在 <code>ui/labX/</code> 包下创建 Activity</li>
+<li>在 <code>res/layout/</code> 中创建布局文件</li>
+<li>在 <code>AndroidManifest.xml</code> 中注册</li>
+<li>在主界面的 RecyclerView Adapter 中添加条目</li>
+<li>创建对应的文档文件</li>
+</ol>
+<h2 id="版本说明"><a href="#版本说明" class="headerlink" title="版本说明"></a>版本说明</h2><ul>
+<li><strong>语言</strong>: Kotlin 2.0.21</li>
+<li><strong>最低 SDK</strong>: API 33 (Android 13)</li>
+<li><strong>目标 SDK</strong>: API 36</li>
+<li><strong>AGP</strong>: 8.13.1</li>
+<li><strong>Gradle</strong>: 8.13</li>
+</ul>
+<h2 id="贡献指南"><a href="#贡献指南" class="headerlink" title="贡献指南"></a>贡献指南</h2><p>欢迎提交 Issue 和 Pull Request！</p>
+<p>如果你在学习过程中发现任何问题或有改进建议，请：</p>
+<ol>
+<li>Fork 本项目</li>
+<li>创建你的特性分支</li>
+<li>提交你的修改</li>
+<li>发起 Pull Request</li>
+</ol>
+<h2 id="许可证"><a href="#许可证" class="headerlink" title="许可证"></a>许可证</h2><p>本项目采用 <a href="LICENSE">LICENSE</a> 许可证。</p>
+<hr>
+<p><strong>开始学习</strong>: <a href="Lab1-HelloWorld.md">Lab1-Hello World &amp; 环境搭建</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/android/Day03_logging_system/" rel="prev" title="Android-Day03-实验框架与日志系统">
+                  <i class="fa fa-angle-left"></i> Android-Day03-实验框架与日志系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/android/Lab1-HelloWorld/" rel="next" title="Lab1-Hello World &amp; 环境搭建">
+                  Lab1-Hello World & 环境搭建 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nexa1024</span>
+  </div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/nexa1024" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"nexa1024/nexa1024.github.io","repo_id":"R_kgDOQoD_Fw","category":"Announcements","category_id":"DIC_kwDOQoD_F84C0Abu","mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy","data-theme":"dark_high_contrast"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"right",libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:false,models:[{"path":"/l2dmodels/PermansorTerrae/PermansorTerrae.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}},{"path":"/l2dmodels/Cyrene/Cyrene.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},copyTips: {"message":["复制的内容要标明出处~"]},idleTips:{interval:20000,wordTheDay:function(wordTheDayData){
+  return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>

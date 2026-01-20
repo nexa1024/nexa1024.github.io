@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-big-counter.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="本 Lab 将带你完成 Android 开发环境的搭建，克隆并运行 AndroidKotlinPath 项目，学习 Android 项目结构，掌握 Kotlin 基础语法，并了解单应用多 Lab 的架构设计。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab1-Hello World &amp; 环境搭建">
+<meta property="og:url" content="https://nexa1024.github.io/android/Lab1-HelloWorld/index.html">
+<meta property="og:site_name" content="Nexa1024">
+<meta property="og:description" content="本 Lab 将带你完成 Android 开发环境的搭建，克隆并运行 AndroidKotlinPath 项目，学习 Android 项目结构，掌握 Kotlin 基础语法，并了解单应用多 Lab 的架构设计。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-19T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-20T11:35:49.641Z">
+<meta property="article:author" content="Nexa1024">
+<meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nexa1024.github.io/android/Lab1-HelloWorld/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/android/Lab1-HelloWorld/","path":"android/Lab1-HelloWorld/","title":"Lab1-Hello World & 环境搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Lab1-Hello World & 环境搭建 | Nexa1024</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nexa1024</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学啥~啥都学~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lab1-Hello-World-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">Lab1-Hello World &amp; 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">📚 学习目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%96-%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86-30"><span class="nav-number">1.2.</span> <span class="nav-text">📖 理论知识 (30%)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Android-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 Android 开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-Studio-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Android Studio 介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK-Java-Development-Kit"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">JDK (Java Development Kit)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SDK-Software-Development-Kit"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">SDK (Software Development Kit)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">环境变量配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-AndroidKotlinPath-%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 AndroidKotlinPath 项目架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E5%BA%94%E7%94%A8%E5%A4%9A-Lab-%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">单应用多 Lab 设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">核心文件说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Kotlin-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3 Kotlin 基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">变量声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">函数定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">类定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Class%EF%BC%88%E6%95%B0%E6%8D%AE%E7%B1%BB%EF%BC%89%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">Data Class（数据类）详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A9%BA%E5%AE%89%E5%85%A8"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">空安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">条件表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.3.8.</span> <span class="nav-text">集合操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-AndroidManifest-xml-%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.4 AndroidManifest.xml 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%B1%9E%E6%80%A7%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">关键属性说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Gradle-%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.5 Gradle 构建系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradle-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">Gradle 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E7%9B%AE%E5%BD%95%EF%BC%88Version-Catalog%EF%BC%89"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">版本目录（Version Catalog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-Gradle-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">常用 Gradle 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.5.4.</span> <span class="nav-text">依赖配置示例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%BB-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B-40"><span class="nav-number">1.3.</span> <span class="nav-text">💻 代码示例 (40%)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%85%8B%E9%9A%86%E5%B9%B6%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 克隆并运行项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E5%85%8B%E9%9A%86%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">步骤 1：克隆项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E6%89%93%E5%BC%80%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">步骤 2：打开项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">步骤 3：运行项目</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 项目结构解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">主要文件说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B%EF%BC%9AHello-World"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 基础示例：Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">Lab 数据模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E7%95%8C%E9%9D%A2%E5%B8%83%E5%B1%80"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">主界面布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lab-%E5%88%97%E8%A1%A8%E9%A1%B9%E5%B8%83%E5%B1%80"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Lab 列表项布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E8%B5%84%E6%BA%90%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">颜色资源定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E8%BF%9B%E9%98%B6%E7%A4%BA%E4%BE%8B%EF%BC%9A%E4%BD%BF%E7%94%A8-ViewBinding%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 进阶示例：使用 ViewBinding（推荐）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E7%94%A8-ViewBinding"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">启用 ViewBinding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ViewBinding"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">使用 ViewBinding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-RecyclerView-Adapter"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">创建 RecyclerView Adapter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewBinding-%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">ViewBinding 的优势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5 模拟器设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E8%AE%BE%E5%A4%87"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">创建虚拟设备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">运行应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%E5%AE%9E%E8%B7%B5%E4%BB%BB%E5%8A%A1-30"><span class="nav-number">1.4.</span> <span class="nav-text">🎯 实践任务 (30%)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E5%81%9A%E9%A2%98%EF%BC%882-3-%E4%B8%AA%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">必做题（2-3 个）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1-1%EF%BC%9A%E7%90%86%E8%A7%A3%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">任务 1：理解项目结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1-2%EF%BC%9A%E4%BF%AE%E6%94%B9-Lab-%E5%88%97%E8%A1%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">任务 2：修改 Lab 列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1-3%EF%BC%9A%E6%B7%BB%E5%8A%A0%E7%82%B9%E5%87%BB%E5%8F%8D%E9%A6%88"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">任务 3：添加点击反馈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E9%A2%98%EF%BC%881-%E4%B8%AA%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">挑战题（1 个）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%91%E6%88%98%EF%BC%9A%E5%88%9B%E5%BB%BA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%95%B0%E5%99%A8%E5%8A%9F%E8%83%BD"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">挑战：创建简单的计数器功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%E9%AA%8C%E6%94%B6%E6%A0%87%E5%87%86"><span class="nav-number">1.5.</span> <span class="nav-text">✅ 验收标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB"><span class="nav-number">1.6.</span> <span class="nav-text">📚 扩展阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">1.6.1.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7"><span class="nav-number">1.6.2.</span> <span class="nav-text">推荐工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%91-%E5%85%B3%E9%94%AE%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">🔑 关键要点总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nexa1024"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Nexa1024</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nexa1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nexa1024" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/Lab1-HelloWorld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Lab1-Hello World &amp; 环境搭建 | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lab1-Hello World & 环境搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-19 01:00:00" itemprop="dateCreated datePublished" datetime="2026-01-19T01:00:00+00:00">2026-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-20 11:35:49" itemprop="dateModified" datetime="2026-01-20T11:35:49+00:00">2026-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本 Lab 将带你完成 Android 开发环境的搭建，克隆并运行 AndroidKotlinPath 项目，学习 Android 项目结构，掌握 Kotlin 基础语法，并了解单应用多 Lab 的架构设计。</p>
+<span id="more"></span>
+
+<h1 id="Lab1-Hello-World-环境搭建"><a href="#Lab1-Hello-World-环境搭建" class="headerlink" title="Lab1-Hello World &amp; 环境搭建"></a>Lab1-Hello World &amp; 环境搭建</h1><h2 id="📚-学习目标"><a href="#📚-学习目标" class="headerlink" title="📚 学习目标"></a>📚 学习目标</h2><p>完成本 Lab 后，你能够：</p>
+<ol>
+<li>成功搭建 Android 开发环境并运行 AndroidKotlinPath 项目</li>
+<li>理解 Android 项目的基本结构和文件组织</li>
+<li>掌握 Kotlin 的基础语法</li>
+<li>了解单应用多 Lab 的架构设计</li>
+<li>学会使用 Android Studio 的基本功能</li>
+</ol>
+<hr>
+<h2 id="📖-理论知识-30"><a href="#📖-理论知识-30" class="headerlink" title="📖 理论知识 (30%)"></a>📖 理论知识 (30%)</h2><h3 id="1-1-Android-开发环境"><a href="#1-1-Android-开发环境" class="headerlink" title="1.1 Android 开发环境"></a>1.1 Android 开发环境</h3><h4 id="Android-Studio-介绍"><a href="#Android-Studio-介绍" class="headerlink" title="Android Studio 介绍"></a>Android Studio 介绍</h4><ul>
+<li><strong>什么是 Android Studio</strong>：Google 官方 IDE，基于 IntelliJ IDEA</li>
+<li><strong>当前版本</strong>：Hedgehog (2023.1.1) 或更高版本</li>
+<li><strong>系统要求</strong>：<ul>
+<li>Windows 8&#x2F;10&#x2F;11 (64-bit)</li>
+<li>8 GB RAM 推荐（最低 4 GB）</li>
+<li>4 GB 磁盘空间</li>
+</ul>
+</li>
+</ul>
+<h4 id="JDK-Java-Development-Kit"><a href="#JDK-Java-Development-Kit" class="headerlink" title="JDK (Java Development Kit)"></a>JDK (Java Development Kit)</h4><ul>
+<li><strong>作用</strong>：提供 Kotlin 编译和运行环境</li>
+<li><strong>Android Studio 自带</strong>：通常内置 JDK 17</li>
+<li><strong>无需单独安装</strong>：Android Studio 捆绑了完整的 JDK</li>
+</ul>
+<h4 id="SDK-Software-Development-Kit"><a href="#SDK-Software-Development-Kit" class="headerlink" title="SDK (Software Development Kit)"></a>SDK (Software Development Kit)</h4><ul>
+<li><strong>Android SDK</strong>：开发 Android 应用所需的工具集和 API</li>
+<li><strong>SDK Platform</strong>：不同 Android 版本的 API</li>
+<li><strong>Build Tools</strong>：编译、打包工具</li>
+<li><strong>Platform Tools</strong>：adb、fastboot 等工具</li>
+</ul>
+<h4 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Windows 示例</span></span><br><span class="line">ANDROID_HOME = C:\Users\YourName\AppData\Local\Android\Sdk</span><br><span class="line">Path 添加：%ANDROID_HOME%\platform-tools</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-2-AndroidKotlinPath-项目架构"><a href="#1-2-AndroidKotlinPath-项目架构" class="headerlink" title="1.2 AndroidKotlinPath 项目架构"></a>1.2 AndroidKotlinPath 项目架构</h3><h4 id="单应用多-Lab-设计"><a href="#单应用多-Lab-设计" class="headerlink" title="单应用多 Lab 设计"></a>单应用多 Lab 设计</h4><p>本项目采用<strong>单应用架构</strong>，将所有 10 个 Lab 集成在一个应用中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AndroidKotlinPath App</span><br><span class="line">├── 主界面（MainActivity）</span><br><span class="line">│   └── RecyclerView 显示 Lab 1-10 列表</span><br><span class="line">├── Lab 1 功能</span><br><span class="line">├── Lab 2 功能</span><br><span class="line">├── ...</span><br><span class="line">└── Lab 10 功能</span><br></pre></td></tr></table></figure>
+
+<p><strong>优势</strong>：</p>
+<ul>
+<li>✅ 无需切换项目，所有代码集中管理</li>
+<li>✅ 便于查看前面 Lab 的代码作为参考</li>
+<li>✅ 复用资源和工具类</li>
+<li>✅ 体验真实的模块化应用开发</li>
+</ul>
+<h4 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">AndroidKotlinPath/</span><br><span class="line">├── app/                                    # 主应用模块</span><br><span class="line">│   ├── src/</span><br><span class="line">│   │   └── main/</span><br><span class="line">│   │       ├── java/com/nexa/androidkotlinpath/</span><br><span class="line">│   │       │   ├── MainActivity.kt         # 主界面（RecyclerView 导航）</span><br><span class="line">│   │       │   ├── ui/                     # 各 Lab 的 UI 组件</span><br><span class="line">│   │       │   │   ├── lab1/               # Lab 1 相关代码</span><br><span class="line">│   │       │   │   ├── lab2/               # Lab 2 相关代码</span><br><span class="line">│   │       │   │   └── ...</span><br><span class="line">│   │       │   ├── data/                   # 数据层（后续 Lab）</span><br><span class="line">│   │       │   ├── model/                  # 数据模型</span><br><span class="line">│   │       │   └── utils/                  # 工具类</span><br><span class="line">│   │       ├── res/                        # 资源文件</span><br><span class="line">│   │       │   ├── layout/                 # 布局文件</span><br><span class="line">│   │       │   ├── values/                 # 字符串、颜色、样式</span><br><span class="line">│   │       │   ├── drawable/               # 图片资源</span><br><span class="line">│   │       │   └── mipmap/                 # 应用图标</span><br><span class="line">│   │       └── AndroidManifest.xml         # 应用清单文件</span><br><span class="line">│   ├── build.gradle.kts                    # 模块级构建配置</span><br><span class="line">│   └── proguard-rules.pro                  # 混淆规则</span><br><span class="line">├── docs/                                   # 学习文档</span><br><span class="line">│   ├── index.md                            # 学习路径总览</span><br><span class="line">│   ├── Lab1-HelloWorld.md                  # 各 Lab 详细文档</span><br><span class="line">│   └── template.md                         # 文档模板</span><br><span class="line">├── gradle/                                 # Gradle 配置</span><br><span class="line">├── build.gradle.kts                        # 项目构建配置</span><br><span class="line">├── settings.gradle.kts                     # Gradle 设置</span><br><span class="line">└── CLAUDE.md                               # Claude Code 指导文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="核心文件说明"><a href="#核心文件说明" class="headerlink" title="核心文件说明"></a>核心文件说明</h4><p><strong>AndroidManifest.xml</strong></p>
+<ul>
+<li>应用的配置文件</li>
+<li>声明所有组件（Activity、Service 等）</li>
+<li>声明所需权限</li>
+<li>设置应用图标和主题</li>
+</ul>
+<p><strong>build.gradle.kts (模块级)</strong></p>
+<ul>
+<li>配置应用 ID：<code>com.nexa.androidkotlinpath</code></li>
+<li>配置版本号</li>
+<li>添加依赖库</li>
+<li>配置编译选项</li>
+</ul>
+<p><strong>MainActivity.kt</strong></p>
+<ul>
+<li>应用入口，显示 Lab 列表</li>
+<li>使用 RecyclerView 展示所有 Lab</li>
+<li>处理 Lab 导航逻辑</li>
+</ul>
+<hr>
+<h3 id="1-3-Kotlin-基础语法"><a href="#1-3-Kotlin-基础语法" class="headerlink" title="1.3 Kotlin 基础语法"></a>1.3 Kotlin 基础语法</h3><h4 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// val：只读变量（类似 Java 的 final）</span></span><br><span class="line"><span class="keyword">val</span> name = <span class="string">&quot;Tom&quot;</span></span><br><span class="line"><span class="keyword">val</span> age: <span class="built_in">Int</span> = <span class="number">25</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// var：可变变量</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">count = <span class="number">1</span>  <span class="comment">// 可以重新赋值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可空类型</span></span><br><span class="line"><span class="keyword">val</span> nullable: String? = <span class="literal">null</span>  <span class="comment">// 可以为 null</span></span><br><span class="line"><span class="keyword">val</span> notNull: String = <span class="string">&quot;Hello&quot;</span> <span class="comment">// 不能为 null</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 完整写法</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">greet</span><span class="params">(name: <span class="type">String</span>)</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, <span class="variable">$name</span>&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简化写法（单表达式函数）</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">greet</span><span class="params">(name: <span class="type">String</span>)</span></span> = <span class="string">&quot;Hello, <span class="variable">$name</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 默认参数</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">greet</span><span class="params">(name: <span class="type">String</span>, prefix: <span class="type">String</span> = <span class="string">&quot;Hello&quot;</span>)</span></span> = <span class="string">&quot;<span class="variable">$prefix</span>, <span class="variable">$name</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">greet(<span class="string">&quot;Tom&quot;</span>)              <span class="comment">// Hello, Tom</span></span><br><span class="line">greet(<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Hi&quot;</span>)        <span class="comment">// Hi, Tom</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="keyword">val</span> name: String, <span class="keyword">var</span> age: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据类（自动生成 equals, hashCode, toString, copy）</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">val</span> user = User(<span class="string">&quot;Tom&quot;</span>, <span class="number">25</span>)</span><br><span class="line"><span class="keyword">val</span> (name, age) = user  <span class="comment">// 解构</span></span><br><span class="line"><span class="keyword">val</span> copied = user.copy(age = <span class="number">26</span>)  <span class="comment">// 复制并修改</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Data-Class（数据类）详解"><a href="#Data-Class（数据类）详解" class="headerlink" title="Data Class（数据类）详解"></a>Data Class（数据类）详解</h4><p><strong>什么是 Data Class？</strong></p>
+<ul>
+<li>Data class 是 Kotlin 专门用于存储数据的类</li>
+<li>自动生成 <code>equals()</code>, <code>hashCode()</code>, <code>toString()</code>, <code>copy()</code> 等方法</li>
+<li>适合用于模型、DTO、响应对象等场景</li>
+</ul>
+<p><strong>基本语法</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(</span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">val</span> email: String,</span><br><span class="line">    <span class="keyword">var</span> age: <span class="built_in">Int</span> = <span class="number">0</span>  <span class="comment">// 带默认值的参数</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>自动生成的方法</strong></p>
+<ol>
+<li><strong>toString()</strong>：生成可读的字符串表示</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(<span class="number">1</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;tom@example.com&quot;</span>, <span class="number">25</span>)</span><br><span class="line">println(user)  <span class="comment">// User(id=1, name=Tom, email=tom@example.com, age=25)</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>equals() 和 hashCode()</strong>：用于比较对象</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user1 = User(<span class="number">1</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;tom@example.com&quot;</span>, <span class="number">25</span>)</span><br><span class="line"><span class="keyword">val</span> user2 = User(<span class="number">1</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;tom@example.com&quot;</span>, <span class="number">25</span>)</span><br><span class="line">println(user1 == user2)  <span class="comment">// true（所有属性相等）</span></span><br><span class="line">println(user1 === user2) <span class="comment">// false（不同对象引用）</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>copy()</strong>：复制对象并修改部分属性</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(<span class="number">1</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;tom@example.com&quot;</span>, <span class="number">25</span>)</span><br><span class="line"><span class="keyword">val</span> olderUser = user.copy(age = <span class="number">26</span>)  <span class="comment">// 复制并修改 age</span></span><br><span class="line">println(user)        <span class="comment">// User(id=1, name=Tom, email=tom@example.com, age=25)</span></span><br><span class="line">println(olderUser)   <span class="comment">// User(id=1, name=Tom, email=tom@example.com, age=26)</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>componentN()</strong>：支持解构声明</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> user = User(<span class="number">1</span>, <span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;tom@example.com&quot;</span>, <span class="number">25</span>)</span><br><span class="line"><span class="keyword">val</span> (id, name, email, age) = user  <span class="comment">// 解构</span></span><br><span class="line">println(<span class="string">&quot;ID: <span class="variable">$id</span>, Name: <span class="variable">$name</span>&quot;</span>)  <span class="comment">// ID: 1, Name: Tom</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在 Android 中的应用</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Lab 数据模型（本项目使用）</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">LabItem</span>(</span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> title: String,</span><br><span class="line">    <span class="keyword">val</span> description: String,</span><br><span class="line">    <span class="keyword">val</span> difficulty: String</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 列表项点击事件</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">ClickEvent</span>(</span><br><span class="line">    <span class="keyword">val</span> position: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> item: LabItem,</span><br><span class="line">    <span class="keyword">val</span> timestamp: <span class="built_in">Long</span> = System.currentTimeMillis()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 网络请求响应</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">ApiResponse</span>&lt;<span class="type">T</span>&gt;(</span><br><span class="line">    <span class="keyword">val</span> code: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> message: String,</span><br><span class="line">    <span class="keyword">val</span> <span class="keyword">data</span>: T?</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Data Class 的要求</strong></p>
+<ul>
+<li>主构造函数至少有一个参数</li>
+<li>所有主构造函数参数必须标记为 <code>val</code> 或 <code>var</code></li>
+<li>Data class 不能是 abstract、open、sealed 或 inner</li>
+<li>Data class 可以继承其他类，但不能继承自其他 Data class</li>
+</ul>
+<p><strong>最佳实践</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 推荐：使用 data class 存储数据</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(</span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">val</span> email: String</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 不推荐：有业务逻辑的类用普通类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserRepository</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getUser</span><span class="params">(id: <span class="type">Int</span>)</span></span>: User &#123; ... &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">saveUser</span><span class="params">(user: <span class="type">User</span>)</span></span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ data class 可以有普通属性和方法</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">User</span>(</span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> name: String,</span><br><span class="line">    <span class="keyword">val</span> email: String</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="keyword">val</span> displayName: String  <span class="comment">// 计算属性</span></span><br><span class="line">        <span class="keyword">get</span>() = <span class="keyword">if</span> (name.length &gt; <span class="number">10</span>) <span class="string">&quot;<span class="subst">$&#123;name.take(<span class="number">10</span>)&#125;</span>...&quot;</span> <span class="keyword">else</span> name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">isValidEmail</span><span class="params">()</span></span>: <span class="built_in">Boolean</span> &#123;  <span class="comment">// 普通方法</span></span><br><span class="line">        <span class="keyword">return</span> email.contains(<span class="string">&quot;@&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="空安全"><a href="#空安全" class="headerlink" title="空安全"></a>空安全</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安全调用操作符 ?.</span></span><br><span class="line"><span class="keyword">val</span> name: String? = <span class="literal">null</span></span><br><span class="line"><span class="keyword">val</span> length = name?.length  <span class="comment">// 如果 name 为 null，返回 null</span></span><br><span class="line"><span class="keyword">val</span> length2 = name?.length ?: <span class="number">0</span>  <span class="comment">// Elvis 操作符，如果为 null 返回 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 非空断言 !!</span></span><br><span class="line"><span class="keyword">val</span> text: String? = <span class="string">&quot;Hello&quot;</span></span><br><span class="line"><span class="keyword">val</span> l = text!!.length  <span class="comment">// 断言 text 不为 null，如果是 null 会抛出 NPE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 安全类型转换</span></span><br><span class="line"><span class="keyword">val</span> obj: Any = <span class="string">&quot;Hello&quot;</span></span><br><span class="line"><span class="keyword">val</span> str = obj <span class="keyword">as</span>? String  <span class="comment">// 如果转换失败返回 null</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if 是表达式，可以返回值</span></span><br><span class="line"><span class="keyword">val</span> max = <span class="keyword">if</span> (a &gt; b) a <span class="keyword">else</span> b</span><br><span class="line"></span><br><span class="line"><span class="comment">// when 表达式（替代 switch）</span></span><br><span class="line"><span class="keyword">when</span> (x) &#123;</span><br><span class="line">    <span class="number">1</span> -&gt; print(<span class="string">&quot;x == 1&quot;</span>)</span><br><span class="line">    <span class="number">2</span> -&gt; print(<span class="string">&quot;x == 2&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span> -&gt; print(<span class="string">&quot;x is neither 1 nor 2&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// when 带条件</span></span><br><span class="line"><span class="keyword">when</span> (x) &#123;</span><br><span class="line">    <span class="keyword">in</span> <span class="number">1.</span><span class="number">.10</span> -&gt; print(<span class="string">&quot;x 在 1-10 之间&quot;</span>)</span><br><span class="line">    !<span class="keyword">in</span> <span class="number">10.</span><span class="number">.20</span> -&gt; print(<span class="string">&quot;x 不在 10-20 之间&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span> -&gt; print(<span class="string">&quot;其他&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// for 循环</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.10</span>) print(i)  <span class="comment">// 1 到 10</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span> until <span class="number">10</span>) print(i)  <span class="comment">// 1 到 9</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">10</span> downTo <span class="number">1</span>) print(i)  <span class="comment">// 10 到 1</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.10</span> step <span class="number">2</span>) print(i)  <span class="comment">// 1, 3, 5, 7, 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历集合</span></span><br><span class="line"><span class="keyword">val</span> items = listOf(<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;kiwi&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> (item <span class="keyword">in</span> items) println(item)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历带索引</span></span><br><span class="line"><span class="keyword">for</span> ((index, value) <span class="keyword">in</span> items.withIndex()) &#123;</span><br><span class="line">    println(<span class="string">&quot;index <span class="variable">$index</span>: <span class="variable">$value</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// List</span></span><br><span class="line"><span class="keyword">val</span> list = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> mutableList = mutableListOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Map</span></span><br><span class="line"><span class="keyword">val</span> map = mapOf(<span class="string">&quot;key1&quot;</span> to <span class="string">&quot;value1&quot;</span>, <span class="string">&quot;key2&quot;</span> to <span class="string">&quot;value2&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 集合操作</span></span><br><span class="line"><span class="keyword">val</span> numbers = listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="keyword">val</span> doubled = numbers.map &#123; it * <span class="number">2</span> &#125;  <span class="comment">// [2, 4, 6, 8, 10]</span></span><br><span class="line"><span class="keyword">val</span> evens = numbers.filter &#123; it % <span class="number">2</span> == <span class="number">0</span> &#125;  <span class="comment">// [2, 4]</span></span><br><span class="line"><span class="keyword">val</span> sum = numbers.reduce &#123; acc, num -&gt; acc + num &#125;  <span class="comment">// 15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 空安全操作</span></span><br><span class="line"><span class="keyword">val</span> nullableList: List&lt;<span class="built_in">Int</span>&gt;? = <span class="literal">null</span></span><br><span class="line"><span class="keyword">val</span> size = nullableList?.size ?: <span class="number">0</span>  <span class="comment">// 如果为 null 返回 0</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-4-AndroidManifest-xml-详解"><a href="#1-4-AndroidManifest-xml-详解" class="headerlink" title="1.4 AndroidManifest.xml 详解"></a>1.4 AndroidManifest.xml 详解</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">&quot;com.nexa.androidkotlinpath&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">&quot;@mipmap/ic_launcher&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">&quot;@string/app_name&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">&quot;@mipmap/ic_launcher_round&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">&quot;@style/Theme.AndroidKotlinPath&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- MainActivity：应用的入口，显示 Lab 列表 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">&quot;.MainActivity&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 其他 Lab 的 Activity 将在这里注册 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="关键属性说明"><a href="#关键属性说明" class="headerlink" title="关键属性说明"></a>关键属性说明</h4><ul>
+<li><code>package</code>：应用的唯一标识符（com.nexa.androidkotlinpath）</li>
+<li><code>android:icon</code>：应用图标</li>
+<li><code>android:label</code>：应用名称</li>
+<li><code>android:theme</code>：应用主题</li>
+<li><code>android:exported=&quot;true&quot;</code>：允许其他应用启动此组件</li>
+</ul>
+<hr>
+<h3 id="1-5-Gradle-构建系统"><a href="#1-5-Gradle-构建系统" class="headerlink" title="1.5 Gradle 构建系统"></a>1.5 Gradle 构建系统</h3><h4 id="Gradle-是什么？"><a href="#Gradle-是什么？" class="headerlink" title="Gradle 是什么？"></a>Gradle 是什么？</h4><ul>
+<li>基于 Groovy&#x2F;Kotlin 的构建工具</li>
+<li>管理依赖、编译、打包</li>
+<li>自动化构建流程</li>
+</ul>
+<h4 id="版本目录（Version-Catalog）"><a href="#版本目录（Version-Catalog）" class="headerlink" title="版本目录（Version Catalog）"></a>版本目录（Version Catalog）</h4><p>本项目使用 Gradle 版本目录管理依赖（<code>gradle/libs.versions.toml</code>）：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[versions]</span></span><br><span class="line"><span class="attr">agp</span> = <span class="string">&quot;8.13.1&quot;</span></span><br><span class="line"><span class="attr">kotlin</span> = <span class="string">&quot;2.0.21&quot;</span></span><br><span class="line"><span class="attr">coreKtx</span> = <span class="string">&quot;1.10.1&quot;</span></span><br><span class="line"><span class="comment"># ... 其他版本</span></span><br><span class="line"></span><br><span class="line"><span class="section">[libraries]</span></span><br><span class="line"><span class="attr">androidx-core-ktx</span> = &#123; group = <span class="string">&quot;androidx.core&quot;</span>, name = <span class="string">&quot;core-ktx&quot;</span>, version.ref = <span class="string">&quot;coreKtx&quot;</span> &#125;</span><br><span class="line"><span class="comment"># ... 其他库</span></span><br><span class="line"></span><br><span class="line"><span class="section">[plugins]</span></span><br><span class="line"><span class="attr">android-application</span> = &#123; id = <span class="string">&quot;com.android.application&quot;</span>, version.ref = <span class="string">&quot;agp&quot;</span> &#125;</span><br><span class="line"><span class="attr">kotlin-android</span> = &#123; id = <span class="string">&quot;org.jetbrains.kotlin.android&quot;</span>, version.ref = <span class="string">&quot;kotlin&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用-Gradle-命令"><a href="#常用-Gradle-命令" class="headerlink" title="常用 Gradle 命令"></a>常用 Gradle 命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建项目</span></span><br><span class="line">./gradlew build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理构建</span></span><br><span class="line">./gradlew clean</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装到设备</span></span><br><span class="line">./gradlew installDebug</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看依赖树</span></span><br><span class="line">./gradlew app:dependencies</span><br></pre></td></tr></table></figure>
+
+<h4 id="依赖配置示例"><a href="#依赖配置示例" class="headerlink" title="依赖配置示例"></a>依赖配置示例</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">// AndroidX 核心库</span></span><br><span class="line">    implementation(libs.androidx.core.ktx)</span><br><span class="line">    implementation(libs.androidx.appcompat)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Material Design</span></span><br><span class="line">    implementation(libs.material)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ConstraintLayout</span></span><br><span class="line">    implementation(libs.androidx.constraintlayout)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试库</span></span><br><span class="line">    testImplementation(libs.junit)</span><br><span class="line">    androidTestImplementation(libs.androidx.junit)</span><br><span class="line">    androidTestImplementation(libs.androidx.espresso.core)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="💻-代码示例-40"><a href="#💻-代码示例-40" class="headerlink" title="💻 代码示例 (40%)"></a>💻 代码示例 (40%)</h2><h3 id="2-1-克隆并运行项目"><a href="#2-1-克隆并运行项目" class="headerlink" title="2.1 克隆并运行项目"></a>2.1 克隆并运行项目</h3><h4 id="步骤-1：克隆项目"><a href="#步骤-1：克隆项目" class="headerlink" title="步骤 1：克隆项目"></a>步骤 1：克隆项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nexa1024/AndroidKotlinPath.git</span><br><span class="line"><span class="built_in">cd</span> AndroidKotlinPath</span><br></pre></td></tr></table></figure>
+
+<h4 id="步骤-2：打开项目"><a href="#步骤-2：打开项目" class="headerlink" title="步骤 2：打开项目"></a>步骤 2：打开项目</h4><ol>
+<li>打开 Android Studio</li>
+<li>选择 <strong>File → Open</strong></li>
+<li>选择 AndroidKotlinPath 目录</li>
+<li>等待 Gradle 同步完成（第一次可能需要几分钟）</li>
+</ol>
+<h4 id="步骤-3：运行项目"><a href="#步骤-3：运行项目" class="headerlink" title="步骤 3：运行项目"></a>步骤 3：运行项目</h4><p><strong>方式 1：点击运行按钮</strong></p>
+<ul>
+<li>工具栏绿色三角形 ▶️</li>
+</ul>
+<p><strong>方式 2：快捷键</strong></p>
+<ul>
+<li>Windows: <code>Shift + F10</code></li>
+<li>Mac: <code>Control + R</code></li>
+</ul>
+<p><strong>方式 3：命令行</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew installDebug</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-2-项目结构解析"><a href="#2-2-项目结构解析" class="headerlink" title="2.2 项目结构解析"></a>2.2 项目结构解析</h3><h4 id="主要文件说明"><a href="#主要文件说明" class="headerlink" title="主要文件说明"></a>主要文件说明</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">app/src/main/</span><br><span class="line">├── java/com/nexa/androidkotlinpath/</span><br><span class="line">│   ├── MainActivity.kt              # 主界面，显示 Lab 列表</span><br><span class="line">│   ├── ui/</span><br><span class="line">│   │   ├── lab1/                    # Lab 1 功能模块</span><br><span class="line">│   │   └── ...</span><br><span class="line">│   ├── model/                       # 数据模型</span><br><span class="line">│   │   └── LabItem.kt               # Lab 列表项数据类</span><br><span class="line">│   └── utils/                       # 工具类</span><br><span class="line">├── res/</span><br><span class="line">│   ├── layout/</span><br><span class="line">│   │   ├── activity_main.xml        # 主界面布局</span><br><span class="line">│   │   └── item_lab.xml             # Lab 列表项布局</span><br><span class="line">│   ├── values/</span><br><span class="line">│   │   ├── strings.xml              # 字符串资源</span><br><span class="line">│   │   ├── colors.xml               # 颜色资源</span><br><span class="line">│   │   └── themes.xml               # 主题配置</span><br><span class="line">│   └── mipmap/                      # 应用图标</span><br><span class="line">└── AndroidManifest.xml              # 应用清单</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-3-基础示例：Hello-World"><a href="#2-3-基础示例：Hello-World" class="headerlink" title="2.3 基础示例：Hello World"></a>2.3 基础示例：Hello World</h3><h4 id="Lab-数据模型"><a href="#Lab-数据模型" class="headerlink" title="Lab 数据模型"></a>Lab 数据模型</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// model/LabItem.kt</span></span><br><span class="line"><span class="keyword">data</span> <span class="keyword">class</span> <span class="title class_">LabItem</span>(</span><br><span class="line">    <span class="keyword">val</span> id: <span class="built_in">Int</span>,</span><br><span class="line">    <span class="keyword">val</span> title: String,</span><br><span class="line">    <span class="keyword">val</span> description: String,</span><br><span class="line">    <span class="keyword">val</span> difficulty: String  <span class="comment">// 初级/中级/高级</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="主界面布局"><a href="#主界面布局" class="headerlink" title="主界面布局"></a>主界面布局</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- res/layout/activity_main.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">androidx.recyclerview.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/recyclerView&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_constraintStart_toStartOf</span>=<span class="string">&quot;parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">tools:listitem</span>=<span class="string">&quot;@layout/item_lab&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">androidx.constraintlayout.widget.ConstraintLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Lab-列表项布局"><a href="#Lab-列表项布局" class="headerlink" title="Lab 列表项布局"></a>Lab 列表项布局</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- res/layout/item_lab.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.card.MaterialCardView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_margin</span>=<span class="string">&quot;8dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:cardElevation</span>=<span class="string">&quot;4dp&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/textViewTitle&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">&quot;Lab1-Hello World&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">&quot;18sp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textStyle</span>=<span class="string">&quot;bold&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/textViewDescription&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;8dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">&quot;学习 Android 开发环境和 Kotlin 基础&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">&quot;14sp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/textViewDifficulty&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;8dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">&quot;初级&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textColor</span>=<span class="string">&quot;@color/green&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">&quot;12sp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.card.MaterialCardView</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="颜色资源定义"><a href="#颜色资源定义" class="headerlink" title="颜色资源定义"></a>颜色资源定义</h4><p>在使用 <code>@color/green</code> 之前，需要先在 <code>res/values/colors.xml</code> 中定义颜色：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- res/values/colors.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 基础颜色 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;black&quot;</span>&gt;</span>#FF000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;white&quot;</span>&gt;</span>#FFFFFFFF<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 难度等级颜色 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;green&quot;</span>&gt;</span>#4CAF50<span class="tag">&lt;/<span class="name">color</span>&gt;</span>     <span class="comment">&lt;!-- 初级 - 绿色 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;orange&quot;</span>&gt;</span>#FF9800<span class="tag">&lt;/<span class="name">color</span>&gt;</span>    <span class="comment">&lt;!-- 中级 - 橙色 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;red&quot;</span>&gt;</span>#F44336<span class="tag">&lt;/<span class="name">color</span>&gt;</span>       <span class="comment">&lt;!-- 高级 - 红色 --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 主题颜色 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>#2196F3<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;primary_dark&quot;</span>&gt;</span>#1976D2<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">&quot;accent&quot;</span>&gt;</span>#FF4081<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在 XML 中引用颜色</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:textColor</span>=<span class="string">&quot;@color/green&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">&quot;@color/primary&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在代码中引用颜色</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式 1：通过 Context</span></span><br><span class="line"><span class="keyword">val</span> greenColor = ContextCompat.getColor(<span class="keyword">this</span>, R.color.green)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式 2：通过 Resources（需要转换为 RGB）</span></span><br><span class="line"><span class="keyword">val</span> greenColor2 = getColor(R.color.green)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 应用到 TextView</span></span><br><span class="line">textView.setTextColor(greenColor)</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用颜色参考</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>颜色</th>
+<th>代码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>黑色</td>
+<td><code>#000000</code> 或 <code>#FF000000</code></td>
+<td>完全透明度为 FF</td>
+</tr>
+<tr>
+<td>白色</td>
+<td><code>#FFFFFF</code> 或 <code>#FFFFFFFF</code></td>
+<td></td>
+</tr>
+<tr>
+<td>红色</td>
+<td><code>#F44336</code></td>
+<td>Material Design Red</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td><code>#4CAF50</code></td>
+<td>Material Design Green</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td><code>#2196F3</code></td>
+<td>Material Design Blue</td>
+</tr>
+<tr>
+<td>黄色</td>
+<td><code>#FFEB3B</code></td>
+<td>Material Design Yellow</td>
+</tr>
+<tr>
+<td>橙色</td>
+<td><code>#FF9800</code></td>
+<td>Material Design Orange</td>
+</tr>
+</tbody></table>
+<p><strong>颜色格式说明</strong>：</p>
+<ul>
+<li><code>#RGB</code>：3 位简写，例如 <code>#000</code> 表示黑色</li>
+<li><code>#ARGB</code>：4 位简写，第一位是透明度</li>
+<li><code>#RRGGBB</code>：6 位标准格式，最常用</li>
+<li><code>#AARRGGBB</code>：8 位完整格式，包含透明度（Alpha 通道）</li>
+</ul>
+<hr>
+<h3 id="2-4-进阶示例：使用-ViewBinding（推荐）"><a href="#2-4-进阶示例：使用-ViewBinding（推荐）" class="headerlink" title="2.4 进阶示例：使用 ViewBinding（推荐）"></a>2.4 进阶示例：使用 ViewBinding（推荐）</h3><p>ViewBinding 是类型安全的视图绑定方式，比 <code>findViewById</code> 更好。</p>
+<h4 id="启用-ViewBinding"><a href="#启用-ViewBinding" class="headerlink" title="启用 ViewBinding"></a>启用 ViewBinding</h4><p>在 <code>app/build.gradle.kts</code> 中启用：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    buildFeatures &#123;</span><br><span class="line">        viewBinding = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>⚠️ 重要：生成 ViewBinding 绑定类</strong></p>
+<p>启用 ViewBinding 后，<strong>必须先构建项目</strong>才能生成绑定类。否则会出现 <code>Unresolved reference &#39;ActivityMainBinding&#39;</code> 错误。</p>
+<p><strong>构建步骤</strong>：</p>
+<ol>
+<li><p><strong>方式 1：点击 Android Studio 的同步按钮</strong></p>
+<ul>
+<li>点击编辑器顶部的 “Sync Now” 或者 “Sync Project with Gradle Files” 按钮（大象图标）</li>
+</ul>
+</li>
+<li><p><strong>方式 2：使用菜单栏</strong></p>
+<ul>
+<li>选择 <strong>File → Sync Project with Gradle Files</strong></li>
+</ul>
+</li>
+<li><p><strong>方式 3：重新构建项目</strong></p>
+<ul>
+<li>选择 <strong>Build → Rebuild Project</strong></li>
+</ul>
+</li>
+<li><p><strong>方式 4：命令行构建</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean build</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>绑定类命名规则</strong>：</p>
+<p>ViewBinding 会自动为每个布局文件生成一个绑定类，命名规则为：</p>
+<table>
+<thead>
+<tr>
+<th>布局文件名</th>
+<th>生成的绑定类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>activity_main.xml</code></td>
+<td><code>ActivityMainBinding</code></td>
+</tr>
+<tr>
+<td><code>item_lab.xml</code></td>
+<td><code>ItemLabBinding</code></td>
+</tr>
+<tr>
+<td><code>fragment_home.xml</code></td>
+<td><code>FragmentHomeBinding</code></td>
+</tr>
+<tr>
+<td><code>dialog_settings.xml</code></td>
+<td><code>DialogSettingsBinding</code></td>
+</tr>
+</tbody></table>
+<p><strong>规则</strong>：将文件名转换为<strong>大驼峰命名（Pascal Case）</strong>，去掉下划线，每个单词首字母大写，末尾加上 <code>Binding</code>。</p>
+<p><strong>常见错误和解决方法</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>错误信息</th>
+<th>原因</th>
+<th>解决方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Unresolved reference &#39;ActivityMainBinding&#39;</code></td>
+<td>绑定类未生成</td>
+<td>执行 <strong>Build → Rebuild Project</strong></td>
+</tr>
+<tr>
+<td>绑定类生成但属性缺失</td>
+<td>布局文件中没有 <code>android:id</code></td>
+<td>给控件添加 <code>android:id</code></td>
+</tr>
+<tr>
+<td>找不到某个 View 的引用</td>
+<td>View 没有 id</td>
+<td>给需要的 View 添加 <code>android:id</code></td>
+</tr>
+</tbody></table>
+<h4 id="使用-ViewBinding"><a href="#使用-ViewBinding" class="headerlink" title="使用 ViewBinding"></a>使用 ViewBinding</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MainActivity.kt</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainActivity</span> : <span class="type">AppCompatActivity</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityMainBinding</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> labs = listOf(</span><br><span class="line">        LabItem(<span class="number">1</span>, <span class="string">&quot;Lab1-Hello World&quot;</span>, <span class="string">&quot;学习 Android 开发环境和 Kotlin 基础&quot;</span>, <span class="string">&quot;初级&quot;</span>),</span><br><span class="line">        LabItem(<span class="number">2</span>, <span class="string">&quot;Lab2-UI 基础&quot;</span>, <span class="string">&quot;学习布局和控件&quot;</span>, <span class="string">&quot;初级&quot;</span>),</span><br><span class="line">        <span class="comment">// ... 更多 Lab</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置 RecyclerView</span></span><br><span class="line">        binding.recyclerView.layoutManager = LinearLayoutManager(<span class="keyword">this</span>)</span><br><span class="line">        binding.recyclerView.adapter = LabAdapter(labs) &#123; lab -&gt;</span><br><span class="line">            <span class="comment">// 点击 Lab 跳转到对应 Activity</span></span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;点击了 <span class="subst">$&#123;lab.title&#125;</span>&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建-RecyclerView-Adapter"><a href="#创建-RecyclerView-Adapter" class="headerlink" title="创建 RecyclerView Adapter"></a>创建 RecyclerView Adapter</h4><p>在使用 <code>LabAdapter</code> 之前，需要先创建 Adapter 类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ui/LabAdapter.kt</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LabAdapter</span>(</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> labs: List&lt;LabItem&gt;,</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> onLabClick: (LabItem) -&gt; <span class="built_in">Unit</span>  <span class="comment">// 点击回调函数</span></span><br><span class="line">) : RecyclerView.Adapter&lt;LabAdapter.LabViewHolder&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ViewHolder：持有 item 的视图引用</span></span><br><span class="line">    <span class="keyword">inner</span> <span class="keyword">class</span> <span class="title class_">LabViewHolder</span>(<span class="keyword">private</span> <span class="keyword">val</span> binding: ItemLabBinding) :</span><br><span class="line">        RecyclerView.ViewHolder(binding.root) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">bind</span><span class="params">(lab: <span class="type">LabItem</span>)</span></span> &#123;</span><br><span class="line">            binding.textViewTitle.text = lab.title</span><br><span class="line">            binding.textViewDescription.text = lab.description</span><br><span class="line">            binding.textViewDifficulty.text = lab.difficulty</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 根据难度设置不同颜色</span></span><br><span class="line">            binding.textViewDifficulty.setTextColor(</span><br><span class="line">                <span class="keyword">when</span> (lab.difficulty) &#123;</span><br><span class="line">                    <span class="string">&quot;初级&quot;</span> -&gt; ContextCompat.getColor(binding.root.context, R.color.green)</span><br><span class="line">                    <span class="string">&quot;中级&quot;</span> -&gt; ContextCompat.getColor(binding.root.context, R.color.orange)</span><br><span class="line">                    <span class="string">&quot;高级&quot;</span> -&gt; ContextCompat.getColor(binding.root.context, R.color.red)</span><br><span class="line">                    <span class="keyword">else</span> -&gt; ContextCompat.getColor(binding.root.context, R.color.black)</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 设置点击事件</span></span><br><span class="line">            binding.root.setOnClickListener &#123;</span><br><span class="line">                onLabClick(lab)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 ViewHolder</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(parent: <span class="type">ViewGroup</span>, viewType: <span class="type">Int</span>)</span></span>: LabViewHolder &#123;</span><br><span class="line">        <span class="keyword">val</span> binding = ItemLabBinding.inflate(</span><br><span class="line">            LayoutInflater.from(parent.context),</span><br><span class="line">            parent,</span><br><span class="line">            <span class="literal">false</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">return</span> LabViewHolder(binding)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定数据</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(holder: <span class="type">LabViewHolder</span>, position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        holder.bind(labs[position])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回数据数量</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemCount</span><span class="params">()</span></span>: <span class="built_in">Int</span> = labs.size</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Adapter 关键概念解释</strong>：</p>
+<ol>
+<li><strong>ViewHolder</strong>：缓存 View 引用，避免重复 <code>findViewById</code>，提升性能</li>
+<li><strong>onCreateViewHolder</strong>：创建新的 ViewHolder 实例（只在创建新 item 时调用）</li>
+<li><strong>onBindViewHolder</strong>：将数据绑定到已有的 ViewHolder（每次滚动显示时调用）</li>
+<li><strong>getItemCount</strong>：返回列表项数量</li>
+</ol>
+<p><strong>使用 Lambda 回调的好处</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ✅ 推荐：使用 Lambda，代码简洁</span></span><br><span class="line">binding.recyclerView.adapter = LabAdapter(labs) &#123; lab -&gt;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;点击了 <span class="subst">$&#123;lab.title&#125;</span>&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ❌ 不推荐：使用接口，代码冗长</span></span><br><span class="line">binding.recyclerView.adapter = <span class="keyword">object</span> : LabAdapter.OnItemClickListener &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onItemClick</span><span class="params">(lab: <span class="type">LabItem</span>)</span></span> &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;点击了 <span class="subst">$&#123;lab.title&#125;</span>&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件组织</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app/src/main/java/com/nexa/androidkotlinpath/</span><br><span class="line">├── MainActivity.kt</span><br><span class="line">├── model/</span><br><span class="line">│   └── LabItem.kt       # 数据类</span><br><span class="line">└── ui/</span><br><span class="line">    └── LabAdapter.kt    # Adapter 类</span><br></pre></td></tr></table></figure>
+
+<p><strong>Gradle 依赖</strong>：</p>
+<p>确保 <code>app/build.gradle.kts</code> 中有 RecyclerView 依赖（Material 库已包含）：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation(libs.material)  <span class="comment">// Material Design 包含 RecyclerView</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ViewBinding-的优势"><a href="#ViewBinding-的优势" class="headerlink" title="ViewBinding 的优势"></a>ViewBinding 的优势</h4><ul>
+<li>✅ <strong>类型安全</strong>：编译时检查，避免类型转换错误</li>
+<li>✅ <strong>空安全</strong>：避免空指针异常</li>
+<li>✅ <strong>代码简洁</strong>：无需 <code>findViewById</code></li>
+<li>✅ <strong>性能优秀</strong>：无运行时开销</li>
+</ul>
+<hr>
+<h3 id="2-5-模拟器设置"><a href="#2-5-模拟器设置" class="headerlink" title="2.5 模拟器设置"></a>2.5 模拟器设置</h3><h4 id="创建虚拟设备"><a href="#创建虚拟设备" class="headerlink" title="创建虚拟设备"></a>创建虚拟设备</h4><ol>
+<li><strong>Tools → Device Manager</strong></li>
+<li>点击 <strong>Create Device</strong></li>
+<li>选择设备型号：<ul>
+<li><strong>推荐</strong>：Pixel 6, Pixel 7</li>
+<li>屏幕尺寸：任意</li>
+</ul>
+</li>
+<li>选择系统镜像：<ul>
+<li><strong>推荐</strong>：API 33 (Android 13) 或更高</li>
+</ul>
+</li>
+<li>完成创建</li>
+</ol>
+<h4 id="运行应用"><a href="#运行应用" class="headerlink" title="运行应用"></a>运行应用</h4><p><strong>方式 1：点击运行按钮</strong></p>
+<ul>
+<li>工具栏绿色三角形 ▶️</li>
+</ul>
+<p><strong>方式 2：快捷键</strong></p>
+<ul>
+<li>Windows: <code>Shift + F10</code></li>
+<li>Mac: <code>Control + R</code></li>
+</ul>
+<p><strong>方式 3：命令行</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew installDebug</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🎯-实践任务-30"><a href="#🎯-实践任务-30" class="headerlink" title="🎯 实践任务 (30%)"></a>🎯 实践任务 (30%)</h2><h3 id="必做题（2-3-个）"><a href="#必做题（2-3-个）" class="headerlink" title="必做题（2-3 个）"></a>必做题（2-3 个）</h3><h4 id="任务-1：理解项目结构"><a href="#任务-1：理解项目结构" class="headerlink" title="任务 1：理解项目结构"></a>任务 1：理解项目结构</h4><p><strong>需求</strong>：</p>
+<ul>
+<li>浏览 AndroidKotlinPath 项目的所有文件夹</li>
+<li>理解每个文件夹的作用</li>
+<li>找到 MainActivity.kt 并阅读代码</li>
+</ul>
+<p><strong>要求</strong>：</p>
+<ul>
+<li>列出项目中主要文件夹的作用</li>
+<li>说明单应用架构的优势</li>
+<li>理解 MainActivity 的作用</li>
+</ul>
+<hr>
+<h4 id="任务-2：修改-Lab-列表"><a href="#任务-2：修改-Lab-列表" class="headerlink" title="任务 2：修改 Lab 列表"></a>任务 2：修改 Lab 列表</h4><p><strong>需求</strong>：</p>
+<ul>
+<li>修改 <code>strings.xml</code> 添加新的字符串资源</li>
+<li>更新 Lab 列表数据</li>
+<li>观察界面变化</li>
+</ul>
+<p><strong>要求</strong>：</p>
+<ul>
+<li>在 <code>res/values/strings.xml</code> 中定义至少 3 个字符串</li>
+<li>修改 MainActivity 中的 Labs 列表</li>
+<li>重新运行应用查看效果</li>
+</ul>
+<p><strong>提示</strong>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- res/values/strings.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span>&gt;</span>AndroidKotlinPath<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;lab_list_title&quot;</span>&gt;</span>学习路径<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;welcome_message&quot;</span>&gt;</span>欢迎学习 Android 开发<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在代码中使用</span></span><br><span class="line">getString(R.string.lab_list_title)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="任务-3：添加点击反馈"><a href="#任务-3：添加点击反馈" class="headerlink" title="任务 3：添加点击反馈"></a>任务 3：添加点击反馈</h4><p><strong>需求</strong>：</p>
+<ul>
+<li>为 RecyclerView 的 item 添加点击效果</li>
+<li>点击 Lab 时显示 Toast 提示</li>
+<li>添加点击动画效果</li>
+</ul>
+<p><strong>要求</strong>：</p>
+<ul>
+<li>使用 Toast 显示点击的 Lab 信息</li>
+<li>为 item 添加点击波纹效果</li>
+<li>使用 Log 输出点击日志</li>
+</ul>
+<p><strong>参考代码</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">binding.recyclerView.adapter = LabAdapter(labs) &#123; lab -&gt;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;你点击了：<span class="subst">$&#123;lab.title&#125;</span>&quot;</span>, Toast.LENGTH_SHORT).show()</span><br><span class="line">    Log.d(<span class="string">&quot;MainActivity&quot;</span>, <span class="string">&quot;点击 Lab: <span class="subst">$&#123;lab.id&#125;</span> - <span class="subst">$&#123;lab.title&#125;</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- item_lab.xml 添加点击效果 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">com.google.android.material.card.MaterialCardView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clickable</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:focusable</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:foreground</span>=<span class="string">&quot;?android:attr/selectableItemBackground&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">com.google.android.material.card.MaterialCardView</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="挑战题（1-个）"><a href="#挑战题（1-个）" class="headerlink" title="挑战题（1 个）"></a>挑战题（1 个）</h3><h4 id="挑战：创建简单的计数器功能"><a href="#挑战：创建简单的计数器功能" class="headerlink" title="挑战：创建简单的计数器功能"></a>挑战：创建简单的计数器功能</h4><p><strong>需求</strong>：</p>
+<ul>
+<li>在项目中添加一个简单的计数器 Activity</li>
+<li>从主界面点击某个 Lab 时跳转到计数器</li>
+<li>实现加减功能</li>
+</ul>
+<p><strong>步骤提示</strong>：</p>
+<ol>
+<li><p><strong>创建 Activity</strong>：</p>
+<ul>
+<li>在 <code>ui/lab1/</code> 下创建 <code>CounterActivity.kt</code></li>
+<li>创建布局文件 <code>activity_counter.xml</code></li>
+</ul>
+</li>
+<li><p><strong>布局文件</strong>：</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- res/layout/activity_counter.xml --&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;16dp&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/textViewCount&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">&quot;48sp&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginTop</span>=<span class="string">&quot;32dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/buttonDecrease&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginEnd</span>=<span class="string">&quot;16dp&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">&quot;-&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">&quot;@+id/buttonIncrease&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">&quot;+&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>Activity 代码</strong>：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CounterActivity</span> : <span class="type">AppCompatActivity</span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityCounterBinding</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityCounterBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">        binding.buttonIncrease.setOnClickListener &#123;</span><br><span class="line">            count++</span><br><span class="line">            updateCount()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        binding.buttonDecrease.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                count--</span><br><span class="line">                updateCount()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">updateCount</span><span class="params">()</span></span> &#123;</span><br><span class="line">        binding.textViewCount.text = count.toString()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>在 AndroidManifest.xml 中注册</strong>：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.ui.lab1.CounterActivity&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:exported</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><strong>从 MainActivity 跳转</strong>：</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在点击事件中添加</span></span><br><span class="line"><span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, CounterActivity::<span class="keyword">class</span>.java)</span><br><span class="line">startActivity(intent)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="✅-验收标准"><a href="#✅-验收标准" class="headerlink" title="✅ 验收标准"></a>✅ 验收标准</h2><p>完成本 Lab 后，请确保：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 成功克隆并运行了 AndroidKotlinPath 项目</li>
+<li><input disabled="" type="checkbox"> 理解项目结构中每个文件夹的作用</li>
+<li><input disabled="" type="checkbox"> 掌握 Kotlin 的基础语法（变量、函数、类、空安全）</li>
+<li><input disabled="" type="checkbox"> 理解单应用多 Lab 的架构设计</li>
+<li><input disabled="" type="checkbox"> 熟练使用 ViewBinding</li>
+<li><input disabled="" type="checkbox"> 能够处理基本的点击事件</li>
+<li><input disabled="" type="checkbox"> 完成了至少 2 个必做题</li>
+<li><input disabled="" type="checkbox"> 应用在模拟器上正常运行无崩溃</li>
+</ul>
+<hr>
+<h2 id="📚-扩展阅读"><a href="#📚-扩展阅读" class="headerlink" title="📚 扩展阅读"></a>📚 扩展阅读</h2><h3 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/">Android Developers</a></li>
+<li><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/home.html">Kotlin 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.gradle.org/">Gradle 官方文档</a></li>
+</ul>
+<h3 id="推荐工具"><a href="#推荐工具" class="headerlink" title="推荐工具"></a>推荐工具</h3><ul>
+<li><p><strong>ADB 命令</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb devices              <span class="comment"># 查看连接的设备</span></span><br><span class="line">adb install app.apk      <span class="comment"># 安装应用</span></span><br><span class="line">adb logcat              <span class="comment"># 查看日志</span></span><br><span class="line">adb shell screencap -p &gt; screen.png  <span class="comment"># 截图</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Android Studio 快捷键</strong>：</p>
+<ul>
+<li><code>Ctrl + B</code>：跳转到定义</li>
+<li><code>Ctrl + Alt + L</code>：格式化代码</li>
+<li><code>Ctrl + /</code>：注释&#x2F;取消注释</li>
+<li><code>Alt + Enter</code>：快速修复</li>
+<li><code>Ctrl + N</code>：快速查找类</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="🔑-关键要点总结"><a href="#🔑-关键要点总结" class="headerlink" title="🔑 关键要点总结"></a>🔑 关键要点总结</h2><ol>
+<li><strong>AndroidKotlinPath</strong> 采用单应用架构，所有 Lab 集成在一个项目中</li>
+<li><strong>项目结构</strong> 分为 <code>java/</code>（代码）、<code>res/</code>（资源）、<code>AndroidManifest.xml</code>（配置）</li>
+<li><strong>Kotlin</strong> 是 Android 开发的首选语言，具有空安全、简洁等特性</li>
+<li><strong>ViewBinding</strong> 是推荐的视图绑定方式，比 <code>findViewById</code> 更安全</li>
+<li><strong>Gradle</strong> 使用版本目录管理依赖，所有版本集中在 <code>libs.versions.toml</code></li>
+<li><strong>AndroidManifest.xml</strong> 是应用的配置文件，必须声明所有组件</li>
+</ol>
+<hr>
+<p><strong>下一步</strong>：完成本 Lab 后，继续学习 <strong>Lab2-UI 基础 &amp; 布局与控件</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/android/Lab0-Index/" rel="prev" title="AndroidKotlinPath 学习路径">
+                  <i class="fa fa-angle-left"></i> AndroidKotlinPath 学习路径
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nexa1024</span>
+  </div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/nexa1024" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"nexa1024/nexa1024.github.io","repo_id":"R_kgDOQoD_Fw","category":"Announcements","category_id":"DIC_kwDOQoD_F84C0Abu","mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy","data-theme":"dark_high_contrast"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"right",libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:false,models:[{"path":"/l2dmodels/PermansorTerrae/PermansorTerrae.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}},{"path":"/l2dmodels/Cyrene/Cyrene.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},copyTips: {"message":["复制的内容要标明出处~"]},idleTips:{interval:20000,wordTheDay:function(wordTheDayData){
+  return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
