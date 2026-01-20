@@ -18,7 +18,7 @@ article:
 fix:
 	git checkout fix/somefunction
 
-############### push ###############
+############### combined push ###############
 
 commit:
 	@if [ -z "$(msg)" ]; then \
@@ -30,8 +30,6 @@ commit:
 
 push:
 	git push
-
-############### combined ###############
 
 publish: commit push
 
