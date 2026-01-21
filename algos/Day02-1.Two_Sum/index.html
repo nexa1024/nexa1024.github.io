@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nexa1024.github.io/images/algos/Day02-1.Two_Sum/01.png">
 <meta property="article:published_time" content="2026-01-16T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-20T15:06:06.364Z">
+<meta property="article:modified_time" content="2026-01-21T16:09:04.569Z">
 <meta property="article:author" content="Nexa1024">
 <meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
 <meta name="twitter:card" content="summary">
@@ -163,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%81%93%E9%A2%98%E9%87%8D%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么这道题重要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%BB%B6%E4%BC%B8%E8%B7%AF%E5%BE%84"><span class="nav-number">2.1.</span> <span class="nav-text">解法延伸路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">解法对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">5.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E8%AF%B5%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">背诵模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">7.1.</span> <span class="nav-text">java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin"><span class="nav-number">7.2.</span> <span class="nav-text">kotlin</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%81%93%E9%A2%98%E9%87%8D%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么这道题重要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%BB%B6%E4%BC%B8%E8%B7%AF%E5%BE%84"><span class="nav-number">2.1.</span> <span class="nav-text">解法延伸路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">解法对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E8%A7%A3%E6%B3%95%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">3.1.</span> <span class="nav-text">两种解法的选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">5.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E8%AF%B5%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">背诵模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">7.1.</span> <span class="nav-text">java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin"><span class="nav-number">7.2.</span> <span class="nav-text">kotlin</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -285,29 +285,33 @@
 <th>解法</th>
 <th>时间复杂度</th>
 <th>空间复杂度</th>
-<th>说明</th>
+<th>适用场景</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>暴力枚举</td>
 <td>O(n²)</td>
 <td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序 + 双指针</td>
-<td>O(n log n)</td>
-<td>O(1)</td>
-<td>需要修改原数组或额外空间</td>
+<td>性能差，不推荐</td>
 </tr>
 <tr>
 <td><strong>HashMap</strong></td>
 <td><strong>O(n)</strong></td>
 <td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
+<td><strong>本题最优解，无需排序</strong></td>
+</tr>
+<tr>
+<td>排序 + 双指针</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>需要返回元素值时适用，可延伸至三数&#x2F;四数之和</td>
 </tr>
 </tbody></table>
 <p><strong>背诵重点</strong>：HashMap 解法（O(n) 时间，边遍历边查找）</p>
+<h3 id="两种解法的选择"><a href="#两种解法的选择" class="headerlink" title="两种解法的选择"></a>两种解法的选择</h3><ul>
+<li><strong>哈希解法</strong>：题目要求返回下标，且数组无序 → <strong>选择哈希</strong></li>
+<li><strong>双指针解法</strong>：题目要求返回元素值，或可以排序 → <strong>选择双指针</strong>（可延伸至三数&#x2F;四数之和）</li>
+</ul>
 <span id="more"></span>
 
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/algos/Day02-1.Two_Sum/01.png"></p>

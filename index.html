@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,6 +203,134 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day04-36.Valid_Sudoku/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/algos/Day04-36.Valid_Sudoku/" class="post-title-link" itemprop="url">DSA-Day04-36.有效的数独</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-21 00:00:00 / 修改时间：16:09:04" itemprop="dateCreated datePublished" datetime="2026-01-21T00:00:00+00:00">2026-01-21</time>
+    </span>
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表多维验证</strong>。本题是 LeetCode 中等题，核心考点是<strong>使用哈希表同时验证行、列、宫格三个维度的数字唯一性</strong>，是空间换时间的典型应用。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>多维约束验证</strong> 的经典问题，掌握后可理解：</p>
+<ul>
+<li>如何同时处理多个维度的约束条件</li>
+<li>二维坐标到一维索引的映射技巧</li>
+<li>位运算在哈希表中的应用（空间优化）</li>
+</ul>
+<h3 id="延伸应用"><a href="#延伸应用" class="headerlink" title="延伸应用"></a>延伸应用</h3><ul>
+<li>位运算优化思想 → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/counting-bits/">338. 比特位计数</a>、<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subsets/">78. 子集</a></li>
+<li>多维验证思想 → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sudoku-solver/">37. 解数独</a>（本题的进阶版）</li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力三次遍历</td>
+<td>O(9²) × 3</td>
+<td>O(1)</td>
+<td>需要遍历三次，代码冗余</td>
+</tr>
+<tr>
+<td><strong>哈希表一次遍历</strong></td>
+<td><strong>O(9²)</strong></td>
+<td><strong>O(9²)</strong></td>
+<td><strong>最优解，一次遍历同时验证三维</strong></td>
+</tr>
+<tr>
+<td>位运算优化</td>
+<td>O(9²)</td>
+<td>O(9)</td>
+<td>空间进一步优化</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：哈希表一次遍历解法（数组版本）</p>
+<p>⚠️ <strong>注意</strong>：由于数独大小固定为 9×9，时间复杂度实际为 O(1)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/algos/Day04-36.Valid_Sudoku/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
       
 
@@ -961,29 +1089,33 @@
 <th>解法</th>
 <th>时间复杂度</th>
 <th>空间复杂度</th>
-<th>说明</th>
+<th>适用场景</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>暴力枚举</td>
 <td>O(n²)</td>
 <td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序 + 双指针</td>
-<td>O(n log n)</td>
-<td>O(1)</td>
-<td>需要修改原数组或额外空间</td>
+<td>性能差，不推荐</td>
 </tr>
 <tr>
 <td><strong>HashMap</strong></td>
 <td><strong>O(n)</strong></td>
 <td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
+<td><strong>本题最优解，无需排序</strong></td>
+</tr>
+<tr>
+<td>排序 + 双指针</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>需要返回元素值时适用，可延伸至三数&#x2F;四数之和</td>
 </tr>
 </tbody></table>
 <p><strong>背诵重点</strong>：HashMap 解法（O(n) 时间，边遍历边查找）</p>
+<h3 id="两种解法的选择"><a href="#两种解法的选择" class="headerlink" title="两种解法的选择"></a>两种解法的选择</h3><ul>
+<li><strong>哈希解法</strong>：题目要求返回下标，且数组无序 → <strong>选择哈希</strong></li>
+<li><strong>双指针解法</strong>：题目要求返回元素值，或可以排序 → <strong>选择双指针</strong>（可延伸至三数&#x2F;四数之和）</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day02-1.Two_Sum/#more" rel="contents">
@@ -1109,128 +1241,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day02-49.Group_Anagrams/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day01-217.Contains_Duplicate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Nexa1024">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/algos/Day01-217.Contains_Duplicate/" class="post-title-link" itemprop="url">DSA-Day01-217.存在重复元素</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-01-15 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-15T00:00:00+00:00">2026-01-15</time>
-    </span>
-
-  
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>HashSet 基础应用</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用 HashSet 判断数组中是否存在重复元素</strong>，是哈希表入门的第一道题。</p>
-<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表去重</strong>的基础操作，掌握后可解决：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">217. 存在重复元素</a>（本题）</li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">219. 存在重复元素 II</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-iii/">220. 存在重复元素 III</a></li>
-</ul>
-<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
-<thead>
-<tr>
-<th>解法</th>
-<th>时间复杂度</th>
-<th>空间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>暴力枚举</td>
-<td>O(n²)</td>
-<td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序后比较</td>
-<td>O(n log n)</td>
-<td>O(1) 或 O(n)</td>
-<td>需要修改原数组或额外空间</td>
-</tr>
-<tr>
-<td><strong>HashSet</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
-</tr>
-</tbody></table>
-<p><strong>背诵重点</strong>：HashSet 解法（O(n) 时间，一次遍历）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/algos/Day01-217.Contains_Duplicate/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

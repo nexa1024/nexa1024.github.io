@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DSA-Day04-36.有效的数独</title>
+    <url>/algos/Day04-36.Valid_Sudoku/</url>
+    <content><![CDATA[<h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表多维验证</strong>。本题是 LeetCode 中等题，核心考点是<strong>使用哈希表同时验证行、列、宫格三个维度的数字唯一性</strong>，是空间换时间的典型应用。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>多维约束验证</strong> 的经典问题，掌握后可理解：</p>
+<ul>
+<li>如何同时处理多个维度的约束条件</li>
+<li>二维坐标到一维索引的映射技巧</li>
+<li>位运算在哈希表中的应用（空间优化）</li>
+</ul>
+<h3 id="延伸应用"><a href="#延伸应用" class="headerlink" title="延伸应用"></a>延伸应用</h3><ul>
+<li>位运算优化思想 → 延伸至：<a href="https://leetcode.cn/problems/counting-bits/">338. 比特位计数</a>、<a href="https://leetcode.cn/problems/subsets/">78. 子集</a></li>
+<li>多维验证思想 → 延伸至：<a href="https://leetcode.cn/problems/sudoku-solver/">37. 解数独</a>（本题的进阶版）</li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力三次遍历</td>
+<td>O(9²) × 3</td>
+<td>O(1)</td>
+<td>需要遍历三次，代码冗余</td>
+</tr>
+<tr>
+<td><strong>哈希表一次遍历</strong></td>
+<td><strong>O(9²)</strong></td>
+<td><strong>O(9²)</strong></td>
+<td><strong>最优解，一次遍历同时验证三维</strong></td>
+</tr>
+<tr>
+<td>位运算优化</td>
+<td>O(9²)</td>
+<td>O(9)</td>
+<td>空间进一步优化</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：哈希表一次遍历解法（数组版本）</p>
+<p>⚠️ <strong>注意</strong>：由于数独大小固定为 9×9，时间复杂度实际为 O(1)</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/algos/Day04-36.Valid_Sudoku/01.png"><br><img src="/images/algos/Day04-36.Valid_Sudoku/02.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希表、矩阵</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>使用三个二维数组：<ul>
+<li><code>row[9][9]</code>：row[i][num] 表示第 i 行是否已有数字 num</li>
+<li><code>col[9][9]</code>：col[j][num] 表示第 j 列是否已有数字 num</li>
+<li><code>box[9][9]</code>：box[k][num] 表示第 k 个宫格是否已有数字 num</li>
+</ul>
+</li>
+<li>遍历到坐标 (i, j) 时：<ul>
+<li>若为空格 ‘.’，跳过</li>
+<li>若为数字 d（1-9），转换为索引 num &#x3D; d - ‘1’（0-8）</li>
+</ul>
+</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>三个数组分别维护行、列、宫格的数字出现状态</li>
+<li>任何数字在同一行、同一列、同一宫格内只能出现一次</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>对于非空格数字：<ol>
+<li>计算宫格索引：<code>boxIndex = (i / 3) * 3 + (j / 3)</code></li>
+<li>检查冲突：<code>row[i][num]</code>、<code>col[j][num]</code>、<code>box[boxIndex][num]</code> 任一为 true 则冲突</li>
+<li>若无冲突，标记该数字：将三个对应位置都置为 true</li>
+</ol>
+</li>
+</ul>
+<p><strong>宫格索引计算详解</strong></p>
+<ul>
+<li>9×9 数独被分成 9 个 3×3 宫格，编号为 0-8：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">宫格 0 | 宫格 1 | 宫格 2</span><br><span class="line">------|--------|------</span><br><span class="line">宫格 3 | 宫格 4 | 宫格 5</span><br><span class="line">------|--------|------</span><br><span class="line">宫格 6 | 宫格 7 | 宫格 8</span><br></pre></td></tr></table></figure></li>
+<li>公式 <code>(i / 3) * 3 + (j / 3)</code> 拆解：<ul>
+<li><code>i / 3</code>：确定在第几行宫格（0&#x2F;1&#x2F;2）</li>
+<li><code>(i / 3) * 3</code>：行宫格的起始索引（0&#x2F;3&#x2F;6）</li>
+<li><code>j / 3</code>：确定在第几列宫格（0&#x2F;1&#x2F;2）</li>
+<li>两者相加得到宫格编号（0-8）</li>
+</ul>
+</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>返回 false：发现任意一个数字在行、列或宫格中重复</li>
+<li>返回 true：遍历完所有格子，未发现冲突</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li>时间复杂度：O(1)，实际遍历 9×9 &#x3D; 81 个格子</li>
+<li>空间复杂度：O(1)，三个 9×9 的数组，共 243 个 boolean</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>宫格索引计算错误：<code>(i / 3) * 3 + (j / 3)</code> 而非 <code>i / 3 * 3 + j / 3</code>（注意运算优先级）</li>
+<li>字符转数字索引：需要减去 ‘1’ 转换为 0-8，或使用 <code>d - &#39;0&#39; - 1</code></li>
+<li>三个维度必须分别验证，不能只验证宫格就认为行列也满足</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidSudoku(char[][] board) &#123;</span><br><span class="line">        // 创建三个二维数组，分别记录行、列、宫格的数字出现情况</span><br><span class="line">        // row[i][num]: 第i行是否已经出现过数字num+1</span><br><span class="line">        // col[j][num]: 第j列是否已经出现过数字num+1</span><br><span class="line">        // box[k][num]: 第k个宫格是否已经出现过数字num+1</span><br><span class="line">        boolean[][] row = new boolean[9][9];</span><br><span class="line">        boolean[][] col = new boolean[9][9];</span><br><span class="line">        boolean[][] box = new boolean[9][9];</span><br><span class="line"></span><br><span class="line">        // 遍历数独的每一个格子</span><br><span class="line">        for (int i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">            for (int j = 0; j &lt; 9; j++) &#123;</span><br><span class="line">                // 跳过空格</span><br><span class="line">                if (board[i][j] == &#x27;.&#x27;) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                // 将字符 &#x27;1&#x27;-&#x27;9&#x27; 转换为索引 0-8</span><br><span class="line">                int num = board[i][j] - &#x27;1&#x27;;</span><br><span class="line">                // 计算当前格子所属的宫格索引（0-8）</span><br><span class="line">                int boxIndex = (i / 3) * 3 + (j / 3);</span><br><span class="line"></span><br><span class="line">                // 检查该数字是否在当前行、列、宫格中已存在</span><br><span class="line">                if (row[i][num] || col[j][num] || box[boxIndex][num]) &#123;</span><br><span class="line">                    return false;  // 存在冲突，数独无效</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                // 标记该数字已在当前行、列、宫格出现过</span><br><span class="line">                row[i][num] = true;</span><br><span class="line">                col[j][num] = true;</span><br><span class="line">                box[boxIndex][num] = true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;  // 所有格子检查完毕，无冲突，数独有效</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isValidSudoku(board: Array&lt;CharArray&gt;): Boolean &#123;</span><br><span class="line">        // 创建三个二维数组，分别记录行、列、宫格的数字出现情况</span><br><span class="line">        val row = Array(9) &#123; BooleanArray(9) &#125;  // row[i][num]: 第i行是否已出现数字num+1</span><br><span class="line">        val col = Array(9) &#123; BooleanArray(9) &#125;  // col[j][num]: 第j列是否已出现数字num+1</span><br><span class="line">        val box = Array(9) &#123; BooleanArray(9) &#125;  // box[k][num]: 第k个宫格是否已出现数字num+1</span><br><span class="line"></span><br><span class="line">        // 遍历数独的每一个格子</span><br><span class="line">        for (i in 0..8) &#123;</span><br><span class="line">            for (j in 0..8) &#123;</span><br><span class="line">                // 跳过空格</span><br><span class="line">                if (board[i][j] == &#x27;.&#x27;) continue</span><br><span class="line"></span><br><span class="line">                // 将字符 &#x27;1&#x27;-&#x27;9&#x27; 转换为索引 0-8</span><br><span class="line">                val num = board[i][j] - &#x27;1&#x27;</span><br><span class="line">                // 计算当前格子所属的宫格索引（0-8）</span><br><span class="line">                val boxIndex = (i / 3) * 3 + (j / 3)</span><br><span class="line"></span><br><span class="line">                // 检查该数字是否在当前行、列、宫格中已存在</span><br><span class="line">                if (row[i][num] || col[j][num] || box[boxIndex][num]) &#123;</span><br><span class="line">                    return false  // 存在冲突，数独无效</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                // 标记该数字已在当前行、列、宫格出现过</span><br><span class="line">                row[i][num] = true</span><br><span class="line">                col[j][num] = true</span><br><span class="line">                box[boxIndex][num] = true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true  // 所有格子检查完毕，无冲突，数独有效</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="位运算优化版本（可选）"><a href="#位运算优化版本（可选）" class="headerlink" title="位运算优化版本（可选）"></a>位运算优化版本（可选）</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isValidSudoku(char[][] board) &#123;</span><br><span class="line">        // 使用整数的9个二进制位来记录9个数字的出现情况</span><br><span class="line">        // 例如：row[i] = 101010000 表示第i行已经出现了数字1,3,5</span><br><span class="line">        int[] row = new int[9];   // row[i]: 第i行各数字的出现情况（用二进制位表示）</span><br><span class="line">        int[] col = new int[9];   // col[j]: 第j列各数字的出现情况（用二进制位表示）</span><br><span class="line">        int[] box = new int[9];   // box[k]: 第k个宫格各数字的出现情况（用二进制位表示）</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; 9; i++) &#123;</span><br><span class="line">            for (int j = 0; j &lt; 9; j++) &#123;</span><br><span class="line">                // 跳过空格</span><br><span class="line">                if (board[i][j] == &#x27;.&#x27;) continue;</span><br><span class="line"></span><br><span class="line">                // 计算掩码：数字&#x27;1&#x27;-&#x27;9&#x27;对应第0-8位</span><br><span class="line">                // 例如数字&#x27;3&#x27; -&gt; mask = 1 &lt;&lt; 2 = 000000100（二进制）</span><br><span class="line">                int mask = 1 &lt;&lt; (board[i][j] - &#x27;1&#x27;);</span><br><span class="line">                // 计算当前格子所属的宫格索引（0-8）</span><br><span class="line">                int boxIndex = (i / 3) * 3 + (j / 3);</span><br><span class="line"></span><br><span class="line">                // 使用位运算检查数字是否已存在</span><br><span class="line">                // 按位与：如果对应位为1，说明数字已存在</span><br><span class="line">                if ((row[i] &amp; mask) != 0 || (col[j] &amp; mask) != 0 || (box[boxIndex] &amp; mask) != 0) &#123;</span><br><span class="line">                    return false;  // 存在冲突，数独无效</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                // 使用位运算标记数字已出现</span><br><span class="line">                // 按位或：将对应位置为1</span><br><span class="line">                row[i] |= mask;       // 标记数字在第i行出现</span><br><span class="line">                col[j] |= mask;       // 标记数字在第j列出现</span><br><span class="line">                box[boxIndex] |= mask; // 标记数字在第boxIndex个宫格出现</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;  // 所有格子检查完毕，无冲突，数独有效</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Lab1-Hello World &amp; 环境搭建</title>
     <url>/android/Lab1-HelloWorld/</url>
     <content><![CDATA[<p>本 Lab 将带你完成 Android 开发环境的搭建，克隆并运行 AndroidKotlinPath 项目，学习 Android 项目结构，掌握 Kotlin 基础语法，并了解单应用多 Lab 的架构设计。</p>
@@ -1301,29 +1414,33 @@
 <th>解法</th>
 <th>时间复杂度</th>
 <th>空间复杂度</th>
-<th>说明</th>
+<th>适用场景</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>暴力枚举</td>
 <td>O(n²)</td>
 <td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序 + 双指针</td>
-<td>O(n log n)</td>
-<td>O(1)</td>
-<td>需要修改原数组或额外空间</td>
+<td>性能差，不推荐</td>
 </tr>
 <tr>
 <td><strong>HashMap</strong></td>
 <td><strong>O(n)</strong></td>
 <td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
+<td><strong>本题最优解，无需排序</strong></td>
+</tr>
+<tr>
+<td>排序 + 双指针</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>需要返回元素值时适用，可延伸至三数&#x2F;四数之和</td>
 </tr>
 </tbody></table>
 <p><strong>背诵重点</strong>：HashMap 解法（O(n) 时间，边遍历边查找）</p>
+<h3 id="两种解法的选择"><a href="#两种解法的选择" class="headerlink" title="两种解法的选择"></a>两种解法的选择</h3><ul>
+<li><strong>哈希解法</strong>：题目要求返回下标，且数组无序 → <strong>选择哈希</strong></li>
+<li><strong>双指针解法</strong>：题目要求返回元素值，或可以排序 → <strong>选择双指针</strong>（可延伸至三数&#x2F;四数之和）</li>
+</ul>
 <span id="more"></span>
 
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/algos/Day02-1.Two_Sum/01.png"></p>
