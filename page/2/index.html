@@ -171,13 +171,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -203,6 +203,132 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day02-1.Two_Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/algos/Day02-1.Two_Sum/" class="post-title-link" itemprop="url">DSA-Day02-1.两数之和</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-16 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-16T00:00:00+00:00">2026-01-16</time>
+    </span>
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表经典应用</strong>。本题是 LeetCode 第一题，核心考点是<strong>使用哈希表在一次遍历中找到目标和的两个元素</strong>，是面试必考题。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表查找</strong>的经典应用，是 LeetCode 最受欢迎的题目。本题有两种核心解法：</p>
+<h3 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h3><ul>
+<li><strong>哈希解法（本题推荐）</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum-ii/">454. 四数相加 II</a>（分组哈希思想）</li>
+<li><strong>双指针解法</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 三数之和</a>、<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">18. 四数之和</a>（排序+双指针思想）</li>
+</ul>
+<p>⚠️ <strong>注意</strong>：三数之和和四数之和的最优解是<strong>双指针法</strong>，不是哈希法（哈希法在多元素求和时去重复杂且效率降低）</p>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>性能差，不推荐</td>
+</tr>
+<tr>
+<td><strong>HashMap</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>本题最优解，无需排序</strong></td>
+</tr>
+<tr>
+<td>排序 + 双指针</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>需要返回元素值时适用，可延伸至三数&#x2F;四数之和</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：HashMap 解法（O(n) 时间，边遍历边查找）</p>
+<h3 id="两种解法的选择"><a href="#两种解法的选择" class="headerlink" title="两种解法的选择"></a>两种解法的选择</h3><ul>
+<li><strong>哈希解法</strong>：题目要求返回下标，且数组无序 → <strong>选择哈希</strong></li>
+<li><strong>双指针解法</strong>：题目要求返回元素值，或可以排序 → <strong>选择双指针</strong>（可延伸至三数&#x2F;四数之和）</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/algos/Day02-1.Two_Sum/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
       
 
