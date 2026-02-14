@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -212,6 +212,134 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day06-125.Valid_Palindrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/algos/Day06-125.Valid_Palindrome/" class="post-title-link" itemprop="url">DSA-Day06-125.验证回文串</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-14 00:00:00 / 修改时间：03:30:52" itemprop="dateCreated datePublished" datetime="2026-02-14T00:00:00+00:00">2026-02-14</time>
+    </span>
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>双指针字符串处理</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用双指针从字符串两端向中间遍历，跳过非字母数字字符并验证回文</strong>，是字符串处理的典型应用。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>双指针思想</strong> 在字符串处理中的入门应用，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-palindrome/">125. 验证回文串</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/is-subsequence/">392. 判断子序列</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a></li>
+</ul>
+<p>关键在于<strong>理解双指针的相向移动模式</strong>，以及如何优雅地处理字符过滤和大小写转换。</p>
+<h3 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h3><ul>
+<li><strong>双指针基础（本题）</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/is-subsequence/">392. 判断子序列</a>（双指针同向移动）</li>
+<li><strong>双指针进阶</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/container-with-most-water/">11. 盛最多水的容器</a>、<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 三数之和</a>（双指针在排序数组中的应用）</li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串重建 + 反转比较</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>先过滤再比较，需要额外空间</td>
+</tr>
+<tr>
+<td><strong>双指针原地比较</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(1)</strong></td>
+<td><strong>最优解，无需额外空间</strong></td>
+</tr>
+<tr>
+<td>递归</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>递归栈空间，不推荐</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：双指针原地比较解法（O(n) 时间，O(1) 空间）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/algos/Day06-125.Valid_Palindrome/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+      
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/AndroidStudioSettings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -240,9 +368,8 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-02-11 00:00:00 / 修改时间：09:34:20" itemprop="dateCreated datePublished" datetime="2026-02-11T00:00:00+00:00">2026-02-11</time>
+      <time title="创建时间：2026-02-11 00:00:00" itemprop="dateCreated datePublished" datetime="2026-02-11T00:00:00+00:00">2026-02-11</time>
     </span>
 
   
@@ -1113,93 +1240,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/android/Day01-02-summary/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-      
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/android/Day02-recycleview_router/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Nexa1024">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/android/Day02-recycleview_router/" class="post-title-link" itemprop="url">Android-Day02-RecycleView&路由跳转</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2026-01-16 01:00:00" itemprop="dateCreated datePublished" datetime="2026-01-16T01:00:00+00:00">2026-01-16</time>
-    </span>
-
-  
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Day2 目标很明确：把“首页实验列表（RecyclerView）→ 点击进入实验页（Fragment）→ 返回回列表”这条最小导航链路跑通。你只需要做到“能跳转、能返回、Toolbar 返回箭头逻辑正确”，不需要做任何性能实验内容。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/android/Day02-recycleview_router/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-big-counter.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="题目概述双指针字符串处理。本题是 LeetCode 简单题，核心考点是使用双指针从字符串两端向中间遍历，跳过非字母数字字符并验证回文，是字符串处理的典型应用。 为什么这道题重要这是 双指针思想 在字符串处理中的入门应用，掌握后可解决：  125. 验证回文串（本题） 392. 判断子序列 167. 两数之和 II - 输入有序数组  关键在于理解双指针的相向移动模式，以及如何优雅地处理字符过滤和大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DSA-Day06-125.验证回文串">
+<meta property="og:url" content="https://nexa1024.github.io/algos/Day06-125.Valid_Palindrome/index.html">
+<meta property="og:site_name" content="Nexa1024">
+<meta property="og:description" content="题目概述双指针字符串处理。本题是 LeetCode 简单题，核心考点是使用双指针从字符串两端向中间遍历，跳过非字母数字字符并验证回文，是字符串处理的典型应用。 为什么这道题重要这是 双指针思想 在字符串处理中的入门应用，掌握后可解决：  125. 验证回文串（本题） 392. 判断子序列 167. 两数之和 II - 输入有序数组  关键在于理解双指针的相向移动模式，以及如何优雅地处理字符过滤和大">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-14T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-14T03:30:52.919Z">
+<meta property="article:author" content="Nexa1024">
+<meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nexa1024.github.io/algos/Day06-125.Valid_Palindrome/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/algos/Day06-125.Valid_Palindrome/","path":"algos/Day06-125.Valid_Palindrome/","title":"DSA-Day06-125.验证回文串"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DSA-Day06-125.验证回文串 | Nexa1024</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nexa1024</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学啥~啥都学~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%81%93%E9%A2%98%E9%87%8D%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么这道题重要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%BB%B6%E4%BC%B8%E8%B7%AF%E5%BE%84"><span class="nav-number">2.1.</span> <span class="nav-text">解法延伸路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">解法对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">5.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E8%AF%B5%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">背诵模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">7.1.</span> <span class="nav-text">java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin"><span class="nav-number">7.2.</span> <span class="nav-text">kotlin</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nexa1024"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Nexa1024</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nexa1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nexa1024" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day06-125.Valid_Palindrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DSA-Day06-125.验证回文串 | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DSA-Day06-125.验证回文串
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-02-14 00:00:00 / 修改时间：03:30:52" itemprop="dateCreated datePublished" datetime="2026-02-14T00:00:00+00:00">2026-02-14</time>
+    </span>
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>双指针字符串处理</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用双指针从字符串两端向中间遍历，跳过非字母数字字符并验证回文</strong>，是字符串处理的典型应用。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>双指针思想</strong> 在字符串处理中的入门应用，掌握后可解决：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-palindrome/">125. 验证回文串</a>（本题）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/is-subsequence/">392. 判断子序列</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a></li>
+</ul>
+<p>关键在于<strong>理解双指针的相向移动模式</strong>，以及如何优雅地处理字符过滤和大小写转换。</p>
+<h3 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h3><ul>
+<li><strong>双指针基础（本题）</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/is-subsequence/">392. 判断子序列</a>（双指针同向移动）</li>
+<li><strong>双指针进阶</strong> → 延伸至：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/container-with-most-water/">11. 盛最多水的容器</a>、<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 三数之和</a>（双指针在排序数组中的应用）</li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串重建 + 反转比较</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>先过滤再比较，需要额外空间</td>
+</tr>
+<tr>
+<td><strong>双指针原地比较</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(1)</strong></td>
+<td><strong>最优解，无需额外空间</strong></td>
+</tr>
+<tr>
+<td>递归</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>递归栈空间，不推荐</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：双指针原地比较解法（O(n) 时间，O(1) 空间）</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>如果在将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 <strong>回文串</strong>。</p>
+<p>字母和数字都属于字母数字字符。</p>
+<p>给你一个字符串 <code>s</code>，如果它是 <strong>回文串</strong>，返回 <code>true</code>；否则，返回 <code>false</code>。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s = &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：&quot;amanaplanacanalpanama&quot; 是回文串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;race a car&quot;</span><br><span class="line">输出：false</span><br><span class="line">解释：&quot;raceacar&quot; 不是回文串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot; &quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：在移除非字母数字字符之后，s 是一个空字符串 &quot;&quot;。</span><br><span class="line">由于空字符串正着反着读都一样，所以是回文串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 2 * 10^5</code></li>
+<li><code>s</code> 仅由可打印的 ASCII 字符组成</li>
+</ul>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>双指针、字符串</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>使用<strong>两个指针 left 和 right</strong>：<ul>
+<li>left 从字符串开头向右移动</li>
+<li>right 从字符串末尾向左移动</li>
+</ul>
+</li>
+<li><strong>统一转为小写</strong>进行比较（或统一转为大写）</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>left 始终小于等于 right（未相遇或未交叉）</li>
+<li>只有当 left 和 right 指向的字符都是字母或数字时才进行比较</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>left 指针移动：<ul>
+<li>若 s[left] 不是字母或数字，left 右移（left++）</li>
+<li>否则停止</li>
+</ul>
+</li>
+<li>right 指针移动：<ul>
+<li>若 s[right] 不是字母或数字，right 左移（right–）</li>
+<li>否则停止</li>
+</ul>
+</li>
+<li>当两个指针都指向有效字符时：<ul>
+<li>统一转为小写比较：<code>Character.toLowerCase(s[left]) != Character.toLowerCase(s[right])</code></li>
+<li>若不相等，返回 false</li>
+<li>若相等，left 右移，right 左移继续比较</li>
+</ul>
+</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>返回 false：发现不相等的字符对</li>
+<li>返回 true：left &gt;&#x3D; right（所有字符对都匹配）</li>
+<li>边界：<ul>
+<li>空字符串：直接返回 true</li>
+<li>单字符：left &#x3D; right，返回 true</li>
+<li>全为非字母数字字符：left 和 right 会相遇，返回 true</li>
+</ul>
+</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li>时间复杂度：O(n)，其中 n 是字符串长度。每个字符最多被访问一次。</li>
+<li>空间复杂度：O(1)，只使用了常数个额外变量（left 和 right 指针）。</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>必须统一大小写后再比较（不能直接比较 ‘A’ 和 ‘a’）</li>
+<li>字符判断要用 <code>Character.isLetterOrDigit()</code> 而非自己写判断（处理 Unicode）</li>
+<li>指针移动时先跳过非字母数字字符，再进行比较</li>
+<li>注意循环条件是 <code>left &lt; right</code>（不是 <code>left &lt;= right</code>，避免重复比较中间字符）</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isPalindrome(String s) &#123;</span><br><span class="line">        int left = 0, right = s.length() - 1;</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            // 跳过非字母数字字符（左指针）</span><br><span class="line">            while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 跳过非字母数字字符（右指针）</span><br><span class="line">            while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 比较字符（统一转为小写）</span><br><span class="line">            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 移动指针继续比较</span><br><span class="line">            left++;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isPalindrome(s: String): Boolean &#123;</span><br><span class="line">        var left = 0</span><br><span class="line">        var right = s.length - 1</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            // 跳过非字母数字字符（左指针）</span><br><span class="line">            while (left &lt; right &amp;&amp; !s[left].isLetterOrDigit()) &#123;</span><br><span class="line">                left++</span><br><span class="line">            &#125;</span><br><span class="line">            // 跳过非字母数字字符（右指针）</span><br><span class="line">            while (left &lt; right &amp;&amp; !s[right].isLetterOrDigit()) &#123;</span><br><span class="line">                right--</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 比较字符（统一转为小写）</span><br><span class="line">            if (s[left].lowercaseChar() != s[right].lowercaseChar()) &#123;</span><br><span class="line">                return false</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // 移动指针继续比较</span><br><span class="line">            left++</span><br><span class="line">            right--</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/android/AndroidStudioSettings/" rel="prev" title="AndroidStudioSettings">
+                  <i class="fa fa-angle-left"></i> AndroidStudioSettings
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nexa1024</span>
+  </div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/nexa1024" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"nexa1024/nexa1024.github.io","repo_id":"R_kgDOQoD_Fw","category":"Announcements","category_id":"DIC_kwDOQoD_F84C0Abu","mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy","data-theme":"dark_high_contrast"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"right",libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:false,models:[{"path":"/l2dmodels/PermansorTerrae/PermansorTerrae.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}},{"path":"/l2dmodels/Cyrene/Cyrene.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},copyTips: {"message":["复制的内容要标明出处~"]},idleTips:{interval:20000,wordTheDay:function(wordTheDayData){
+  return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
