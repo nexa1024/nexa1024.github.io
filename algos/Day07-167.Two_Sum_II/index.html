@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-big-counter.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous" defer></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="题目概述双指针经典应用。本题是 LeetCode 第 167 题，核心考点是利用数组已排序的特性，使用双指针在对撞查找中找到目标和的两个元素。 为什么这道题重要这是 双指针对撞查找 的经典应用，是 LeetCode 必考题。本题与”1. 两数之和”的区别在于： 与两数之和（No.1）的对比   题目 数组状态 返回值 最优解法 空间复杂度    1. 两数之和 无序 下标 HashMap O(n)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DSA-Day07-167.两数之和 II - 输入有序数组">
+<meta property="og:url" content="https://nexa1024.github.io/algos/Day07-167.Two_Sum_II/index.html">
+<meta property="og:site_name" content="Nexa1024">
+<meta property="og:description" content="题目概述双指针经典应用。本题是 LeetCode 第 167 题，核心考点是利用数组已排序的特性，使用双指针在对撞查找中找到目标和的两个元素。 为什么这道题重要这是 双指针对撞查找 的经典应用，是 LeetCode 必考题。本题与”1. 两数之和”的区别在于： 与两数之和（No.1）的对比   题目 数组状态 返回值 最优解法 空间复杂度    1. 两数之和 无序 下标 HashMap O(n)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-26T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-04T01:45:35.449Z">
+<meta property="article:author" content="Nexa1024">
+<meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nexa1024.github.io/algos/Day07-167.Two_Sum_II/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/algos/Day07-167.Two_Sum_II/","path":"algos/Day07-167.Two_Sum_II/","title":"DSA-Day07-167.两数之和 II - 输入有序数组"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DSA-Day07-167.两数之和 II - 输入有序数组 | Nexa1024</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+  <script src="/js/third-party/pace.js" defer></script>
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nexa1024</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学啥~啥都学~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%81%93%E9%A2%98%E9%87%8D%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么这道题重要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%EF%BC%88No-1%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.</span> <span class="nav-text">与两数之和（No.1）的对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%BB%B6%E4%BC%B8%E8%B7%AF%E5%BE%84"><span class="nav-number">2.2.</span> <span class="nav-text">解法延伸路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">解法对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%8C%E6%8C%87%E9%92%88%E6%9C%80%E4%BC%98%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">为什么双指针最优？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">5.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E8%AF%B5%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">背诵模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">7.1.</span> <span class="nav-text">java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin"><span class="nav-number">7.2.</span> <span class="nav-text">kotlin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%E5%9B%BE%E8%A7%A3"><span class="nav-number">7.3.</span> <span class="nav-text">复杂度分析图解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%B3%95%EF%BC%88%E9%9D%9E%E6%9C%80%E4%BC%98%E4%BD%86%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">方法二：二分查找法（非最优但值得一提）</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nexa1024"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Nexa1024</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nexa1024" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nexa1024" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day07-167.Two_Sum_II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Nexa1024">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DSA-Day07-167.两数之和 II - 输入有序数组 | Nexa1024">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DSA-Day07-167.两数之和 II - 输入有序数组
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-02-26 00:00:00" itemprop="dateCreated datePublished" datetime="2026-02-26T00:00:00+00:00">2026-02-26</time>
+    </span>
+
+  
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>双指针经典应用</strong>。本题是 LeetCode 第 167 题，核心考点是<strong>利用数组已排序的特性，使用双指针在对撞查找中找到目标和的两个元素</strong>。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>双指针对撞查找</strong> 的经典应用，是 LeetCode 必考题。本题与”1. 两数之和”的区别在于：</p>
+<h3 id="与两数之和（No-1）的对比"><a href="#与两数之和（No-1）的对比" class="headerlink" title="与两数之和（No.1）的对比"></a>与两数之和（No.1）的对比</h3><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>数组状态</th>
+<th>返回值</th>
+<th>最优解法</th>
+<th>空间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 两数之和</td>
+<td><strong>无序</strong></td>
+<td>下标</td>
+<td>HashMap</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>167. 两数之和 II</strong></td>
+<td><strong>已排序</strong></td>
+<td>下标（从1开始）</td>
+<td><strong>双指针</strong></td>
+<td><strong>O(1)</strong></td>
+</tr>
+</tbody></table>
+<h3 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h3><ul>
+<li><strong>双指针对撞法（本题推荐）</strong> → 延伸至：<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum/">15. 三数之和</a>（固定一个数 + 双指针）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">18. 四数之和</a>（固定两个数 + 双指针）</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/container-with-most-water/">11. 盛最多水的容器</a>（面积优化问题）</li>
+</ul>
+</li>
+</ul>
+<p>⚠️ <strong>关键区别</strong>：本题要求<strong>常量级空间复杂度 O(1)</strong>，因此不能使用 HashMap。由于数组已排序，双指针法是最优解。</p>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>性能差，不推荐</td>
+</tr>
+<tr>
+<td><strong>二分查找</strong></td>
+<td><strong>O(n log n)</strong></td>
+<td><strong>O(1)</strong></td>
+<td>可行但非最优</td>
+</tr>
+<tr>
+<td><strong>双指针对撞</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(1)</strong></td>
+<td><strong>本题最优解，利用排序特性</strong></td>
+</tr>
+<tr>
+<td>HashMap</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>不符合题目常量空间要求</td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：双指针对撞解法（O(n) 时间，O(1) 空间）</p>
+<h3 id="为什么双指针最优？"><a href="#为什么双指针最优？" class="headerlink" title="为什么双指针最优？"></a>为什么双指针最优？</h3><ol>
+<li><strong>数组已排序</strong>：排序是有序信息，双指针法利用这一特性</li>
+<li><strong>常量空间</strong>：只需两个指针变量，空间复杂度 O(1)</li>
+<li><strong>线性时间</strong>：每次迭代至少排除一个元素，最多 n-1 次迭代</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给你一个下标从 <strong>1</strong> 开始的整数数组 <code>numbers</code>，该数组已按<strong>非递减顺序排列</strong>，请你从数组中找出满足相加之和等于目标数 <code>target</code> 的两个数。如果设这两个数分别是 <code>numbers[index1]</code> 和 <code>numbers[index2]</code>，则 <code>1 &lt;= index1 &lt; index2 &lt;= numbers.length</code>。</p>
+<p>以长度为 2 的整数数组 <code>[index1, index2]</code> 的形式返回这两个整数的下标 <code>index1</code> 和 <code>index2</code>。</p>
+<p>你可以假设每个输入<strong>只对应唯一的答案</strong>，而且你<strong>不可以</strong>重复使用相同的元素。</p>
+<p>你所设计的解决方案必须只使用<strong>常量级的额外空间</strong>。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：numbers = [2,7,11,15], target = 9</span><br><span class="line">输出：[1,2]</span><br><span class="line">解释：2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：numbers = [2,3,4], target = 6</span><br><span class="line">输出：[1,3]</span><br><span class="line">解释：2 与 4 之和等于目标数 6 。因此 index1 = 1, index2 = 3 。返回 [1, 3] 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：numbers = [-1,0], target = -1</span><br><span class="line">输出：[1,2]</span><br><span class="line">解释：-1 与 0 之和等于目标数 -1 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= numbers.length &lt;= 3 * 10⁴</code></li>
+<li><code>-1000 &lt;= numbers[i] &lt;= 1000</code></li>
+<li><code>numbers</code> 按<strong>非递减顺序</strong>排列</li>
+<li><code>-1000 &lt;= target &lt;= 1000</code></li>
+<li><strong>仅存在一个有效答案</strong></li>
+</ul>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、双指针、二分查找</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>使用<strong>两个指针</strong>：<code>left</code> 指向数组开头（索引 0），<code>right</code> 指向数组末尾（索引 n-1）</li>
+<li>目标：找到 <code>numbers[left] + numbers[right] == target</code></li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li><code>left</code> 和 <code>right</code> 始终指向<strong>有效范围内的下标</strong>：<code>0 &lt;= left &lt; right &lt; n</code></li>
+<li>答案<strong>一定存在</strong>且<strong>唯一</strong>（题目保证）</li>
+<li>每次迭代后，搜索范围<strong>至少减少一个元素</strong></li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>计算 <code>sum = numbers[left] + numbers[right]</code></li>
+<li><strong>三种情况</strong>：<ol>
+<li><code>sum == target</code>：找到答案，返回 <code>[left + 1, right + 1]</code>（注意下标从 1 开始）</li>
+<li><code>sum &lt; target</code>：说明和太小，需要增大 → <code>left++</code>（向右移动左指针，选更大的数）</li>
+<li><code>sum &gt; target</code>：说明和太大，需要减小 → <code>right--</code>（向左移动右指针，选更小的数）</li>
+</ol>
+</li>
+</ul>
+<p><strong>核心逻辑图解</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">numbers = [2, 7, 11, 15], target = 9</span><br><span class="line"></span><br><span class="line">初始状态：</span><br><span class="line">[2,  7, 11, 15]</span><br><span class="line"> ↑          ↑</span><br><span class="line">left       right</span><br><span class="line">sum = 2 + 15 = 17 &gt; 9 → right--</span><br><span class="line"></span><br><span class="line">第一次移动：</span><br><span class="line">[2,  7, 11, 15]</span><br><span class="line"> ↑      ↑</span><br><span class="line">left   right</span><br><span class="line">sum = 2 + 11 = 13 &gt; 9 → right--</span><br><span class="line"></span><br><span class="line">第二次移动：</span><br><span class="line">[2,  7, 11, 15]</span><br><span class="line"> ↑  ↑</span><br><span class="line">left right</span><br><span class="line">sum = 2 + 7 = 9 == target → 返回 [1, 2]</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么这个策略正确？</strong></p>
+<p>由于数组<strong>已排序（非递减）</strong>：</p>
+<ul>
+<li>当 <code>sum &lt; target</code> 时，<code>left</code> 当前的数太小，任何比它更小的数（在 left 左侧）都不可能满足条件</li>
+<li>当 <code>sum &gt; target</code> 时，<code>right</code> 当前的数太大，任何比它更大的数（在 right 右侧）都不可能满足条件</li>
+<li>因此可以<strong>安全地排除</strong>不可能的元素</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li><strong>正常终止</strong>：找到 <code>sum == target</code>，返回 <code>[left + 1, right + 1]</code></li>
+<li><strong>边界情况</strong>：<ul>
+<li>题目保证<strong>有且仅有</strong>一个有效答案，因此不需要处理”无解”情况</li>
+<li>最小数组长度为 2，此时 left &#x3D; 0, right &#x3D; 1</li>
+</ul>
+</li>
+</ul>
+<p><strong>复杂度</strong></p>
+<ul>
+<li>时间复杂度：<strong>O(n)</strong>，其中 n 为 numbers 的长度。每次迭代 left 增加或 right 减少，最多迭代 n-1 次</li>
+<li>空间复杂度：<strong>O(1)</strong>，只使用两个指针变量</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li><strong>下标从 1 开始</strong>：返回时需要 <code>left + 1</code> 和 <code>right + 1</code></li>
+<li><strong>不要使用 HashMap</strong>：题目要求常量级空间复杂度 O(1)</li>
+<li><strong>整数溢出</strong>：虽然本题数据范围小（-1000 到 1000），但实际面试中要注意 <code>sum</code> 可能溢出，使用 <code>long</code> 或提前判断</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int[] twoSum(int[] numbers, int target) &#123;</span><br><span class="line">        int left = 0;                           // 左指针，指向数组开头</span><br><span class="line">        int right = numbers.length - 1;         // 右指针，指向数组末尾</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            int sum = numbers[left] + numbers[right];</span><br><span class="line"></span><br><span class="line">            if (sum == target) &#123;</span><br><span class="line">                // 找到答案，注意下标从 1 开始</span><br><span class="line">                return new int[]&#123;left + 1, right + 1&#125;;</span><br><span class="line">            &#125; else if (sum &lt; target) &#123;</span><br><span class="line">                // 和太小，需要更大的数，左指针右移</span><br><span class="line">                left++;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // 和太大，需要更小的数，右指针左移</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 题目保证有解，这行代码理论上不会执行</span><br><span class="line">        return new int[]&#123;-1, -1&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun twoSum(numbers: IntArray, target: Int): IntArray &#123;</span><br><span class="line">        var left = 0                           // 左指针，指向数组开头</span><br><span class="line">        var right = numbers.size - 1           // 右指针，指向数组末尾</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            val sum = numbers[left] + numbers[right]</span><br><span class="line"></span><br><span class="line">            when &#123;</span><br><span class="line">                sum == target -&gt; &#123;</span><br><span class="line">                    // 找到答案，注意下标从 1 开始</span><br><span class="line">                    return intArrayOf(left + 1, right + 1)</span><br><span class="line">                &#125;</span><br><span class="line">                sum &lt; target -&gt; &#123;</span><br><span class="line">                    // 和太小，需要更大的数，左指针右移</span><br><span class="line">                    left++</span><br><span class="line">                &#125;</span><br><span class="line">                else -&gt; &#123;</span><br><span class="line">                    // 和太大，需要更小的数，右指针左移</span><br><span class="line">                    right--</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 题目保证有解，这行代码理论上不会执行</span><br><span class="line">        return intArrayOf(-1, -1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="复杂度分析图解"><a href="#复杂度分析图解" class="headerlink" title="复杂度分析图解"></a>复杂度分析图解</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">示例：numbers = [2, 7, 11, 15], target = 9</span><br><span class="line"></span><br><span class="line">初始化：</span><br><span class="line">left = 0, right = 3</span><br><span class="line"></span><br><span class="line">迭代过程：</span><br><span class="line">┌──────┬──────┬───────┬───────┬────────┐</span><br><span class="line">│ 轮次 │ left │ right │  sum  │  操作  │</span><br><span class="line">├──────┼──────┼───────┼───────┼────────┤</span><br><span class="line">│  1   │  0   │   3   │  17   │right-- │</span><br><span class="line">│      │      │       │  &gt; 9  │        │</span><br><span class="line">├──────┼──────┼───────┼───────┼────────┤</span><br><span class="line">│  2   │  0   │   2   │  13   │right-- │</span><br><span class="line">│      │      │       │  &gt; 9  │        │</span><br><span class="line">├──────┼──────┼───────┼───────┼────────┤</span><br><span class="line">│  3   │  0   │   1   │   9   │返回    │</span><br><span class="line">│      │      │       │  == 9 │[1, 2]  │</span><br><span class="line">└──────┴──────┴───────┴───────┴────────┘</span><br><span class="line"></span><br><span class="line">时间复杂度：O(n) = O(4) = O(1)</span><br><span class="line">空间复杂度：O(1)</span><br><span class="line"></span><br><span class="line">关键点：</span><br><span class="line">- 每次迭代至少排除一个元素（left 右移或 right 左移）</span><br><span class="line">- 最坏情况下需要 n-1 次迭代（答案在中间时）</span><br><span class="line">- 数组已排序的特性保证了单调和单调性决策的正确性</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二：二分查找法（非最优但值得一提）"><a href="#方法二：二分查找法（非最优但值得一提）" class="headerlink" title="方法二：二分查找法（非最优但值得一提）"></a>方法二：二分查找法（非最优但值得一提）</h2><p>虽然双指针是最优解，但二分查找法也值得一提：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] twoSum(<span class="type">int</span>[] numbers, <span class="type">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numbers.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">complement</span> <span class="operator">=</span> target - numbers[i];</span><br><span class="line">            <span class="comment">// 在 [i+1, n-1] 范围内二分查找 complement</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> i + <span class="number">1</span>, right = numbers.length - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span> (numbers[mid] == complement) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;i + <span class="number">1</span>, mid + <span class="number">1</span>&#125;;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (numbers[mid] &lt; complement) &#123;</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：O(n log n)，外层循环 n 次，每次二分查找 O(log n)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+<p><strong>为什么不推荐？</strong></p>
+<ul>
+<li>双指针法已经是 O(n)，比二分查找更优</li>
+<li>代码更简洁，思路更直观</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/algos/Day06-125.Valid_Palindrome/" rel="prev" title="DSA-Day06-125.验证回文串">
+                  <i class="fa fa-angle-left"></i> DSA-Day06-125.验证回文串
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/algos/Day08-15.3Sum/" rel="next" title="DSA-Day08-15.三数之和">
+                  DSA-Day08-15.三数之和 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  
+  <div class="comments giscus-container">
+  </div>
+  
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Nexa1024</span>
+  </div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/nexa1024" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="giscus" type="application/json">{"enable":true,"repo":"nexa1024/nexa1024.github.io","repo_id":"R_kgDOQoD_Fw","category":"Announcements","category_id":"DIC_kwDOQoD_F84C0Abu","mapping":"url","strict":0,"reactions_enabled":1,"emit_metadata":0,"theme":"light","lang":"zh-CN","crossorigin":"anonymous","input_position":"bottom","loading":"lazy","data-theme":"dark_high_contrast"}</script>
+
+<script>
+document.addEventListener('page:loaded', () => {
+  if (!CONFIG.page.comments) return;
+
+  NexT.utils.loadComments('.giscus-container')
+    .then(() => NexT.utils.getScript('https://giscus.app/client.js', {
+      attributes: {
+        async                   : true,
+        crossOrigin             : 'anonymous',
+        'data-repo'             : CONFIG.giscus.repo,
+        'data-repo-id'          : CONFIG.giscus.repo_id,
+        'data-category'         : CONFIG.giscus.category,
+        'data-category-id'      : CONFIG.giscus.category_id,
+        'data-mapping'          : CONFIG.giscus.mapping,
+        'data-strict'           : CONFIG.giscus.strict,
+        'data-reactions-enabled': CONFIG.giscus.reactions_enabled,
+        'data-emit-metadata'    : CONFIG.giscus.emit_metadata,
+        'data-theme'            : CONFIG.giscus.theme,
+        'data-lang'             : CONFIG.giscus.lang,
+        'data-input-position'   : CONFIG.giscus.input_position,
+        'data-loading'          : CONFIG.giscus.loading
+      },
+      parentNode: document.querySelector('.giscus-container')
+    }));
+});
+</script>
+
+<!-- hexo injector body_end start --><script data-pjax src="https://registry.npmmirror.com/oh-my-live2d/latest/files"></script><script>const oml2d = OML2D.loadOml2d({dockedPosition:"right",libraryUrls:{"complete":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/complete.js","cubism2":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism2.js","cubism5":"https://registry.npmmirror.com/oh-my-live2d/latest/files/lib/cubism5.js"},mobileDisplay:false,models:[{"path":"/l2dmodels/PermansorTerrae/PermansorTerrae.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}},{"path":"/l2dmodels/Cyrene/Cyrene.model3.json","motionPreloadStrategy":"ALL","position":[-60,0],"scale":0.3,"showHitAreaFrames":true,"stageStyle":{"width":250,"height":320}}],parentElement:document.body,primaryColor:"var(--btn-bg)",sayHello:false,tips:{style: {"width":230,"height":120,"left":"calc(50% - 20px)","top":"-100px"},mobileStyle: {"width":180,"height":80,"left":"calc(50% - 30px)","top":"-100px"},copyTips: {"message":["复制的内容要标明出处~"]},idleTips:{interval:20000,wordTheDay:function(wordTheDayData){
+  return `${wordTheDayData.hitokoto}    by.${wordTheDayData.from}`;
+}
+}}});</script><!-- hexo injector body_end end --></body>
+</html>
