@@ -1,6 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DSA-Day09-11.盛最多水的容器</title>
+    <url>/algos/Day09-11.Container_With_Most_Water/</url>
+    <content><![CDATA[<p>DSA-Day09-11.盛最多水的容器</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定一个长度为 <code>n</code> 的整数数组 <code>height</code>。有 <code>n</code> 条垂线，第 <code>i</code> 条线的两个端点是 <code>(i, 0)</code> 和 <code>(i, height[i])</code>。</p>
+<p>找出其中的两条线，使得它们与 <code>x</code> 轴共同构成的容器可以容纳最多的水。</p>
+<p>返回容器可以储存的最大水量。</p>
+<p><strong>说明：</strong> 你不能倾斜容器。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：[1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出：49</span><br><span class="line">解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：[1,1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>n == height.length</code></li>
+<li><code>2 &lt;= n &lt;= 10⁵</code></li>
+<li><code>0 &lt;= height[i] &lt;= 10⁴</code></li>
+</ul>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、双指针、贪心</p>
+<hr>
+<h1 id="🚀-30秒速记卡片"><a href="#🚀-30秒速记卡片" class="headerlink" title="🚀 30秒速记卡片"></a>🚀 30秒速记卡片</h1><h2 id="一句话口诀"><a href="#一句话口诀" class="headerlink" title="一句话口诀"></a>一句话口诀</h2><p><strong>双指针首尾对撞 → 移动较小指针 → 记录最大面积</strong></p>
+<h2 id="核心代码（伪代码）"><a href="#核心代码（伪代码）" class="headerlink" title="核心代码（伪代码）"></a>核心代码（伪代码）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">left = 0</span><br><span class="line">right = n - 1</span><br><span class="line">maxArea = 0</span><br><span class="line"></span><br><span class="line">while left &lt; right:</span><br><span class="line">    # 计算当前面积：矮柱子高度 × 宽度</span><br><span class="line">    area = min(height[left], height[right]) × (right - left)</span><br><span class="line">    maxArea = max(maxArea, area)</span><br><span class="line"></span><br><span class="line">    # 关键：移动较矮的指针</span><br><span class="line">    if height[left] &lt; height[right]:</span><br><span class="line">        left++</span><br><span class="line">    else:</span><br><span class="line">        right--</span><br><span class="line"></span><br><span class="line">return maxArea</span><br></pre></td></tr></table></figure>
+
+<h2 id="记忆要点"><a href="#记忆要点" class="headerlink" title="记忆要点"></a>记忆要点</h2><ol>
+<li><p><strong>双指针位置</strong>：<code>left = 0</code>，<code>right = n - 1</code>（首尾对撞）</p>
+</li>
+<li><p><strong>面积计算公式</strong>：<code>area = min(height[left], height[right]) × (right - left)</code></p>
+</li>
+<li><p><strong>核心贪心策略</strong>：<strong>每次移动高度较小的指针</strong></p>
+<p>为什么移动较小指针？</p>
+<ul>
+<li>容积受限于较矮的柱子</li>
+<li>移动较高指针 → 宽度减小，高度仍受限 → 面积一定变小</li>
+<li>移动较矮指针 → 可能找到更高的柱子 → 面积可能变大</li>
+</ul>
+</li>
+<li><p><strong>时间 O(n)，空间 O(1)</strong></p>
+</li>
+<li><p><strong>易错点</strong>：</p>
+<ul>
+<li>不要用 <code>height[left] × height[right]</code>（那是矩形面积）</li>
+<li>必须取 <code>min</code> 的高度（水会从矮的边溢出）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="📊-图示演示"><a href="#📊-图示演示" class="headerlink" title="📊 图示演示"></a>📊 图示演示</h1><h2 id="示例：height-1-8-6-2-5-4-8-3-7"><a href="#示例：height-1-8-6-2-5-4-8-3-7" class="headerlink" title="示例：height &#x3D; [1,8,6,2,5,4,8,3,7]"></a>示例：height &#x3D; [1,8,6,2,5,4,8,3,7]</h2><p><strong>第一步：初始化双指针</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">数组：[1, 8, 6, 2, 5, 4, 8, 3, 7]</span><br><span class="line">       ↑                       ↑</span><br><span class="line">      left                   right</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步：双指针对撞过程</strong></p>
+<pre>
+<code class="mermaid">
+flowchart TB
+START((&quot;开始&lt;br&#x2F;&gt;left&#x3D;0, right&#x3D;8&quot;)) --&gt;  R1SUB --&gt; R2SUB --&gt; REPEAT --&gt; END
+
+subgraph R1SUB[&quot;第一轮&quot;]
+    direction LR
+    R1[&quot;第1轮&lt;br&#x2F;&gt;h[0]&#x3D;1, h[8]&#x3D;7&lt;br&#x2F;&gt;面积&#x3D;min(1,7)*8&#x3D;8&quot;]
+    R1 --&gt; DEC1[&quot;谁更小&quot;]
+    DEC1 --&gt;|&quot;left&#x3D;1&quot;| Move1[&quot;移动left++&quot;]
+    DEC1 -.-&gt;|&quot;right&#x3D;7&quot;| X1[&quot;❌不移动&quot;]
+end
+subgraph R2SUB[&quot;第二轮&quot;]
+    direction LR
+    R2[&quot;第2轮&lt;br&#x2F;&gt;h[1]&#x3D;8, h[8]&#x3D;7&lt;br&#x2F;&gt;面积&#x3D;min(8,7)*7&#x3D;49&quot;]
+    R2 --&gt; DEC2{谁更小?}
+    DEC2 -.-&gt;|&quot;h[left]&#x3D;8&quot;| X2[&quot;❌不移动&quot;]
+    DEC2 --&gt;|&quot;h[right]&#x3D;7&quot;| Move2[&quot;移动right →&quot;]
+end
+
+REPEAT[&quot;重复&quot;]
+END((&quot;结束&quot;))
+
+classDef bothEndsStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+classDef subgraphStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+
+class START,END bothEndsStyle
+class R1SUB,R2SUB subgraphStyle
+
+
+</code>
+</pre>
+
+
+
+<p><strong>第三步：关键决策分析</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">为什么移动较小的指针？</span><br><span class="line"></span><br><span class="line">假设 left=1(height=8), right=8(height=7):</span><br><span class="line">  当前面积 = min(8,7) × 7 = 49</span><br><span class="line"></span><br><span class="line">  如果移动right(7→3):</span><br><span class="line">    新面积 = min(8,3) × 6 = 18  ❌ 变小了</span><br><span class="line"></span><br><span class="line">  但我们只能移动right！</span><br><span class="line">  因为移动left(8→6)的话:</span><br><span class="line">    新面积 = min(6,7) × 7 = 42  ❌ 一定变小（高度受限，宽度也减）</span><br><span class="line"></span><br><span class="line">  所以：移动较小指针才有希望找到更大的面积！</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h2><p>本题的双指针思想可以延伸至：</p>
+<ul>
+<li><p><a href="https://leetcode.cn/problems/trapping-rain-water/">42. 接雨水</a>（双指针 + 动态规划，计算凹槽积水）</p>
+</li>
+<li><p><a href="https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a>（有序数组双指针查找）</p>
+</li>
+</ul>
+<hr>
+<h1 id="💻-完整代码"><a href="#💻-完整代码" class="headerlink" title="💻 完整代码"></a>💻 完整代码</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int maxArea(int[] height) &#123;</span><br><span class="line">        int left = 0;</span><br><span class="line">        int right = height.length - 1;</span><br><span class="line">        int maxArea = 0;</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            // 计算当前面积：矮柱子高度 × 宽度</span><br><span class="line">            int currentArea = Math.min(height[left], height[right])</span><br><span class="line">                              * (right - left);</span><br><span class="line">            maxArea = Math.max(maxArea, currentArea);</span><br><span class="line"></span><br><span class="line">            // 核心策略：移动高度较小的指针</span><br><span class="line">            if (height[left] &lt; height[right]) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun maxArea(height: IntArray): Int &#123;</span><br><span class="line">        var left = 0</span><br><span class="line">        var right = height.size - 1</span><br><span class="line">        var maxArea = 0</span><br><span class="line"></span><br><span class="line">        while (left &lt; right) &#123;</span><br><span class="line">            // 计算当前面积</span><br><span class="line">            val currentArea = minOf(height[left], height[right])</span><br><span class="line">                              * (right - left)</span><br><span class="line">            maxArea = maxOf(maxArea, currentArea)</span><br><span class="line"></span><br><span class="line">            // 移动较小的指针</span><br><span class="line">            if (height[left] &lt; height[right]) &#123;</span><br><span class="line">                left++</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                right--</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return maxArea</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day09-42.接雨水</title>
+    <url>/algos/Day09-42.Trapping_Rain_Water/</url>
+    <content><![CDATA[<p>DSA-Day09-42.接雨水</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子下雨之后能接多少雨水。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]</span><br><span class="line">输出：6</span><br><span class="line">解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：height = [4,2,0,3,2,5]</span><br><span class="line">输出：9</span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>n == height.length</code></li>
+<li><code>1 &lt;= n &lt;= 2 * 10^4</code></li>
+<li><code>0 &lt;= height[i] &lt;= 10^5</code></li>
+</ul>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、双指针、动态规划、栈、单调栈</p>
+<hr>
+<h1 id="🚀-30秒速记卡片"><a href="#🚀-30秒速记卡片" class="headerlink" title="🚀 30秒速记卡片"></a>🚀 30秒速记卡片</h1><h2 id="一句话口诀"><a href="#一句话口诀" class="headerlink" title="一句话口诀"></a>一句话口诀</h2><blockquote>
+<p>双指针向中靠，矮边先结算，更新最大高</p>
+</blockquote>
+<h2 id="核心代码（伪代码）"><a href="#核心代码（伪代码）" class="headerlink" title="核心代码（伪代码）"></a>核心代码（伪代码）</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">left = 0, right = n-1</span><br><span class="line">leftMax = 0, rightMax = 0</span><br><span class="line">result = 0</span><br><span class="line"></span><br><span class="line">当 left &lt; right 时:</span><br><span class="line">    若 height[left] &lt; height[right]:</span><br><span class="line">        leftMax = max(leftMax, height[left])</span><br><span class="line">        result += leftMax - height[left]</span><br><span class="line">        left++</span><br><span class="line">    否则:</span><br><span class="line">        rightMax = max(rightMax, height[right])</span><br><span class="line">        result += rightMax - height[right]</span><br><span class="line">        right--</span><br></pre></td></tr></table></figure>
+
+<h2 id="记忆要点"><a href="#记忆要点" class="headerlink" title="记忆要点"></a>记忆要点</h2><ol>
+<li><strong>核心公式</strong>：每个位置接水量 &#x3D; <code>min(左侧最高, 右侧最高) - 当前高度</code></li>
+<li><strong>双指针精髓</strong>：哪边高度限制更低，就先结算哪边</li>
+<li><strong>时间复杂度</strong>：O(n)，只需遍历一次</li>
+<li><strong>空间复杂度</strong>：O(1)，只用了几个变量</li>
+<li><strong>易错点&#x2F;注意事项</strong>：<ul>
+<li>数组长度至少为 3 才能接水（两边无法存水）</li>
+<li>初始时 leftMax 和 rightMax 都为 0</li>
+<li>每次只移动一个指针（left 或 right）</li>
+<li>移动前先更新对应侧的最大高度</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="📊-图示演示"><a href="#📊-图示演示" class="headerlink" title="📊 图示演示"></a>📊 图示演示</h1><h2 id="示例：height-0-1-0-2-1-0-1-3-2-1-2-1"><a href="#示例：height-0-1-0-2-1-0-1-3-2-1-2-1" class="headerlink" title="示例：height &#x3D; [0,1,0,2,1,0,1,3,2,1,2,1]"></a>示例：height &#x3D; [0,1,0,2,1,0,1,3,2,1,2,1]</h2><p><strong>第一步：初始化双指针</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">left=0, right=11</span><br><span class="line">leftMax=0, rightMax=0</span><br><span class="line">result=0</span><br></pre></td></tr></table></figure>
+
+<pre>
+<code class="mermaid">
+flowchart TB
+START((&quot;开始&quot;)) --&gt; R1SUB --&gt; R2SUB --&gt; R3SUB --&gt; REPEAT[&quot;重复...&quot;] --&gt; END((&quot;结束&quot;))
+
+subgraph R1SUB[&quot;第1轮&quot;]
+    direction LR
+    R1[&quot;比较&lt;br&#x2F;&gt;h[left]&#x3D;0 &lt; h[right]&#x3D;1&quot;]
+    R1 --&gt; DEC1{left更小&lt;br&#x2F;&gt;先结算左}
+    DEC1 --&gt;|&quot;更新leftMax&quot;| CALC1[&quot;leftMax&#x3D;0&lt;br&#x2F;&gt;result+&#x3D;0-0&#x3D;0&quot;]
+    CALC1 --&gt; MOVE1[&quot;left++&quot;]
+end
+
+subgraph R2SUB[&quot;第2轮&quot;]
+    direction LR
+    R2[&quot;比较&lt;br&#x2F;&gt;h[left]&#x3D;1 &lt; h[right]&#x3D;1&quot;]
+    R2 --&gt; DEC2{相等&lt;br&#x2F;&gt;默认走右}
+    DEC2 --&gt;|&quot;更新rightMax&quot;| CALC2[&quot;rightMax&#x3D;1&lt;br&#x2F;&gt;result+&#x3D;1-1&#x3D;0&quot;]
+    CALC2 --&gt; MOVE2[&quot;right--&quot;]
+end
+
+subgraph R3SUB[&quot;第3轮&quot;]
+    direction LR
+    R3[&quot;比较&lt;br&#x2F;&gt;h[left]&#x3D;1 &lt; h[right]&#x3D;2&quot;]
+    R3 --&gt; DEC3{left更小&lt;br&#x2F;&gt;先结算左}
+    DEC3 --&gt;|&quot;更新leftMax&quot;| CALC3[&quot;leftMax&#x3D;1&lt;br&#x2F;&gt;result+&#x3D;1-1&#x3D;0&quot;]
+    CALC3 --&gt; MOVE3[&quot;left++&quot;]
+end
+
+classDef startEndStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+classDef highlightStyle fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
+classDef actionStyle fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+classDef decStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+
+class START,END startEndStyle
+class R3 highlightStyle
+class CALC1,CALC2,CALC3 actionStyle
+class DEC1,DEC2,DEC3 decStyle
+</code>
+</pre>
+
+<p><strong>核心思想解释：</strong></p>
+<p>当 <code>height[left] &lt; height[right]</code> 时，说明左侧是”短板”，此时 <code>leftMax</code> 一定是 <code>min(leftMax, rightMax)</code>，所以可以直接结算 left 位置的接水量。</p>
+<p>同理，当 <code>height[left] &gt;= height[right]</code> 时，右侧是”短板”，可以结算 right 位置。</p>
+<hr>
+<h2 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h2><p>本题的核心思想可以延伸至：</p>
+<ul>
+<li><a href="https://leetcode.cn/problems/container-with-most-water/">11.盛最多水的容器</a>（双指针求面积，移动矮边）</li>
+<li><a href="https://leetcode.cn/problems/largest-rectangle-in-histogram/">84.柱状图中最大的矩形</a>（单调栈应用）</li>
+<li><a href="https://leetcode.cn/problems/trapping-rain-water-ii/">407.接雨水 II</a>（二维版本，优先队列）</li>
+</ul>
+<hr>
+<h1 id="💻-完整代码"><a href="#💻-完整代码" class="headerlink" title="💻 完整代码"></a>💻 完整代码</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 42. 接雨水 - 双指针解法</span></span><br><span class="line"><span class="comment"> * 时间复杂度：O(n)，空间复杂度：O(1)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">trap</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="comment">// 边界条件：至少需要3根柱子才能接水</span></span><br><span class="line">        <span class="keyword">if</span> (height == <span class="literal">null</span> || height.length &lt; <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = height.length - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">leftMax</span> <span class="operator">=</span> <span class="number">0</span>, rightMax = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 双指针向中间靠拢</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="comment">// 哪边高度更小，先结算哪边</span></span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt; height[right]) &#123;</span><br><span class="line">                <span class="comment">// 更新左侧最大高度</span></span><br><span class="line">                leftMax = Math.max(leftMax, height[left]);</span><br><span class="line">                <span class="comment">// 当前位置能接的水 = 左侧最大 - 当前高度</span></span><br><span class="line">                result += leftMax - height[left];</span><br><span class="line">                left++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 更新右侧最大高度</span></span><br><span class="line">                rightMax = Math.max(rightMax, height[right]);</span><br><span class="line">                <span class="comment">// 当前位置能接的水 = 右侧最大 - 当前高度</span></span><br><span class="line">                result += rightMax - height[right];</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h2><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 42. 接雨水 - 双指针解法</span></span><br><span class="line"><span class="comment"> * 时间复杂度：O(n)，空间复杂度：O(1)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">trap</span><span class="params">(height: <span class="type">IntArray</span>)</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="comment">// 边界条件：至少需要3根柱子才能接水</span></span><br><span class="line">        <span class="keyword">if</span> (height.size &lt; <span class="number">3</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> left = <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> right = height.size - <span class="number">1</span></span><br><span class="line">        <span class="keyword">var</span> leftMax = <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> rightMax = <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> result = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 双指针向中间靠拢</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="comment">// 哪边高度更小，先结算哪边</span></span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt; height[right]) &#123;</span><br><span class="line">                <span class="comment">// 更新左侧最大高度</span></span><br><span class="line">                leftMax = maxOf(leftMax, height[left])</span><br><span class="line">                <span class="comment">// 当前位置能接的水 = 左侧最大 - 当前高度</span></span><br><span class="line">                result += leftMax - height[left]</span><br><span class="line">                left++</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 更新右侧最大高度</span></span><br><span class="line">                rightMax = maxOf(rightMax, height[right])</span><br><span class="line">                <span class="comment">// 当前位置能接的水 = 右侧最大 - 当前高度</span></span><br><span class="line">                result += rightMax - height[right]</span><br><span class="line">                right--</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="📚-其他解法补充"><a href="#📚-其他解法补充" class="headerlink" title="📚 其他解法补充"></a>📚 其他解法补充</h2><h3 id="动态规划解法"><a href="#动态规划解法" class="headerlink" title="动态规划解法"></a>动态规划解法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">trap</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (height == <span class="literal">null</span> || height.length &lt; <span class="number">3</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> height.length;</span><br><span class="line">        <span class="type">int</span>[] leftMax = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="type">int</span>[] rightMax = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 预处理左侧最大值</span></span><br><span class="line">        leftMax[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            leftMax[i] = Math.max(leftMax[i - <span class="number">1</span>], height[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 预处理右侧最大值</span></span><br><span class="line">        rightMax[n - <span class="number">1</span>] = height[n - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            rightMax[i] = Math.max(rightMax[i + <span class="number">1</span>], height[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算接水量</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            result += Math.min(leftMax[i], rightMax[i]) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>复杂度对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>推荐指数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力法</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td>动态规划</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>双指针法</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>单调栈</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<p><strong>推荐掌握双指针法作为最优解法！</strong> 🎯</p>
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>DSA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>DSA-Day08-15.三数之和</title>
     <url>/algos/Day08-15.3Sum/</url>
     <content><![CDATA[<p>DSA-Day08-15.三数之和</p>
@@ -50,36 +305,32 @@
 <pre>
 <code class="mermaid">
 flowchart LR
-START((&quot;排序后数组&lt;br&#x2F;&gt;[-4,-1,-1,0,1,2]&quot;)) --&gt; ROUND1
-START --&gt; ROUND2
-START --&gt; ROUND3
+START((&quot;排序后&lt;br&#x2F;&gt;[-4,-1,-1,0,1,2]&quot;)) --&gt; R1SUB --&gt; R2SUB --&gt; SKIP3 --&gt; END
 
-subgraph 第1轮[第1轮]
-    ROUND1[&quot;第1轮&lt;br&#x2F;&gt;i&#x3D;0固定-4&quot;] --&gt; R1_RESULT((未找到解))
+subgraph R1SUB[&quot;第1轮：i&#x3D;0固定-4&quot;]
+    direction TB
+    R1[&quot;nums[left]&#x3D;-1, nums[right]&#x3D;2&lt;br&#x2F;&gt;sum&#x3D;-3&lt;0&lt;br&#x2F;&gt;未找到&quot;]
 end
 
-subgraph 第2轮[第2轮]
-    ROUND2[&quot;第2轮&lt;br&#x2F;&gt;i&#x3D;1固定-1&quot;] --&gt; FIND1[&quot;找到&lt;br&#x2F;&gt;[-1,-1,2]&quot;]
-    FIND1 --&gt; FIND2[&quot;找到&lt;br&#x2F;&gt;[-1,0,1]&quot;]
+subgraph R2SUB[&quot;第2轮：i&#x3D;1固定-1&quot;]
+    direction TB
+    R2[&quot;nums[left]&#x3D;-1, nums[right]&#x3D;2&lt;br&#x2F;&gt;sum&#x3D;0✅&lt;br&#x2F;&gt;找到[-1,-1,2]&quot;]
+    R2 --&gt; R2b[&quot;nums[left]&#x3D;0, nums[right]&#x3D;1&lt;br&#x2F;&gt;sum&#x3D;0✅&lt;br&#x2F;&gt;找到[-1,0,1]&quot;]
 end
 
-subgraph 第3轮[第3轮]
-    ROUND3[&quot;第3轮&lt;br&#x2F;&gt;i&#x3D;2固定-1&quot;] --&gt; SKIP{&quot;nums重复&lt;br&#x2F;&gt;去重跳过&quot;}
-end
+SKIP3[&quot;第3轮：i&#x3D;2固定-1&lt;br&#x2F;&gt;nums重复&lt;br&#x2F;&gt;去重跳过&quot;]
 
-R1_RESULT --&gt; END((结束&lt;br&#x2F;&gt;共2个解))
-FIND2 --&gt; END
-SKIP --&gt; END
+END((&quot;结束&lt;br&#x2F;&gt;共2个解&quot;))
 
+classDef startEndStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
 classDef roundStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
-classDef foundStyle fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+classDef foundStyle fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
 classDef skipStyle fill:#ffccbc,stroke:#bf360c,stroke-width:2px
-classDef startStyle fill:#fff9c4,stroke:#f57f17,stroke-width:3px
 
-class START,END startStyle
-class ROUND1,ROUND2,ROUND3 roundStyle
-class FIND1,FIND2 foundStyle
-class SKIP skipStyle
+class START,END startEndStyle
+class R1,R2,R2b roundStyle
+class R2,R2b foundStyle
+class SKIP3 skipStyle
 </code>
 </pre>
 
@@ -2096,80 +2347,6 @@ class SKIP skipStyle
       </categories>
   </entry>
   <entry>
-    <title>DSA-Day01-217.存在重复元素</title>
-    <url>/algos/Day01-217.Contains_Duplicate/</url>
-    <content><![CDATA[<h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>HashSet 基础应用</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用 HashSet 判断数组中是否存在重复元素</strong>，是哈希表入门的第一道题。</p>
-<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表去重</strong>的基础操作，掌握后可解决：</p>
-<ul>
-<li><a href="https://leetcode.cn/problems/contains-duplicate/">217. 存在重复元素</a>（本题）</li>
-<li><a href="https://leetcode.cn/problems/contains-duplicate-ii/">219. 存在重复元素 II</a></li>
-<li><a href="https://leetcode.cn/problems/contains-duplicate-iii/">220. 存在重复元素 III</a></li>
-</ul>
-<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
-<thead>
-<tr>
-<th>解法</th>
-<th>时间复杂度</th>
-<th>空间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>暴力枚举</td>
-<td>O(n²)</td>
-<td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序后比较</td>
-<td>O(n log n)</td>
-<td>O(1) 或 O(n)</td>
-<td>需要修改原数组或额外空间</td>
-</tr>
-<tr>
-<td><strong>HashSet</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
-</tr>
-</tbody></table>
-<p><strong>背诵重点</strong>：HashSet 解法（O(n) 时间，一次遍历）</p>
-<span id="more"></span>
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
-<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
-<ul>
-<li>我用一个哈希seen记录已经出现过的元素。</li>
-</ul>
-<p><strong>不变量&#x2F;约束</strong></p>
-<ul>
-<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
-</ul>
-<p><strong>推进&#x2F;转移</strong></p>
-<ul>
-<li>arr[i]没有出现在seen中</li>
-</ul>
-<p><strong>终止&#x2F;答案+边界</strong></p>
-<ul>
-<li>终止：当arr[i]出现在seen中。</li>
-<li>边界：空数组</li>
-</ul>
-<p><strong>常见坑</strong></p>
-<ul>
-<li>忘记将数组元素add入哈希</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-  </entry>
-  <entry>
     <title>DSA-Day01-242.有效的字母异位词</title>
     <url>/algos/Day01-242.Valid_Anagram/</url>
     <content><![CDATA[<h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>哈希表字符计数</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用哈希表统计字符频率判断两个字符串是否为字母异位词</strong>。</p>
@@ -2254,6 +2431,80 @@ class SKIP skipStyle
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean isAnagram(String s, String t) &#123;</span><br><span class="line"></span><br><span class="line">        if (s.length() != t.length()) return false;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;Character, Integer&gt; frequencyMap = new HashMap&lt;&gt;();</span><br><span class="line">        for (char c: s.toCharArray()) &#123;</span><br><span class="line">            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for(char c: t.toCharArray()) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false;</span><br><span class="line">            int count = frequencyMap.get(c);</span><br><span class="line">            if (count == 0) &#123; // 若t中字符出现次数超过s，返回false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            frequencyMap.put(c, count - 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun isAnagram(s: String, t: String): Boolean &#123;</span><br><span class="line">        if (s.length != t.length) return false</span><br><span class="line">        </span><br><span class="line">        val frequencyMap = mutableMapOf&lt;Char, Int&gt;()</span><br><span class="line">        for (c in s) &#123;</span><br><span class="line">            frequencyMap[c] = frequencyMap.getOrDefault(c, 0) + 1</span><br><span class="line">        &#125;</span><br><span class="line">        for (c in t) &#123;</span><br><span class="line">            if (!frequencyMap.containsKey(c)) return false</span><br><span class="line">            val count = frequencyMap[c]!!  // 安全获取（因已检查存在性）</span><br><span class="line">            if (count == 0) return false</span><br><span class="line">            frequencyMap[c] = count - 1</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>DSA-Day01-217.存在重复元素</title>
+    <url>/algos/Day01-217.Contains_Duplicate/</url>
+    <content><![CDATA[<h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>HashSet 基础应用</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用 HashSet 判断数组中是否存在重复元素</strong>，是哈希表入门的第一道题。</p>
+<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表去重</strong>的基础操作，掌握后可解决：</p>
+<ul>
+<li><a href="https://leetcode.cn/problems/contains-duplicate/">217. 存在重复元素</a>（本题）</li>
+<li><a href="https://leetcode.cn/problems/contains-duplicate-ii/">219. 存在重复元素 II</a></li>
+<li><a href="https://leetcode.cn/problems/contains-duplicate-iii/">220. 存在重复元素 III</a></li>
+</ul>
+<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
+<thead>
+<tr>
+<th>解法</th>
+<th>时间复杂度</th>
+<th>空间复杂度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力枚举</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>双重循环，性能差</td>
+</tr>
+<tr>
+<td>排序后比较</td>
+<td>O(n log n)</td>
+<td>O(1) 或 O(n)</td>
+<td>需要修改原数组或额外空间</td>
+</tr>
+<tr>
+<td><strong>HashSet</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>O(n)</strong></td>
+<td><strong>最优解，推荐背诵</strong></td>
+</tr>
+</tbody></table>
+<p><strong>背诵重点</strong>：HashSet 解法（O(n) 时间，一次遍历）</p>
+<span id="more"></span>
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
+<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
+<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
+<ul>
+<li>我用一个哈希seen记录已经出现过的元素。</li>
+</ul>
+<p><strong>不变量&#x2F;约束</strong></p>
+<ul>
+<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
+</ul>
+<p><strong>推进&#x2F;转移</strong></p>
+<ul>
+<li>arr[i]没有出现在seen中</li>
+</ul>
+<p><strong>终止&#x2F;答案+边界</strong></p>
+<ul>
+<li>终止：当arr[i]出现在seen中。</li>
+<li>边界：空数组</li>
+</ul>
+<p><strong>常见坑</strong></p>
+<ul>
+<li>忘记将数组元素add入哈希</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>

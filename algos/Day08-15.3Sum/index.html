@@ -29,7 +29,7 @@
 <meta property="og:description" content="DSA-Day08-15.三数之和">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-04T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-06T07:57:42.831Z">
+<meta property="article:modified_time" content="2026-03-06T10:00:27.459Z">
 <meta property="article:author" content="Nexa1024">
 <meta property="article:tag" content="DSA">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -324,36 +324,32 @@
 <pre>
 <code class="mermaid">
 flowchart LR
-START((&quot;排序后数组&lt;br&#x2F;&gt;[-4,-1,-1,0,1,2]&quot;)) --&gt; ROUND1
-START --&gt; ROUND2
-START --&gt; ROUND3
+START((&quot;排序后&lt;br&#x2F;&gt;[-4,-1,-1,0,1,2]&quot;)) --&gt; R1SUB --&gt; R2SUB --&gt; SKIP3 --&gt; END
 
-subgraph 第1轮[第1轮]
-    ROUND1[&quot;第1轮&lt;br&#x2F;&gt;i&#x3D;0固定-4&quot;] --&gt; R1_RESULT((未找到解))
+subgraph R1SUB[&quot;第1轮：i&#x3D;0固定-4&quot;]
+    direction TB
+    R1[&quot;nums[left]&#x3D;-1, nums[right]&#x3D;2&lt;br&#x2F;&gt;sum&#x3D;-3&lt;0&lt;br&#x2F;&gt;未找到&quot;]
 end
 
-subgraph 第2轮[第2轮]
-    ROUND2[&quot;第2轮&lt;br&#x2F;&gt;i&#x3D;1固定-1&quot;] --&gt; FIND1[&quot;找到&lt;br&#x2F;&gt;[-1,-1,2]&quot;]
-    FIND1 --&gt; FIND2[&quot;找到&lt;br&#x2F;&gt;[-1,0,1]&quot;]
+subgraph R2SUB[&quot;第2轮：i&#x3D;1固定-1&quot;]
+    direction TB
+    R2[&quot;nums[left]&#x3D;-1, nums[right]&#x3D;2&lt;br&#x2F;&gt;sum&#x3D;0✅&lt;br&#x2F;&gt;找到[-1,-1,2]&quot;]
+    R2 --&gt; R2b[&quot;nums[left]&#x3D;0, nums[right]&#x3D;1&lt;br&#x2F;&gt;sum&#x3D;0✅&lt;br&#x2F;&gt;找到[-1,0,1]&quot;]
 end
 
-subgraph 第3轮[第3轮]
-    ROUND3[&quot;第3轮&lt;br&#x2F;&gt;i&#x3D;2固定-1&quot;] --&gt; SKIP{&quot;nums重复&lt;br&#x2F;&gt;去重跳过&quot;}
-end
+SKIP3[&quot;第3轮：i&#x3D;2固定-1&lt;br&#x2F;&gt;nums重复&lt;br&#x2F;&gt;去重跳过&quot;]
 
-R1_RESULT --&gt; END((结束&lt;br&#x2F;&gt;共2个解))
-FIND2 --&gt; END
-SKIP --&gt; END
+END((&quot;结束&lt;br&#x2F;&gt;共2个解&quot;))
 
+classDef startEndStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
 classDef roundStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
-classDef foundStyle fill:#c8e6c9,stroke:#1b5e20,stroke-width:2px
+classDef foundStyle fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px
 classDef skipStyle fill:#ffccbc,stroke:#bf360c,stroke-width:2px
-classDef startStyle fill:#fff9c4,stroke:#f57f17,stroke-width:3px
 
-class START,END startStyle
-class ROUND1,ROUND2,ROUND3 roundStyle
-class FIND1,FIND2 foundStyle
-class SKIP skipStyle
+class START,END startEndStyle
+class R1,R2,R2b roundStyle
+class R2,R2b foundStyle
+class SKIP3 skipStyle
 </code>
 </pre>
 
@@ -390,6 +386,9 @@ class SKIP skipStyle
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/algos/Day09-42.Trapping_Rain_Water/" rel="next" title="DSA-Day09-42.接雨水">
+                  DSA-Day09-42.接雨水 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
