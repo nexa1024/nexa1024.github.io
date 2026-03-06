@@ -21,29 +21,23 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"nexa1024.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.26.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="题目概述HashSet 基础应用。本题是 LeetCode 简单题，核心考点是使用 HashSet 判断数组中是否存在重复元素，是哈希表入门的第一道题。 为什么这道题重要这是 哈希表去重的基础操作，掌握后可解决：  217. 存在重复元素（本题） 219. 存在重复元素 II 220. 存在重复元素 III  解法对比   解法 时间复杂度 空间复杂度 说明    暴力枚举 O(n²) O(1)">
-<meta property="og:type" content="article">
-<meta property="og:title" content="DSA-Day01-217.存在重复元素">
-<meta property="og:url" content="https://nexa1024.github.io/algos/Day01-217.Contains_Duplicate/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Nexa1024">
+<meta property="og:url" content="https://nexa1024.github.io/tags/DSA/index.html">
 <meta property="og:site_name" content="Nexa1024">
-<meta property="og:description" content="题目概述HashSet 基础应用。本题是 LeetCode 简单题，核心考点是使用 HashSet 判断数组中是否存在重复元素，是哈希表入门的第一道题。 为什么这道题重要这是 哈希表去重的基础操作，掌握后可解决：  217. 存在重复元素（本题） 219. 存在重复元素 II 220. 存在重复元素 III  解法对比   解法 时间复杂度 空间复杂度 说明    暴力枚举 O(n²) O(1)">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nexa1024.github.io/images/algos/Day01-217.Contains_Duplicate/01.png">
-<meta property="article:published_time" content="2026-01-15T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-03-06T07:57:42.831Z">
 <meta property="article:author" content="Nexa1024">
 <meta property="article:tag" content="Android Java C C++ design-pattern algorithm data-structure">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://nexa1024.github.io/images/algos/Day01-217.Contains_Duplicate/01.png">
 
 
-<link rel="canonical" href="https://nexa1024.github.io/algos/Day01-217.Contains_Duplicate/">
+<link rel="canonical" href="https://nexa1024.github.io/tags/DSA/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nexa1024.github.io/algos/Day01-217.Contains_Duplicate/","path":"algos/Day01-217.Contains_Duplicate/","title":"DSA-Day01-217.存在重复元素"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/DSA/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>DSA-Day01-217.存在重复元素 | Nexa1024</title>
+<title>标签: DSA | Nexa1024</title>
   
 
 
@@ -152,7 +146,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -165,7 +159,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E9%81%93%E9%A2%98%E9%87%8D%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">为什么这道题重要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">解法对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">4.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE"><span class="nav-number">5.</span> <span class="nav-text">标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E8%AF%B5%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">背诵模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">7.1.</span> <span class="nav-text">java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin"><span class="nav-number">7.2.</span> <span class="nav-text">kotlin</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -216,173 +209,50 @@
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner tag posts-collapse">
 
 
   
-
-
-<div class="post-block">
   
   
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://nexa1024.github.io/algos/Day01-217.Contains_Duplicate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Nexa1024">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="DSA-Day01-217.存在重复元素 | Nexa1024">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          DSA-Day01-217.存在重复元素
+  <div class="post-block">
+    <div class="post-content">
+      <div class="collection-title">
+        <h1 class="collection-header">DSA
+          <small>标签</small>
         </h1>
+      </div>
 
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
+      
+    <div class="collection-year">
+      <span class="collection-header">2026</span>
+    </div>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+      <div class="post-meta-container">
+        <time itemprop="dateCreated"
+              datetime="2026-03-04T00:00:00+00:00"
+              content="2026-03-04">
+          03-04
+        </time>
+      </div>
 
-      <time title="创建时间：2026-01-15 00:00:00" itemprop="dateCreated datePublished" datetime="2026-01-15T00:00:00+00:00">2026-01-15</time>
-    </span>
+      <div class="post-title">
+          <a class="post-title-link" href="/algos/Day08-15.3Sum/" itemprop="url">
+            <span itemprop="name">DSA-Day08-15.三数之和</span>
+          </a>
+      </div>
 
-  
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>HashSet 基础应用</strong>。本题是 LeetCode 简单题，核心考点是<strong>使用 HashSet 判断数组中是否存在重复元素</strong>，是哈希表入门的第一道题。</p>
-<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>哈希表去重</strong>的基础操作，掌握后可解决：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate/">217. 存在重复元素</a>（本题）</li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-ii/">219. 存在重复元素 II</a></li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/contains-duplicate-iii/">220. 存在重复元素 III</a></li>
-</ul>
-<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
-<thead>
-<tr>
-<th>解法</th>
-<th>时间复杂度</th>
-<th>空间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>暴力枚举</td>
-<td>O(n²)</td>
-<td>O(1)</td>
-<td>双重循环，性能差</td>
-</tr>
-<tr>
-<td>排序后比较</td>
-<td>O(n log n)</td>
-<td>O(1) 或 O(n)</td>
-<td>需要修改原数组或额外空间</td>
-</tr>
-<tr>
-<td><strong>HashSet</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>O(n)</strong></td>
-<td><strong>最优解，推荐背诵</strong></td>
-</tr>
-</tbody></table>
-<p><strong>背诵重点</strong>：HashSet 解法（O(n) 时间，一次遍历）</p>
-<span id="more"></span>
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><!-- 这是一张图片，ocr 内容为： -->
-<p><img src="/images/algos/Day01-217.Contains_Duplicate/01.png"></p>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>数组、哈希、排序</p>
-<h2 id="背诵模型"><a href="#背诵模型" class="headerlink" title="背诵模型"></a>背诵模型</h2><p><strong>模型&#x2F;状态</strong></p>
-<ul>
-<li>我用一个哈希seen记录已经出现过的元素。</li>
-</ul>
-<p><strong>不变量&#x2F;约束</strong></p>
-<ul>
-<li>遍历到第 i 个元素时，seen 包含了前 i-1 个元素出现过的所有值</li>
-</ul>
-<p><strong>推进&#x2F;转移</strong></p>
-<ul>
-<li>arr[i]没有出现在seen中</li>
-</ul>
-<p><strong>终止&#x2F;答案+边界</strong></p>
-<ul>
-<li>终止：当arr[i]出现在seen中。</li>
-<li>边界：空数组</li>
-</ul>
-<p><strong>常见坑</strong></p>
-<ul>
-<li>忘记将数组元素add入哈希</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public boolean containsDuplicate(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Number&gt; seensSet = new HashSet&lt;Number&gt;();</span><br><span class="line">        for(int x: nums) &#123;</span><br><span class="line">            if(seensSet.contains(x)) return true;</span><br><span class="line">            seensSet.add(x);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a>kotlin</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    fun containsDuplicate(nums: IntArray): Boolean &#123;</span><br><span class="line">        val seensSet = HashSet&lt;Int&gt;(nums.size)</span><br><span class="line">        for(n: Int in nums) &#123;</span><br><span class="line">            if(seensSet.contains(n)) return true</span><br><span class="line">            seensSet.add(n)</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+      
+    </header>
+  </article>
 
     </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/algos/Day01-242.Valid_Anagram/" rel="prev" title="DSA-Day01-242.有效的字母异位词">
-                  <i class="fa fa-angle-left"></i> DSA-Day01-242.有效的字母异位词
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/algos/Day02-49.Group_Anagrams/" rel="next" title="DSA-Day02-49.字母异位词分组">
-                  DSA-Day02-49.字母异位词分组 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-    
-  
-  <div class="comments giscus-container">
   </div>
   
   
+  
+
 </div>
   </main>
 

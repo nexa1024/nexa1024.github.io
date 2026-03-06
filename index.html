@@ -55,6 +55,8 @@
 <script src="/js/third-party/search/local-search.js" defer></script>
 
 
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"neutral","dark":"neutral"},"cdn":"//cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
 
 
 
@@ -180,6 +182,11 @@
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
   </nav>
 </div>
   <div class="links-of-author animated">
@@ -240,9 +247,8 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-03-04 00:00:00 / 修改时间：01:45:35" itemprop="dateCreated datePublished" datetime="2026-03-04T00:00:00+00:00">2026-03-04</time>
+      <time title="创建时间：2026-03-04 00:00:00" itemprop="dateCreated datePublished" datetime="2026-03-04T00:00:00+00:00">2026-03-04</time>
     </span>
 
   
@@ -266,75 +272,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p><strong>排序+双指针经典应用</strong>。本题是 LeetCode 第 15 题，核心考点是<strong>先排序，再固定一个数，使用双指针查找另外两个数，同时去重</strong>，是面试高频题。</p>
-<h2 id="为什么这道题重要"><a href="#为什么这道题重要" class="headerlink" title="为什么这道题重要"></a>为什么这道题重要</h2><p>这是 <strong>双指针查找 + 去重技巧</strong> 的经典应用，是 LeetCode 必考题。本题与”1. 两数之和”的区别在于：</p>
-<h3 id="与两数之和（No-1）的对比"><a href="#与两数之和（No-1）的对比" class="headerlink" title="与两数之和（No.1）的对比"></a>与两数之和（No.1）的对比</h3><table>
-<thead>
-<tr>
-<th>题目</th>
-<th>数组状态</th>
-<th>返回值</th>
-<th>最优解法</th>
-<th>核心难点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1. 两数之和</td>
-<td>无序</td>
-<td>下标</td>
-<td>HashMap</td>
-<td>无</td>
-</tr>
-<tr>
-<td><strong>15. 三数之和</strong></td>
-<td><strong>可排序</strong></td>
-<td><strong>元素值组合</strong></td>
-<td><strong>排序+双指针</strong></td>
-<td><strong>去重</strong></td>
-</tr>
-</tbody></table>
-<h3 id="解法延伸路径"><a href="#解法延伸路径" class="headerlink" title="解法延伸路径"></a>解法延伸路径</h3><ul>
-<li><strong>排序 + 双指针法（本题推荐）</strong> → 延伸至：<ul>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/4sum/">18. 四数之和</a>（固定两个数 + 双指针）</li>
-<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/3sum-closest/">16. 最接近的三数之和</a>（类似思路，找最小差值）</li>
-</ul>
-</li>
-</ul>
-<p>⚠️ <strong>关键区别</strong>：本题要求返回所有<strong>不重复</strong>的三元组，且三元组内的元素值之和为 0。哈希法去重复杂，双指针法配合排序是最优解。</p>
-<h2 id="解法对比"><a href="#解法对比" class="headerlink" title="解法对比"></a>解法对比</h2><table>
-<thead>
-<tr>
-<th>解法</th>
-<th>时间复杂度</th>
-<th>空间复杂度</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>暴力枚举 + Set去重</td>
-<td>O(n³)</td>
-<td>O(n)</td>
-<td>性能差，不推荐</td>
-</tr>
-<tr>
-<td><strong>排序 + 双指针</strong></td>
-<td><strong>O(n²)</strong></td>
-<td><strong>O(1)</strong></td>
-<td><strong>最优解，利用排序特性+双指针去重</strong></td>
-</tr>
-<tr>
-<td>HashMap + 去重</td>
-<td>O(n²)</td>
-<td>O(n)</td>
-<td>去重逻辑复杂，不推荐</td>
-</tr>
-</tbody></table>
-<p><strong>背诵重点</strong>：排序 + 双指针解法（O(n²) 时间，O(1) 空间，去重是关键）</p>
-<h3 id="为什么双指针最优？"><a href="#为什么双指针最优？" class="headerlink" title="为什么双指针最优？"></a>为什么双指针最优？</h3><ol>
-<li><strong>排序后有序</strong>：可以双指针对撞查找，避免三层循环</li>
-<li><strong>去重容易</strong>：排序后相同元素相邻，去重逻辑清晰</li>
-<li><strong>常量空间</strong>：除排序外（可不计入空间复杂度），只需指针变量</li>
-</ol>
+          <p>DSA-Day08-15.三数之和</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/algos/Day08-15.3Sum/#more" rel="contents">
